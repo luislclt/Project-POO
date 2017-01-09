@@ -5,17 +5,47 @@
  */
 package tp_poo;
 
-/**
- *
- * @author tania
- */
+import exceptions.CompetitionNotFoundException;
+import exceptions.WebServiceConnectionError;
+import java.io.IOException;
+import serviceManager.WebServiceConnection;
+
+/*
+* Grupo: 2
+* ------------------------------------
+* Nome: Luís Carlos Teixeira
+* Número: 8140072
+*
+* Nome: Tânia Assis
+* Número: 8150455
+*/
 public class TP_POO {
 
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
-        // TODO code application logic here
+    public static void main(String[] args) throws IOException {
+        
+        
+        //getContent(java.lang.String link);
+        java.lang.String link = "football-data.org";
+        java.lang.String apiKey = "4a0fdab1682e4d1384b8262f7e02d641";
+        
+        //WebServiceConnection(java.lang.String 4a0fdab1682e4d1384b8262f7e02d641);
+        WebServiceConnection webServiceConnection1 = new WebServiceConnection(apiKey);
+        
+        //webServiceConnection1.getContent(link);
+        String content = webServiceConnection1.getContent(link);
+        
+        
+        
+        //webServiceConnection1.getContent(link) throws java.net.MalformedURLException, java.io.IOException
+        
+        //int competitionId = 439;
+        //java.lang.String getCompetition(competitionId) throws CompetitionNotFoundException, WebServiceConnectionError
+
+        
+        
     }
     
 }
