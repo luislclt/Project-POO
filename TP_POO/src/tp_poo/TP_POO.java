@@ -5,10 +5,12 @@
  */
 package tp_poo;
 
+
 import exceptions.CompetitionNotFoundException;
-import exceptions.WebServiceConnectionError;
 import java.io.IOException;
-import serviceManager.WebServiceConnection;
+import java.net.HttpURLConnection;
+import static tp_poo.RemoveCaracterInvalidoURL.RemoveCaracterInvalidoURL;
+import tp_poo.ServiceManager.webServiceConnection;
 
 /*
 * Grupo: 2
@@ -24,27 +26,26 @@ public class TP_POO {
     /**
      * @param args the command line arguments
      * @throws java.io.IOException
+     * @throws exceptions.CompetitionNotFoundException
      */
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, CompetitionNotFoundException {
         
         
-        //getContent(java.lang.String link);
-        java.lang.String link = "football-data.org";
-        java.lang.String apiKey = "4a0fdab1682e4d1384b8262f7e02d641";
+        String url = "http://api.football-data.org/v1/competitions/";
+        String apiKey = "4a0fdab1682e4d1384b8262f7e02d641";
         
-        //WebServiceConnection(java.lang.String 4a0fdab1682e4d1384b8262f7e02d641);
-        WebServiceConnection webServiceConnection1 = new WebServiceConnection(apiKey);
+        //footballBaseContract competition1 = new footballBaseContract();
+        //String result = competition1.getCompetition(424);
         
-        //webServiceConnection1.getContent(link);
-        String content = webServiceConnection1.getContent(link);
+        webServiceConnection football_data = new webServiceConnection(url, apiKey);
+        
+        //String result2 = football_data.getAllCompetitions();
+        //System.out.println(result2);
+        
+        String result = football_data.getCompetition(424);
+        System.out.println(result);
         
         
-        
-        //webServiceConnection1.getContent(link) throws java.net.MalformedURLException, java.io.IOException
-        
-        //int competitionId = 439;
-        //java.lang.String getCompetition(competitionId) throws CompetitionNotFoundException, WebServiceConnectionError
-
         
         
     }
