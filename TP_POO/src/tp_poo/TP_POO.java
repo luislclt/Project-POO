@@ -29,7 +29,7 @@ public class TP_POO {
     public static void main(String[] args) throws IOException, CompetitionNotFoundException {
         
         
-        String url = "http://api.football-data.org/v1/competitions/";
+        String url = "htt://api.football-data.org/v1/competitions/";
         String apiKey = "4a0fdab1682e4d1384b8262f7e02d641";
         
         

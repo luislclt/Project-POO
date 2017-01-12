@@ -8,6 +8,7 @@ package tp_poo.ServiceManager;
 import exceptions.CompetitionNotFoundException;
 import exceptions.WebServiceConnectionError;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.json.simple.JSONArray;
@@ -33,8 +34,15 @@ public class FootballContract implements serviceManager.FootballQueriesContract{
         WebServiceConnection webServiceConnection = new WebServiceConnection(this.apiKey);
         try {
             this.Json_competitions = webServiceConnection.getContent(this.URL);
+            
+        } catch (java.net.MalformedURLException ex1){
+            System.out.println("\n Erro MalformedURLException\n");
+            //Logger.getLogger(FootballContract.class.getName()).log(Level.SEVERE, null, ex2);
+        
         } catch (IOException ex1) {
-            Logger.getLogger(FootballContract.class.getName()).log(Level.SEVERE, null, ex1);
+            System.out.println("\n Erro IOExecption\n");
+            //Logger.getLogger(FootballContract.class.getName()).log(Level.SEVERE, null, ex1);
+            
         }
         
     }
@@ -47,9 +55,17 @@ public class FootballContract implements serviceManager.FootballQueriesContract{
         try {
             JSON_String = webServiceConnection.getContent(link);
             return JSON_String;
+        
+        } catch (java.net.MalformedURLException ex1){
+            System.out.println("\n Erro MalformedURLException\n");
+            //Logger.getLogger(FootballContract.class.getName()).log(Level.SEVERE, null, ex2);
+        
         } catch (IOException ex1) {
-            Logger.getLogger(FootballContract.class.getName()).log(Level.SEVERE, null, ex1);
+            System.out.println("\n Erro IOExecption\n");
+            //Logger.getLogger(FootballContract.class.getName()).log(Level.SEVERE, null, ex1);
+            
         }
+        
         return null;
     }
     

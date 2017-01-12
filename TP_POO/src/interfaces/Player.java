@@ -5,6 +5,8 @@
  */
 package interfaces;
 
+import java.util.Date;
+
 /**
  *
  * @author tania
@@ -16,9 +18,9 @@ public class Player implements PlayerContract{
     private String name;
     private String position;
     private int jerseyNumber;
-    private String dateOfBirth;
+    private Date dateOfBirth;
     private String nationality;
-    private String contractUntil;
+    private Date contractUntil;
     private String marketValue;
     private int age;
 
@@ -26,14 +28,19 @@ public class Player implements PlayerContract{
         
         this.Json_Player = Json_Player;
     }
-    
-    
-    
-    
-    
 
+    public String getJson_Player() {
+        return Json_Player;
+    }
+
+    public void setJson_Player(String Json_Player) {
+        this.Json_Player = Json_Player;
+    }
+    
     @Override
     public String getName() {
+        
+        
         
         
         return null;
