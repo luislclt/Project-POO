@@ -8,8 +8,6 @@ package tp_poo;
 
 import exceptions.CompetitionNotFoundException;
 import java.io.IOException;
-import java.net.HttpURLConnection;
-import static tp_poo.RemoveCaracterInvalidoURL.RemoveCaracterInvalidoURL;
 import tp_poo.ServiceManager.webServiceConnection;
 
 /*
@@ -42,9 +40,11 @@ public class TP_POO {
         //String result2 = football_data.getAllCompetitions();
         //System.out.println(result2);
         
-        String result = football_data.getCompetition(424);
-        System.out.println(result);
+        String result = football_data.getCompetition(439);
+        System.out.println("\n Competition: " +result);
         
+        String resultTeam = football_data.getTeams(439);
+        System.out.println("\n Team: " +resultTeam);
         
         
         
