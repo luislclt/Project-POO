@@ -8,7 +8,7 @@ package tp_poo;
 
 import exceptions.CompetitionNotFoundException;
 import java.io.IOException;
-import tp_poo.ServiceManager.webServiceConnection;
+import tp_poo.ServiceManager.FootballContract;
 
 /*
 * Grupo: 2
@@ -32,10 +32,17 @@ public class TP_POO {
         String url = "http://api.football-data.org/v1/competitions/";
         String apiKey = "4a0fdab1682e4d1384b8262f7e02d641";
         
-        //footballBaseContract competition1 = new footballBaseContract();
-        //String result = competition1.getCompetition(424);
         
-        webServiceConnection football_data = new webServiceConnection(url, apiKey);
+        //WebServiceConnection webServiceConnection = new WebServiceConnection(apiKey);
+        //String Json_competitions = webServiceConnection.getContent(url);
+        
+        //System.out.println(Json_competitions);
+        
+        
+        //FootballContract competition1 = new FootballContract(url, apiKey);
+        //String resultado = competition1.getCompetition(424);
+        
+        FootballContract football_data = new FootballContract(url, apiKey);
         
         //String result2 = football_data.getAllCompetitions();
         //System.out.println(result2);

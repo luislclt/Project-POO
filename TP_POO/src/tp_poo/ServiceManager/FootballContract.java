@@ -14,29 +14,27 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
-import serviceManager.FootballBaseContract;
-import serviceManager.FootballQueriesContract;
 import serviceManager.WebServiceConnection;
 
 /**
  *
- * @author LCLT
+ * @author tania
  */
-public class webServiceConnection implements FootballBaseContract, FootballQueriesContract{
+public class FootballContract implements serviceManager.FootballQueriesContract{
     
-    String URL; //= "http://api.football-data.org/v1/competitions/";
-    String apiKey; // = "4a0fdab1682e4d1384b8262f7e02d641";
-    String Json_competitions;
-
-    public webServiceConnection(String link, String apiKey) {
+    private String URL; //= "http://api.football-data.org/v1/competitions/";
+    private String apiKey; // = "4a0fdab1682e4d1384b8262f7e02d641";
+    private String Json_competitions;
+    
+    public FootballContract(String link, String apiKey) {
         this.URL = link;
         this.apiKey = apiKey;
         
         WebServiceConnection webServiceConnection = new WebServiceConnection(this.apiKey);
         try {
             this.Json_competitions = webServiceConnection.getContent(this.URL);
-        } catch (IOException ex) {
-            Logger.getLogger(webServiceConnection.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex1) {
+            Logger.getLogger(FootballContract.class.getName()).log(Level.SEVERE, null, ex1);
         }
         
     }
@@ -49,10 +47,10 @@ public class webServiceConnection implements FootballBaseContract, FootballQueri
         try {
             JSON_String = webServiceConnection.getContent(link);
             return JSON_String;
-        } catch (IOException ex) {
-            Logger.getLogger(webServiceConnection.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex1) {
+            Logger.getLogger(FootballContract.class.getName()).log(Level.SEVERE, null, ex1);
         }
-        return "Invalido";
+        return null;
     }
     
     public String getLink() {
@@ -106,10 +104,10 @@ public class webServiceConnection implements FootballBaseContract, FootballQueri
             
             // Fim Codigo Object e Array //
         } catch ( ParseException ex) {
-            Logger.getLogger(webServiceConnection.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(FootballContract.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        return "Invalido";
+        return null;
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -119,7 +117,7 @@ public class webServiceConnection implements FootballBaseContract, FootballQueri
         
         
         
-        return "[i]";
+        return null;
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
@@ -127,12 +125,11 @@ public class webServiceConnection implements FootballBaseContract, FootballQueri
     public String getTeams(int i) throws CompetitionNotFoundException, WebServiceConnectionError {
         
         
+        String string_Link;
+        String string_Team;
+        String string_href;
         
-        String string_Link = null;
-        String string_Team = null;
-        String string_href = null;
-        
-        String Link_Team = null;
+        String Link_Team;
         
         JSONParser jsonParser = new JSONParser();
         
@@ -154,41 +151,33 @@ public class webServiceConnection implements FootballBaseContract, FootballQueri
                     */
                     // Procura apenas pelo "_Links"
                     JSONParser jsonParser_links = new JSONParser();
-                    try{
+                    
                     Object object_links = jsonParser_links.parse(competition.toString());
                     JSONObject Json_object_links = (JSONObject) object_links;
                     
                     string_Link = Json_object_links.get("_links").toString();
                     //System.out.println("\n _links:\n" +string_Link);
-                    } catch ( ParseException ex) {
-                        Logger.getLogger(webServiceConnection.class.getName()).log(Level.SEVERE, null, ex);
-                    }
+                    
                     
                     // Procura apenas pelo "teams"
                     JSONParser jsonParser_teams = new JSONParser();
-                    try{
+                    
                     Object object_teams = jsonParser_teams.parse(string_Link);
                     JSONObject Json_object_teams = (JSONObject) object_teams;
                     
                     string_Team = Json_object_teams.get("teams").toString();
                     //System.out.println("\n teams:\n" +string_Team);
                     
-                    } catch ( ParseException ex) {
-                        Logger.getLogger(webServiceConnection.class.getName()).log(Level.SEVERE, null, ex);
-                    }
                     
                     // Procura apenas pelo "href"
                     JSONParser jsonParser_href = new JSONParser();
-                    try{
+                    
                     Object object_href = jsonParser_href.parse(string_Team);
                     JSONObject Json_object_href = (JSONObject) object_href;
                     
                     string_href = Json_object_href.get("href").toString();
                     //System.out.println("\n href = " +string_href);
                     
-                    } catch ( ParseException ex) {
-                        Logger.getLogger(webServiceConnection.class.getName()).log(Level.SEVERE, null, ex);
-                    }
                     // link pagina a pesquisar pela teams
                     
                     Link_Team = getURLConnection(string_href); // String da Team Selecionada
@@ -198,36 +187,33 @@ public class webServiceConnection implements FootballBaseContract, FootballQueri
             }
             
         } catch ( ParseException ex) {
-            Logger.getLogger(webServiceConnection.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(FootballContract.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return null;
+    }
+    
+    @Override
+    public String getLeagueTable(int competitionId) throws CompetitionNotFoundException, WebServiceConnectionError {
         
-        return "Invalido";
         
+        return null;
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public String getLeagueTable(int i) throws CompetitionNotFoundException, WebServiceConnectionError {
+    public String getFixtures(int competitionId) throws CompetitionNotFoundException, WebServiceConnectionError {
         
-        
-        
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return null;
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public String getFixtures(int i) throws CompetitionNotFoundException, WebServiceConnectionError {
+    public String getPlayers(int teamId) throws CompetitionNotFoundException, WebServiceConnectionError {
         
         
+        return null;
         
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public String getPlayers(int i) throws CompetitionNotFoundException, WebServiceConnectionError {
-        
-        
-        
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }
