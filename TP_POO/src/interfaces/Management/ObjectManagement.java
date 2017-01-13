@@ -1,7 +1,5 @@
 package interfaces.Management;
 
-import interfaces.TeamContract;
-
 /*
 * Grupo: 2
 * ------------------------------------
@@ -11,14 +9,14 @@ import interfaces.TeamContract;
 * Nome: Tânia Assis
 * Número: 8150455
 */
-public class StandingsManagement implements StandingsManagementContract{
+public class ObjectManagement implements ObjectManagementContract{
     
     private final Object objects[];
     
     /**
      * Construtor que permite a instanciação da classe por valor DEFAULT_SIZE
      */
-    public StandingsManagement() {
+    public ObjectManagement() {
         this.objects = new Object[DEFAULT_SIZE];
     }
     
@@ -26,7 +24,7 @@ public class StandingsManagement implements StandingsManagementContract{
      * Construtor que permite a instanciação da classe por coleção de objectos
      * @param o uma coleção de objectos
      */
-    public StandingsManagement(Object[] o) {
+    public ObjectManagement(Object[] o) {
         this.objects = o;
     }
     
@@ -34,46 +32,35 @@ public class StandingsManagement implements StandingsManagementContract{
      * Construtor que permite a instanciação da classe definindo valor maxSize
      * @param maxSize número máximo de elementos permitidos no vetor
      */
-    public StandingsManagement(int maxSize) {
+    public ObjectManagement(int maxSize) {
         this.objects = new Object[maxSize];
-    }
-    
-    /*
-    * Método {getTeam} responsável por retornar um equipa tendo por base o nome
-    * @param String arg0 --> nome
-    */
-    @Override
-    public TeamContract getTeam(String arg0) {
-        
-        
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
     /**
      * Método insere um {Object objeto} de {ObjectManagement}
-     * @param newObject {Object objeto} a inserir no vetor
+     * @param o {Object objeto} a inserir no vetor
      * @return valor booleano sucesso ou insucesso(Vetor cheio)
      */
     @Override
-    public boolean addObject(Object newObject) {
+    public boolean addObject(Object o) {
         int tamanho = this.size();
         if (tamanho == this.objects.length) {
             return false;
         } else {
-            this.objects[tamanho] = newObject;
+            this.objects[tamanho] = o;
             return true;
         }
     }
     
     /**
      * Método remove um {Object objeto} do vetor {ObjectManagement}
-     * @param position indice correspondente ao elemento a remover
+     * @param i indice correspondente ao elemento a remover
      * @return o {bject objeto} removido
      */
     @Override
-    public Object removeObject(int position) {
-        Object remover = this.objects[position];
-        for (int j = position; j < this.size() - 1; j++) {
+    public Object removeObject(int i) {
+        Object remover = this.objects[i];
+        for (int j = i; j < this.size() - 1; j++) {
             this.objects[j] = this.objects[j + 1];
         }
         this.objects[this.size()-1] = null;
@@ -82,23 +69,23 @@ public class StandingsManagement implements StandingsManagementContract{
     
     /**
      * Método retorna um objeto existente numa determinada posição do vetor
-     * @param position indice do elemento a devolver
+     * @param i indice do elemento a devolver
      * @return objeto do tipo Object
      */
     @Override
-    public Object getObject(int position) {
-        return this.objects[position];
+    public Object getObject(int i) {
+        return this.objects[i];
     }
     
     /**
      * Método para encontrar um {Object objeto} no vetor de {ObjectManagement}
-     * @param obj objeto a procurar no vetor
+     * @param o objeto a procurar no vetor
      * @return o indice do objeto no vetor. No caso do elemento não existir, deverá ser retornado o valor -1
      */
     @Override
-    public int findObject(Object obj) {
+    public int findObject(Object o) {
         for (int i = 0; i < this.size(); i++) {
-            if (this.objects[i].equals(obj)) {
+            if (this.objects[i].equals(o)) {
                 return i;
             }
         }
@@ -131,4 +118,5 @@ public class StandingsManagement implements StandingsManagementContract{
 
         return str.toString();
     }
+    
 }

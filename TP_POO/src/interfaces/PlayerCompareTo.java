@@ -20,7 +20,16 @@ public class PlayerCompareTo implements PlayerComparasion{
     @Override
     public int compareTo(PlayerComparasion player) {
         
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        PlayerCompareTo player1 = new PlayerCompareTo(this.marketValue);
+        String y = player1.toString();
+        String x = player.toString();
+        
+        //System.out.println(" Player 1: "+x);
+        //System.out.println(" Player 2: "+y);
+        
+        return x.compareTo(y); //this.marketValue.compareTo(player);
+        
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override

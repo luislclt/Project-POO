@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package tp_poo.ServiceManager;
 
 import exceptions.CompetitionNotFoundException;
@@ -15,16 +10,26 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import serviceManager.WebServiceConnection;
 
-/**
- *
- * @author tania
- */
+/*
+* Grupo: 2
+* ------------------------------------
+* Nome: Luís Carlos Teixeira
+* Número: 8140072
+*
+* Nome: Tânia Assis
+* Número: 8150455
+*/
 public class Football implements serviceManager.FootballQueriesContract{
     
     private String URL; 
     private String apiKey;
     private String Json_Competitions;
     
+    /*
+    * Construtor que permite a instaciação da classe
+    * @param link url da pagina
+    * @param apiKey utilizada para a conecção
+    */
     public Football(String link, String apiKey) {
         this.URL = link;
         this.apiKey = apiKey;

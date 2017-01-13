@@ -14,6 +14,7 @@ import interfaces.Management.StandingsManagementContract;
 public class LeagueTable implements LeagueTableContract{
     
     
+    
 
     @Override
     public PlayerContract getMostValuedPlayer() {
