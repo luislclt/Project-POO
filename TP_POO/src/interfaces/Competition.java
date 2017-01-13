@@ -8,11 +8,7 @@ package interfaces;
 import exceptions.CompetitionNotFoundException;
 import exceptions.WebServiceConnectionError;
 import interfaces.Management.FixtureManagementContract;
-import interfaces.Management.TeamManagement;
 import interfaces.Management.TeamManagementContract;
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -43,15 +39,17 @@ public class Competition implements CompetitionContract{
     
     
     /*
-    * Constructor recebe uma String do formato Json
-    * @param String Json_Competitions
+    * Constructor Competition recebe String Url, apiKey e o idCompetition
+    * @param String url
+    * @param String apiKey
+    * @param int id da competição
     */
     public Competition(String TMPUrl, String TMPapiKey, int id) {
         
         this.URL = TMPUrl;
         this.apiKey = TMPapiKey;
         
-        Football connection = new Football(URL, apiKey);
+        Football connection = new Football(URL, apiKey); // é necessario este construtor para poder receber os links href
         
         try {
             this.Json_Competitions = connection.getCompetition(id);
