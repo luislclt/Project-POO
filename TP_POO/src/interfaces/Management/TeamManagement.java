@@ -14,6 +14,7 @@ import interfaces.TeamContract;
 public class TeamManagement implements TeamManagementContract {  
     
     private final Object objects[];
+
     
     /**
      * Construtor que permite a instanciação da classe por valor DEFAULT_SIZE

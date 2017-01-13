@@ -93,7 +93,7 @@ public class Football implements serviceManager.FootballQueriesContract{
         //json_Competitions.put("competitions", Json_competitions); // jsonCompetitions recebe todo
         //JSONParser competitions_parser = new JSONParser();
             
-        String JSON_Competition= getURLConnection(this.URL+"competitions/"+i);
+        String JSON_Competition = getURLConnection(this.URL+"competitions/"+i);
         /*
         JSONParser jsonParser = new JSONParser();
             
@@ -137,18 +137,16 @@ public class Football implements serviceManager.FootballQueriesContract{
     public String getCompetitions(int[] ints) throws CompetitionNotFoundException, WebServiceConnectionError {
         // int[] ints = ids competitions
         
-        
-        
-        return null;
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        //return null;
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
     @Override
     public String getTeams(int i) throws CompetitionNotFoundException, WebServiceConnectionError {
         
         
-        String JSON_Teams = getURLConnection(this.URL+"teams/"+i);
-        System.out.println("\n URL: " +this.URL+"teams/"+i);
+        String JSON_Teams = getURLConnection(this.URL+"competitions/"+i+"/teams");
+        System.out.println("\n URL: " +this.URL+"competitions/"+i+"/teams");
         
         return JSON_Teams;
     }

@@ -1,14 +1,14 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package interfaces;
 
-/**
- *
- * @author LCLT
- */
+/*
+* Grupo: 2
+* ------------------------------------
+* Nome: Luís Carlos Teixeira
+* Número: 8140072
+*
+* Nome: Tânia Assis
+* Número: 8150455
+*/
 public class Nationality implements NationalityContract{
     
     private final String nationality;

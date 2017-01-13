@@ -13,9 +13,13 @@ import interfaces.Management.StandingsManagementContract;
  */
 public class LeagueTable implements LeagueTableContract{
     
-    
-    
+    private final String Json_LeagueTable;
 
+    public LeagueTable(String Json_LeagueTable) {
+        
+        this.Json_LeagueTable = Json_LeagueTable;
+    }
+    
     @Override
     public PlayerContract getMostValuedPlayer() {
         
@@ -36,5 +40,12 @@ public class LeagueTable implements LeagueTableContract{
         
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    @Override
+    public String toString() {
+        return "LeagueTable{" + "Json_LeagueTable=" + Json_LeagueTable + '}';
+    }
+    
+    
     
 }

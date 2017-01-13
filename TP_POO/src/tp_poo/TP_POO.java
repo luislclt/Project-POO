@@ -2,6 +2,8 @@ package tp_poo;
 
 
 import exceptions.CompetitionNotFoundException;
+import interfaces.Competition;
+import interfaces.Team;
 import java.io.IOException;
 import tp_poo.ServiceManager.Football;
 
@@ -44,7 +46,7 @@ public class TP_POO {
         String result = football_data.getCompetition(439);
         System.out.println("\n Competition: " +result);
         
-        String resultTeam = football_data.getTeams(495);
+        String resultTeam = football_data.getTeams(439);
         System.out.println("\n Team: " +resultTeam);
         
         String resultleagueTable = football_data.getLeagueTable(439);
@@ -54,9 +56,17 @@ public class TP_POO {
         System.out.println("\n Fixtures: " +resultFixtures);
         
         String resultPlayersTeams = football_data.getPlayers(495);
-        System.out.println("\n players from Team ["+495+"]: " +resultPlayersTeams);
+        System.out.println("\n players from Team 495: " +resultPlayersTeams);
         
         
+        //Team team = new Team("nome", "Code", "15,000,000");
+        
+        //team
+        
+        
+        Competition comp = new Competition(url, apiKey,439);
+        System.out.println("\n Competition: "+comp.toString());
+                
         //String StringPlayerJSON = "{\"name\":\"Héldon\",\"position\":\"Secondary Striker\",\"jerseyNumber\":24,\"dateOfBirth\":\"1988-11-14\",\"nationality\":\"Cape Verde\",\"contractUntil\":\"2017-06-30\",\"marketValue\":\"1,750,000 €\"}";
         //System.out.println("\n STRING PLAYER: "+StringPlayerJSON);
         
