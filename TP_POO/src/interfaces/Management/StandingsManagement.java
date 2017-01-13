@@ -6,7 +6,6 @@
 package interfaces.Management;
 
 import interfaces.Management.StandingsManagementContract;
-import interfaces.Management.StandingsManagementContract;
 import interfaces.TeamContract;
 
 /**

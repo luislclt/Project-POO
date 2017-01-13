@@ -9,8 +9,6 @@ import exceptions.CompetitionNotFoundException;
 import exceptions.WebServiceConnectionError;
 import java.io.IOException;
 import java.net.MalformedURLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -23,8 +21,8 @@ import serviceManager.WebServiceConnection;
  */
 public class FootballContract implements serviceManager.FootballQueriesContract{
     
-    private String URL; //= "http://api.football-data.org/v1/competitions/";
-    private String apiKey; // = "4a0fdab1682e4d1384b8262f7e02d641";
+    private String URL; 
+    private String apiKey; 
     private String Json_competitions;
     
     public FootballContract(String link, String apiKey) {
@@ -35,12 +33,12 @@ public class FootballContract implements serviceManager.FootballQueriesContract{
         try {
             this.Json_competitions = webServiceConnection.getContent(this.URL);
             
-        } catch (java.net.MalformedURLException ex1){
+        } catch (MalformedURLException ex1){
             System.out.println("\n Erro MalformedURLException\n");
             //Logger.getLogger(FootballContract.class.getName()).log(Level.SEVERE, null, ex2);
         
-        } catch (IOException ex1) {
-            System.out.println("\n Erro IOExecption\n");
+        } catch (IOException ex2) {
+            System.out.println("\n Erro IOExecption\n ");
             //Logger.getLogger(FootballContract.class.getName()).log(Level.SEVERE, null, ex1);
             
         }
@@ -56,11 +54,11 @@ public class FootballContract implements serviceManager.FootballQueriesContract{
             JSON_String = webServiceConnection.getContent(link);
             return JSON_String;
         
-        } catch (java.net.MalformedURLException ex1){
+        } catch (MalformedURLException ex1){
             System.out.println("\n Erro MalformedURLException\n");
             //Logger.getLogger(FootballContract.class.getName()).log(Level.SEVERE, null, ex2);
         
-        } catch (IOException ex1) {
+        } catch (IOException ex2) {
             System.out.println("\n Erro IOExecption\n");
             //Logger.getLogger(FootballContract.class.getName()).log(Level.SEVERE, null, ex1);
             
@@ -120,7 +118,8 @@ public class FootballContract implements serviceManager.FootballQueriesContract{
             
             // Fim Codigo Object e Array //
         } catch ( ParseException ex) {
-            Logger.getLogger(FootballContract.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("\n Erro ParseException\n");
+            //Logger.getLogger(FootballContract.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         return null;
@@ -203,7 +202,8 @@ public class FootballContract implements serviceManager.FootballQueriesContract{
             }
             
         } catch ( ParseException ex) {
-            Logger.getLogger(FootballContract.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("\n Erro ParseException\n");
+            //Logger.getLogger(FootballContract.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }

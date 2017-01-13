@@ -15,6 +15,9 @@ import java.time.LocalDateTime;
  * @author tania
  */
 public class CompetitionManagement implements CompetitionManagementContract{
+    
+    
+    
 
     @Override
     public CompetitionContract getCompetition(String competitionName, int year) {

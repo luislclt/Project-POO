@@ -6,15 +6,14 @@
 package interfaces.Management;
 
 import interfaces.Management.TeamManagementContract;
-import interfaces.Management.TeamManagementContract;
 import interfaces.TeamContract;
 
 /**
  *
  * @author tania
  */
-public class TeamManagement implements TeamManagementContract
-{    
+public class TeamManagement implements TeamManagementContract {  
+    
 
     @Override
     public TeamContract getTeam(String arg0) {

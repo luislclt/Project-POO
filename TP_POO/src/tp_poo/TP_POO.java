@@ -7,6 +7,8 @@ package tp_poo;
 
 
 import exceptions.CompetitionNotFoundException;
+import interfaces.Player;
+import interfaces.PlayerCompareTo;
 import java.io.IOException;
 import tp_poo.ServiceManager.FootballContract;
 
@@ -29,7 +31,7 @@ public class TP_POO {
     public static void main(String[] args) throws IOException, CompetitionNotFoundException {
         
         
-        String url = "htt://api.football-data.org/v1/competitions/";
+        String url = "http://api.football-data.org/v1/competitions/";
         String apiKey = "4a0fdab1682e4d1384b8262f7e02d641";
         
         
@@ -53,6 +55,27 @@ public class TP_POO {
         String resultTeam = football_data.getTeams(439);
         System.out.println("\n Team: " +resultTeam);
         
+        
+        String StringPlayerJSON = "{\"name\":\"Héldon\",\"position\":\"Secondary Striker\",\"jerseyNumber\":24,\"dateOfBirth\":\"1988-11-14\",\"nationality\":\"Cape Verde\",\"contractUntil\":\"2017-06-30\",\"marketValue\":\"1,750,000 €\"}";
+        System.out.println("\n STRING PLAYER: "+StringPlayerJSON);
+        
+        Player testePlayer = new Player(StringPlayerJSON);
+        System.out.println(" Player RESULT: \n "+ testePlayer.toString());
+        
+        
+        String StringPlayerJSON2 = "{\"name\":\"Filipe Augusto\",\"position\":\"Defensive Midfield\",\"jerseyNumber\":5,\"dateOfBirth\":\"1993-08-12\",\"nationality\":\"Brazil\",\"contractUntil\":\"2017-06-30\",\"marketValue\":\"1,500,000 €\"}";
+        System.out.println("\n STRING PLAYER 2: "+StringPlayerJSON2);
+        
+        Player testePlayer2 = new Player(StringPlayerJSON2);
+        System.out.println("\n Player RESULT 2: "+testePlayer2.toString());
+        
+        
+        System.out.println("\n getNationality: "+testePlayer.getNationality().toString());
+        
+        PlayerCompareTo teste = new PlayerCompareTo(testePlayer.getMarketValue());
+        
+        int resultados = testePlayer2.compareTo(teste);
+        System.out.println("\n toComparation: " + resultados);
         
         
     }
