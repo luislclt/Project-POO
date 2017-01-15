@@ -2,11 +2,7 @@ package interfaces;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 
 
 /*
@@ -20,111 +16,40 @@ import org.json.simple.parser.ParseException;
 */
 public class Player implements PlayerContract{
     
-    private String Json_Player;
+    //private final String URL;
+    //private final String apiKey;
     
-    private String name;
-    private String position;
-    private int jerseyNumber;
-    private String dateOfBirth;
-    private NationalityContract nationality;
-    private String contractUntil;
-    private String marketValue;
-    private int age;
+    //private final String Json_Player;
+    
+    private String name; // pedidio no impelements javaDoc
+    private String position; // pedidio no impelements javaDoc
+    private int jerseyNumber; // pedidio no impelements javaDoc
+    private NationalityContract nationality; // pedidio no impelements javaDoc
+    private String marketValue; // pedidio no impelements javaDoc
+    private int age; // pedidio no impelements javaDoc
+    
+    DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+    private Date dateOfBirth;
+    private Date contractUntil;
 
-    public Player(String Json_Player) {
-        
-        this.Json_Player = Json_Player;
-        
-        JSONParser jsonParser = new JSONParser();
-        try{
-            
-            JSONObject object = (JSONObject) jsonParser.parse(this.Json_Player); // Json_Player contem a string do player a trabalhar
-            
-            this.name = object.get("name").toString();//.get("id").toString();
-            this.position = object.get("position").toString();
-            
-            this.dateOfBirth = object.get("dateOfBirth").toString();
-            
-            String nationalityTemp = object.get("nationality").toString();
-            this.nationality = new Nationality(nationalityTemp);
-            
-            this.contractUntil = object.get("contractUntil").toString();
-            this.marketValue = object.get("marketValue").toString();
-            
-            String string_jerseyNumber = object.get("jerseyNumber").toString();
-            this.jerseyNumber = Integer.parseInt(string_jerseyNumber);
-            
-            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-            Date dateDOB = dateFormat.parse(this.dateOfBirth);
-            //System.out.println(" dateDOB: " +dateFormat.format(dateDOB));
-            
-            Calendar dateOfDOB = Calendar.getInstance();
-            dateOfDOB.setTime(dateDOB);
-            
-            Calendar CurrentDate = Calendar.getInstance();
-            CurrentDate.setTime(new Date()); // Today
-            
-            //System.out.println("  AGE: "+ (CurrentDate.get(Calendar.YEAR) - dateofDOB.get(Calendar.YEAR)) );
-            this.age = (CurrentDate.get(Calendar.YEAR) - dateOfDOB.get(Calendar.YEAR));
-            
-            
-        } catch ( ParseException ex) {
-            System.out.println("\n Erro ParseException --> Player\n");
-            //Logger.getLogger(FootballContract.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (java.text.ParseException ex) {
-            System.out.println("\n Erro ParseException Data --> Player\n");
-            //Logger.getLogger(Player.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
+    public Player(String name, String position, int jerseyNumber, NationalityContract nationality, String marketValue, int age) {
+        this.name = name;
+        this.position = position;
+        this.jerseyNumber = jerseyNumber;
+        this.nationality = nationality;
+        this.marketValue = marketValue;
+        this.age = age;
     }
 
-    public String getJson_Player() {
-        return Json_Player;
-    }
-
-    public void setJson_Player(String Json_Player) {
-        this.Json_Player = Json_Player;
-        
-        JSONParser jsonParser = new JSONParser();
-        try{
-            
-            JSONObject object = (JSONObject) jsonParser.parse(this.Json_Player); // Json_Player contem a string do player a trabalhar
-            
-            this.name = object.get("name").toString();//.get("id").toString();
-            this.position = object.get("position").toString();
-            
-            this.jerseyNumber = (int) object.get("jerseyNumber");
-            this.dateOfBirth = object.get("dateOfBirth").toString();
-            
-            String nationalityTemp = object.get("nationality").toString();
-            this.nationality = new Nationality(nationalityTemp);
-            
-            this.contractUntil = object.get("contractUntil").toString();
-            this.marketValue = object.get("marketValue").toString();
-            
-            String string_jerseyNumber = object.get("jerseyNumber").toString();
-            this.jerseyNumber = Integer.parseInt(string_jerseyNumber);
-            
-            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-            Date dateDOB = dateFormat.parse(this.dateOfBirth);
-            //System.out.println(" dateDOB: " +dateFormat.format(dateDOB));
-            
-            Calendar dateOfDOB = Calendar.getInstance();
-            dateOfDOB.setTime(dateDOB);
-            
-            Calendar CurrentDate = Calendar.getInstance();
-            CurrentDate.setTime(new Date()); // Today
-            
-            //System.out.println("  AGE: "+ (CurrentDate.get(Calendar.YEAR) - dateofDOB.get(Calendar.YEAR)) );
-            this.age = (CurrentDate.get(Calendar.YEAR) - dateOfDOB.get(Calendar.YEAR));
-            
-        } catch ( ParseException ex) {
-            System.out.println("\n Erro ParseException --> Player\n");
-            //Logger.getLogger(FootballContract.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (java.text.ParseException ex) {
-            System.out.println("\n Erro ParseException Data --> Player\n");
-            //Logger.getLogger(Player.class.getName()).log(Level.SEVERE, null, ex);
-        }
+    public Player(String name, String position, int jerseyNumber, NationalityContract nationality, String marketValue, int age, Date dateOfBirth, Date contractUntil) {
+        this.name = name;
+        this.position = position;
+        this.jerseyNumber = jerseyNumber;
+        this.nationality = nationality;
+        this.marketValue = marketValue;
+        this.age = age;
+        this.dateOfBirth = dateOfBirth;
+        this.contractUntil = contractUntil;
     }
     
     @Override
@@ -135,7 +60,6 @@ public class Player implements PlayerContract{
 
     @Override
     public int getJerseyNumber() {
-        
         
         return this.jerseyNumber;
     }
@@ -180,17 +104,18 @@ public class Player implements PlayerContract{
         
     }
     
-    public String getDateOfBirth() {
+    public Date getDateOfBirth() {
         return this.dateOfBirth;
     }
     
-    public String getContractUntil() {
+    public Date getContractUntil() {
         return this.contractUntil;
     }
     
     @Override
     public String toString() {
-        return "Player{" + "name=" + name + ", position=" + position + ", jerseyNumber=" + jerseyNumber + ", dateOfBirth=" + dateOfBirth + ", nationality=" + nationality + ", contractUntil=" + contractUntil + ", marketValue=" + marketValue + ", age=" + age + '}';
+        
+        return "Player{" + "name = " + name + ", position = " + position + ", jerseyNumber = " + jerseyNumber + ", dateOfBirth = " + dateFormat.format(dateOfBirth) + ", nationality = " + nationality + ", contractUntil = " + dateFormat.format(contractUntil) + ", marketValue = " + marketValue + ", age = " + age + "\n}";
     }
 
     

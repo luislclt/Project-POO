@@ -144,9 +144,9 @@ public class Football implements serviceManager.FootballQueriesContract{
     @Override
     public String getTeams(int i) throws CompetitionNotFoundException, WebServiceConnectionError {
         
-        
+        //String JSON_Teams = getURLConnection(this.URL+"teams/"+i);
         String JSON_Teams = getURLConnection(this.URL+"competitions/"+i+"/teams");
-        System.out.println("\n URL: " +this.URL+"competitions/"+i+"/teams");
+        //System.out.println("\n URL: " +this.URL+"competitions/"+i+"/teams");
         
         return JSON_Teams;
     }
@@ -154,7 +154,7 @@ public class Football implements serviceManager.FootballQueriesContract{
     @Override
     public String getLeagueTable(int competitionId) throws CompetitionNotFoundException, WebServiceConnectionError {
         
-        String JSON_LeagueTable = getURLConnection(this.URL+"competitions");
+        String JSON_LeagueTable = getURLConnection(this.URL+"competitions/");
         
         String string_Link;
         String string_leagueTable;

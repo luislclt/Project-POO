@@ -5,14 +5,8 @@
  */
 package interfaces;
 
-import exceptions.CompetitionNotFoundException;
-import exceptions.WebServiceConnectionError;
 import interfaces.Management.FixtureManagementContract;
 import interfaces.Management.TeamManagementContract;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
-import tp_poo.ServiceManager.Football;
 
 /**
  *
@@ -20,10 +14,10 @@ import tp_poo.ServiceManager.Football;
  */
 public class Competition implements CompetitionContract{
     
-    private String URL;
-    private String apiKey;
+    //private String URL;
+    //private String apiKey;
     
-    private String Json_Competitions;
+    //private String Json_Competitions;
     private FixtureManagementContract fixtures; // pedidio no impelements javaDoc
     private LeagueTableContract leagueTable; // pedidio no impelements javaDoc
     private TeamManagementContract teams; // pedidio no impelements javaDoc
@@ -36,79 +30,29 @@ public class Competition implements CompetitionContract{
     private int numberOfTeams;
     private int numberOfGames;
     private String lastUpdated;
-    
-    
-    /*
-    * Constructor Competition recebe String Url, apiKey e o idCompetition
-    * @param String url
-    * @param String apiKey
-    * @param int id da competição
-    */
-    public Competition(String TMPUrl, String TMPapiKey, int id) {
-        
-        this.URL = TMPUrl;
-        this.apiKey = TMPapiKey;
-        
-        Football connection = new Football(URL, apiKey); // é necessario este construtor para poder receber os links href
-        
-        try {
-            this.Json_Competitions = connection.getCompetition(id);
-        } catch (CompetitionNotFoundException ex) {
-            System.out.println("\n Erro CompetitionNotFoundException --> Competition");
-            //Logger.getLogger(Competition.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (WebServiceConnectionError ex) {
-            System.out.println("\n Erro WebServiceConnectionError --> Competition");
-            //Logger.getLogger(Competition.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        JSONParser jsonParser = new JSONParser();
-        try{
-            
-            JSONObject object = (JSONObject) jsonParser.parse(this.Json_Competitions); // Json_Player contem a string das competitions
-            
-            //this.fixtures = new Fixtures(connection.getFixtures(id)); // pedidio no impelements javaDoc
-            this.leagueTable = new LeagueTable(connection.getLeagueTable(id)); // pedidio no impelements javaDoc
-            //this.teams = (TeamManagementContract) new Team(connection.getTeams(id)); // pedidio no impelements javaDoc
-            
-            String string_id = object.get("id").toString();
-            this.id = Integer.parseInt(string_id); // pedidio no impelements javaDoc
-            
-            String string_year = object.get("year").toString();
-            this.year = Integer.parseInt(string_year); // pedidio no impelements javaDoc
-    
-            this.caption = object.get("caption").toString();
-            
-            String string_currentMatchday = object.get("currentMatchday").toString();
-            this.currentMatchday = Integer.parseInt(string_currentMatchday);
-            
-            String string_numberOfMatchdays = object.get("numberOfMatchdays").toString();
-            this.numberOfMatchdays = Integer.parseInt(string_numberOfMatchdays);
-            
-            String string_numberOfTeams = object.get("numberOfTeams").toString();
-            this.numberOfTeams = Integer.parseInt(string_numberOfTeams);
-            
-            String string_numberOfGames = object.get("numberOfGames").toString();
-            this.numberOfGames = Integer.parseInt(string_numberOfGames);
-            
-            this.lastUpdated = object.get("lastUpdated").toString();
-            
-            
-        }catch ( ParseException ex) {
-            System.out.println("\n Erro ParseException --> Competition");
-            //Logger.getLogger(FootballContract.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (CompetitionNotFoundException ex) {
-            System.out.println("\n Erro CompetitionNotFoundException --> Competition");
-            //Logger.getLogger(Competition.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (WebServiceConnectionError ex) {
-            System.out.println("\n Erro WebServiceConnectionError --> Competition");
-            //Logger.getLogger(Competition.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
+
+    public Competition(FixtureManagementContract fixtures, LeagueTableContract leagueTable, TeamManagementContract teams, int id, int year) {
+        this.fixtures = fixtures;
+        this.leagueTable = leagueTable;
+        this.teams = teams;
+        this.id = id;
+        this.year = year;
     }
 
-    public String getJson_Competitions() {
-        return this.Json_Competitions;
+    public Competition(FixtureManagementContract fixtures, LeagueTableContract leagueTable, TeamManagementContract teams, int id, int year, String caption, int currentMatchday, int numberOfMatchdays, int numberOfTeams, int numberOfGames, String lastUpdated) {
+        this.fixtures = fixtures;
+        this.leagueTable = leagueTable;
+        this.teams = teams;
+        this.id = id;
+        this.year = year;
+        this.caption = caption;
+        this.currentMatchday = currentMatchday;
+        this.numberOfMatchdays = numberOfMatchdays;
+        this.numberOfTeams = numberOfTeams;
+        this.numberOfGames = numberOfGames;
+        this.lastUpdated = lastUpdated;
     }
+    
     
     @Override
     public int getId() {
@@ -162,7 +106,7 @@ public class Competition implements CompetitionContract{
     
     @Override
     public String toString() {
-        return "Competition{" + "\n fixtures=" + fixtures + "\n leagueTable=" + leagueTable + "\n teams=" + teams + "\n id=" + id + ", year=" + year + ", caption=" + caption + ", currentMatchday=" + currentMatchday + ", numberOfMatchdays=" + numberOfMatchdays + ", numberOfTeams=" + numberOfTeams + ", numberOfGames=" + numberOfGames + ", lastUpdated=" + lastUpdated + "\n}";
+        return "Competition{" + "\n id = " + id + ", year = " + year + ", caption = " + caption + ", currentMatchday = " + currentMatchday + ", numberOfMatchdays = " + numberOfMatchdays + ", numberOfTeams = " + numberOfTeams + ", numberOfGames = " + numberOfGames + ", lastUpdated = " + lastUpdated + "\n fixtures = " + fixtures + "\n leagueTable = " + leagueTable + "\n teams = " + teams + "\n}";
     }
     
     

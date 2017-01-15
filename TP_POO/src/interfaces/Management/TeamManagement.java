@@ -46,8 +46,16 @@ public class TeamManagement implements TeamManagementContract {
     @Override
     public TeamContract getTeam(String arg0) {
         
+        for (int i = 0; i < this.size(); i++) {
+            
+            if(this.getObject(i).equals(arg0)){
+                return (TeamContract) this.getObject(i);
+            }
+            
+        }
         
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return null;
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     /**
