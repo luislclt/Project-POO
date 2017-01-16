@@ -46,27 +46,20 @@ public class TeamManagement implements TeamManagementContract {
     * @param String arg0 --> nome
     */
     @Override
-    public TeamContract getTeam(String arg0) {
-        
-        /*for (int i = 0; i < this.size(); i++) {
-            
-            Team team = (Team) this.getObject(i);
-            System.out.println("\n String arg0: "+arg0 +" this.getObject("+i+"): "+team.getName());
-            if(team.getName().equalsIgnoreCase(arg0)){
-                return (TeamContract) this.getObject(i);
-            }
-            
-        }*/
-        
+    public TeamContract getTeam(String arg0) { // String nome --> retorna pelo nome da equipa
+       
         for (int i = 0; i < this.size(); i++) {
             
-            if(this.getObject(i).equals(arg0)){
-                return (TeamContract) this.getObject(i);
+            TeamContract team = (TeamContract) this.getObject(i);
+            //System.out.println("\n --> this.getObject(i) TeamContract team name"+team.getName());
+            if(team.getName().equals(arg0)){
+                //System.out.println("\n TeamManagement --> getTeam("+arg0+" ) --> retorno TeamContract -> nameTeam : "+team.getName());
+                return team;
             }
             
         }
         
-        //System.out.println("\n Retorna null --> TeamManagement --> getTeam(String arg0)");
+        System.out.println("\n TeamManagement --> getTeam("+arg0+" ) --> retorno TeamContract -> nameTeam : null --> nao encontrou");
         return null;
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }

@@ -1,5 +1,6 @@
 package interfaces;
 
+import interfaces.Management.PlayerManagement;
 import interfaces.Management.PlayerManagementContract;
 import java.util.Objects;
 
@@ -89,26 +90,33 @@ public class Team implements TeamContract{
     public PlayerManagementContract getPlayers() {
         
         return this.Players;
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
+    /*
+    * Método responsável por retornar um player com o valor mais alto marketValue
+    * @param PlayerContract player
+    */
     public PlayerContract getMostValuePlayer(){
         
-        PlayerManagementContract playerManagement = getPlayers();
+        PlayerManagement playerManagement = (PlayerManagement) getPlayers();
         
+        PlayerContract player1 = (PlayerContract) playerManagement.getObject(0);
         
+        for(int i=1; i< playerManagement.size(); i++){
+            
+            PlayerContract player2 = (PlayerContract) playerManagement.getObject(i);
+            if(player2.compareTo(player1) > 0 ){
+                player1 = player2;
+            }
+        }
         
-        
-        PlayerContract player = getPlayer(0);
-        
-        
-        return null;
+        return player1;
+        //throw new UnsupportedOperationException("Not supported yet.");
     }
     
     public PlayerContract getPlayer(int position) {
         
         return (PlayerContract) this.Players.getObject(position);
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 

@@ -22,6 +22,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import serviceManager.WebServiceConnection;
+import tp_poo.ServiceManager.Football;
 
 /*
 * Grupo: 2
@@ -37,6 +38,8 @@ public class MappingJSONToClasses implements MappingJsonToClasses{
     private final String URL;
     private final String apiKey;
     
+    private int countConections; // conta o numero de coneções ao Server
+    
     /*
     * Constructor recebe uma String URL e String apiKey
     * @param String URL
@@ -45,6 +48,7 @@ public class MappingJSONToClasses implements MappingJsonToClasses{
     public MappingJSONToClasses(String URL, String apiKey) {
         this.URL = URL;
         this.apiKey = apiKey;
+        this.countConections = 0;
     }
     
     
@@ -57,6 +61,10 @@ public class MappingJSONToClasses implements MappingJsonToClasses{
     @Override
     public CompetitionManagementContract StringToCompetitions(String arg0) {
         
+        // CountConections();
+        
+        
+        //ex.printStackTrace(System.out);
         System.out.println("\n Retorno null --> MappingJsonToClasses --> StringToCompetitions");
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
@@ -82,6 +90,8 @@ public class MappingJSONToClasses implements MappingJsonToClasses{
         int numberOfGames;
         String lastUpdated;
         
+        CompetitionContract competition1 = null;
+        
         String string_Link;
         String string_teams_link;
         String string_href_teams;
@@ -102,85 +112,85 @@ public class MappingJSONToClasses implements MappingJsonToClasses{
             //this.teams = (TeamManagementContract) new Team(connection.getTeams(id)); // pedidio no impelements javaDoc
             
             // Procura apenas pelo "_Links"
-                JSONParser jsonParser_links = new JSONParser();
+            JSONParser jsonParser_links = new JSONParser();
 
-                Object object_links = jsonParser_links.parse(object.toString());
-                JSONObject Json_object_links = (JSONObject) object_links;
+            Object object_links = jsonParser_links.parse(object.toString());
+            JSONObject Json_object_links = (JSONObject) object_links;
 
-                string_Link = Json_object_links.get("_links").toString();
-                //System.out.println(" StringToCompetition _links: " +string_Link);
+            string_Link = Json_object_links.get("_links").toString();
+            //System.out.println(" StringToCompetition _links: " +string_Link);
 
-                // Procura apenas pelo "team"
-                JSONParser jsonParser_team = new JSONParser();
+            // Procura apenas pelo "team"
+            JSONParser jsonParser_team = new JSONParser();
 
-                Object object_teams = jsonParser_team.parse(string_Link);
-                JSONObject Json_object_teams = (JSONObject) object_teams;
+            Object object_teams = jsonParser_team.parse(string_Link);
+            JSONObject Json_object_teams = (JSONObject) object_teams;
 
-                string_teams_link = Json_object_teams.get("teams").toString();
-                //System.out.println(" StringToCompetition teams: " +string_teams_link);
+            string_teams_link = Json_object_teams.get("teams").toString();
+            //System.out.println(" StringToCompetition teams: " +string_teams_link);
 
-                // Procura apenas pelo "href"
-                JSONParser jsonParser_href_teams = new JSONParser();
+            // Procura apenas pelo "href"
+            JSONParser jsonParser_href_teams = new JSONParser();
 
-                Object object_href_teams = jsonParser_href_teams.parse(string_teams_link);
-                JSONObject Json_object_href_teams = (JSONObject) object_href_teams;
+            Object object_href_teams = jsonParser_href_teams.parse(string_teams_link);
+            JSONObject Json_object_href_teams = (JSONObject) object_href_teams;
 
-                string_href_teams = Json_object_href_teams.get("href").toString();
-                //System.out.println(" StringToCompetition href teams = " +string_href_teams);
-                
-                // Procura apenas pelo "fixtures"
-                JSONParser jsonParser_fixtures = new JSONParser();
+            string_href_teams = Json_object_href_teams.get("href").toString();
+            //System.out.println(" StringToCompetition href teams = " +string_href_teams);
 
-                Object object_fixtures = jsonParser_fixtures.parse(string_Link);
-                JSONObject Json_object_fixtures = (JSONObject) object_fixtures;
+            // Procura apenas pelo "fixtures"
+            JSONParser jsonParser_fixtures = new JSONParser();
 
-                string_fixtures_link = Json_object_fixtures.get("fixtures").toString();
-                //System.out.println(" StringToCompetition fixtures: " +string_fixtures_link);
+            Object object_fixtures = jsonParser_fixtures.parse(string_Link);
+            JSONObject Json_object_fixtures = (JSONObject) object_fixtures;
 
-                // Procura apenas pelo "href" fixtures
-                JSONParser jsonParser_href_fixtures = new JSONParser();
+            string_fixtures_link = Json_object_fixtures.get("fixtures").toString();
+            //System.out.println(" StringToCompetition fixtures: " +string_fixtures_link);
 
-                Object object_href_fixtures = jsonParser_href_fixtures.parse(string_fixtures_link);
-                JSONObject Json_object_href_fixtures = (JSONObject) object_href_fixtures;
+            // Procura apenas pelo "href" fixtures
+            JSONParser jsonParser_href_fixtures = new JSONParser();
 
-                string_href_fixtures = Json_object_href_fixtures.get("href").toString();
-                System.out.println(" StringToCompetition href fixtures = " +string_href_fixtures);
-                
-                // Procura apenas pelo "leagueTable"
-                JSONParser jsonParser_leagueTable = new JSONParser();
+            Object object_href_fixtures = jsonParser_href_fixtures.parse(string_fixtures_link);
+            JSONObject Json_object_href_fixtures = (JSONObject) object_href_fixtures;
 
-                Object object_leagueTable = jsonParser_leagueTable.parse(string_Link);
-                JSONObject Json_object_leagueTable = (JSONObject) object_leagueTable;
+            string_href_fixtures = Json_object_href_fixtures.get("href").toString();
+            System.out.println(" StringToCompetition href fixtures = " +string_href_fixtures);
 
-                string_leagueTable_link = Json_object_leagueTable.get("leagueTable").toString();
-                //System.out.println(" StringToCompetition leagueTable: " +string_leagueTable_link);
+            // Procura apenas pelo "leagueTable"
+            JSONParser jsonParser_leagueTable = new JSONParser();
 
-                // Procura apenas pelo "href" leagueTable
-                JSONParser jsonParser_href_leagueTable = new JSONParser();
+            Object object_leagueTable = jsonParser_leagueTable.parse(string_Link);
+            JSONObject Json_object_leagueTable = (JSONObject) object_leagueTable;
 
-                Object object_href_leagueTable = jsonParser_href_leagueTable.parse(string_leagueTable_link);
-                JSONObject Json_object_href_leagueTable = (JSONObject) object_href_leagueTable;
+            string_leagueTable_link = Json_object_leagueTable.get("leagueTable").toString();
+            //System.out.println(" StringToCompetition leagueTable: " +string_leagueTable_link);
 
-                string_href_leagueTable = Json_object_href_leagueTable.get("href").toString();
-                //System.out.println(" StringToCompetition href leagueTable = " +string_href_leagueTable);
-                
-                // WebConnections
-                WebServiceConnection conection = new WebServiceConnection(apiKey);
-                
-                String team_content = conection.getContent(string_href_teams);
-                teams = StringToTeams(team_content); // Team guardada do Standing[0] array
-                //System.out.println("\n \t Recebe a team do StringToCompetition");
-                
-                System.out.println("\n Mostra Teams da Competition: "+teams.toString());
-                
-                
-                String fixtures_content = conection.getContent(string_href_fixtures);
-                //fixtures = StringToFixtures(teams, fixtures_content);
-                //System.out.println("\n \t Recebe a fixtures do StringToCompetition");
-                
-                String leagueTable_content = conection.getContent(string_href_leagueTable);
-                leagueTable = StringToLeagueTable(teams, leagueTable_content);
-                //System.out.println("\n \t Recebe a leagueTable do StringToCompetition");
+            // Procura apenas pelo "href" leagueTable
+            JSONParser jsonParser_href_leagueTable = new JSONParser();
+
+            Object object_href_leagueTable = jsonParser_href_leagueTable.parse(string_leagueTable_link);
+            JSONObject Json_object_href_leagueTable = (JSONObject) object_href_leagueTable;
+
+            string_href_leagueTable = Json_object_href_leagueTable.get("href").toString();
+            //System.out.println(" StringToCompetition href leagueTable = " +string_href_leagueTable);
+
+            // WebConnections
+            WebServiceConnection conection = new WebServiceConnection(apiKey);
+
+            String team_content = conection.getContent(string_href_teams);
+            teams = StringToTeams(team_content); // Team guardada do Standing[0] array
+            //System.out.println("\n \t Recebe a team do StringToCompetition");
+
+            System.out.println("\n Mostra Teams da Competition: "+teams.toString());
+
+
+            String fixtures_content = conection.getContent(string_href_fixtures);
+            //fixtures = StringToFixtures(teams, fixtures_content);
+            //System.out.println("\n \t Recebe a fixtures do StringToCompetition");
+
+            String leagueTable_content = conection.getContent(string_href_leagueTable);
+            leagueTable = StringToLeagueTable(teams, leagueTable_content);
+            //System.out.println("\n \t Recebe a leagueTable do StringToCompetition");
                 
             //String string_id = object.get("id").toString();
             //id = Integer.parseInt(string_id); // pedidio no impelements javaDoc
@@ -252,24 +262,27 @@ public class MappingJSONToClasses implements MappingJsonToClasses{
                 lastUpdated = object_lastUpdated.toString();
             }
                
-            CompetitionContract competition1 = new Competition(fixtures, leagueTable, teams, id, year, caption, currentMatchday, numberOfMatchdays, numberOfTeams, numberOfGames, lastUpdated);
+            competition1 = new Competition(fixtures, leagueTable, teams, id, year, caption, currentMatchday, numberOfMatchdays, numberOfTeams, numberOfGames, lastUpdated);
             
             return competition1;
             
-        }catch ( ParseException ex) {
+        }catch ( ParseException ex1) {
             System.out.println("\n Erro ParseException --> MappingJSONToClasses --> Competition");
-            //Logger.getLogger(FootballContract.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
+            ex1.printStackTrace(System.out);
+            //Logger.getLogger(Football.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex2) {
             System.out.println("\n Erro IOException --> MappingJSONToClasses --> Competition");
+            ex2.printStackTrace(System.out);
             //Logger.getLogger(MappingJSONToClasses.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        System.out.println("\n Retorno null --> MappingJsonToClasses --> StringToCompetition");
+        //System.out.println("\n Retorno null --> MappingJsonToClasses --> StringToCompetition");
         //FixtureManagementContract fixtures, LeagueTableContract leagueTable, TeamManagementContract teams, int id, int year, String caption, int currentMatchday, int numberOfMatchdays, int numberOfTeams, int numberOfGames, String lastUpdated
-        CompetitionContract competitionResult = new Competition(fixtures=null, leagueTable=null, teams=null, 0, 0, "null", 0, 0, 0, 0, "null");
-        return competitionResult;
+        //CompetitionContract competitionResult = new Competition(fixtures=null, leagueTable=null, teams=null, 0, 0, "null", 0, 0, 0, 0, "null");
+        return competition1; //competitionResult;
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+    
     
     /*
     * Método responsável por retornar uma liga 
@@ -314,7 +327,7 @@ public class MappingJSONToClasses implements MappingJsonToClasses{
         StatisticsStanding away;
         
         int count = 0;
-        
+        LeagueTable leaguetable1 = null; //retorno da função
         String string_Link;
         String string_team;
         String string_href;
@@ -354,14 +367,10 @@ public class MappingJSONToClasses implements MappingJsonToClasses{
             for(int aux=0; aux<arrayLeagueTable.size(); aux++){
                 
                 JSONObject standing = (JSONObject) arrayLeagueTable.get(aux); // position aux 
-                /*
-                System.out.println("\n SantingArray aux:"+aux );
                 
-                if(aux == 10 || aux == 20 || aux == 28 || aux == 30){
-                    System.out.println(" Thread.sleep(30 000)"); 
-                    Thread.sleep(30000);//1337
-                }*/
+                //CountConections(); // nao precisa de contar nao existe conexao futuras ao servidor
                 
+                /*              
                 // Procura apenas pelo "_Links"
                 JSONParser jsonParser_links = new JSONParser();
 
@@ -394,6 +403,8 @@ public class MappingJSONToClasses implements MappingJsonToClasses{
                 
                 TeamContract team = StringToTeam(team_content); // Team guardada do Standing[0] array
                 //System.out.println("\n \t Recebe a team do Standing --> OK");
+                */
+                
                 
                 Object object_position = standing.get("position");
                 if(null == object_position){
@@ -554,6 +565,11 @@ public class MappingJSONToClasses implements MappingJsonToClasses{
                 // Cria o Objecto away
                 away = new StatisticsStanding(goals_away, goalsAgainst_away, wins_away, draws_away, losses_away);
                 
+                // procurar nos teamManagement o teamName do Standing e retornar a team a guardar no standingArray
+                
+                TeamContract team = arg0.getTeam(teamName);
+                
+                // cria standingArray  com a team correspondente pelo nome
                 StandingInterface standingArray = new Standing(position, teamName, crestURI, playedGames, points, goals_standing, goalsAgainst_standing, goalDifference_standing, wins_standing, draws_standing, losses_standing, home, away, team);
                 Standing.addObject(standingArray);
                 
@@ -591,7 +607,7 @@ public class MappingJSONToClasses implements MappingJsonToClasses{
                 
                 //System.out.println("\n\n\t ENTRA no if count > 0 do StringToLeagueTable(TeamManagementContract arg0, String arg1)");
                 
-                LeagueTable leaguetable1 = new LeagueTable(leagueCaption, matchday, Standing);
+                leaguetable1 = new LeagueTable(leagueCaption, matchday, Standing);
                 
                 //System.out.println("leagueTable = "+leaguetable1.toString());
                 
@@ -600,15 +616,14 @@ public class MappingJSONToClasses implements MappingJsonToClasses{
             //}
             
             //return teamManagement;
-        }catch ( ParseException ex) {
-            System.out.println("\n Erro ParseException --> MappingJSONToClasses --> LeagueTable || Team");
-        } catch (IOException ex) {
-            System.out.println("\n Erro IOException --> MappingJSONToClasses --> LeagueTable || Team");
+        } catch ( ParseException ex1) {
+            System.out.println("\n Erro --> MappingJSONToClasses --> LeagueTable || Team");
+            //Logger.getLogger(MappingJSONToClasses.class.getName()).log(Level.SEVERE, null, ex);
+            ex1.printStackTrace(System.out);
         }
-        
-        System.out.println("\n Retorno null --> MappingJsonToClasses --> StringToLeagueTable");
-        LeagueTable leaguetableresult = new LeagueTable("null", 0, Standing=null);
-        return leaguetableresult;
+        //System.out.println("\n Retorno null --> MappingJsonToClasses --> StringToLeagueTable");
+        //LeagueTable leaguetableresult = new LeagueTable("null", 0, Standing=null);
+        return leaguetable1; //leaguetableresult;
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
@@ -623,12 +638,15 @@ public class MappingJSONToClasses implements MappingJsonToClasses{
     public FixtureManagementContract StringToFixtures(TeamManagementContract arg0, String arg1) {
         
         
-        
+        //CountConections();
         
         System.out.println("\n Retorno null --> MappingJsonToClasses --> StringToFixtures");
         
         FixtureManagementContract fixtureManagementResult = new FixtureManagement(null);
         return fixtureManagementResult;
+        
+        //ex.printStackTrace(System.out);
+        
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
@@ -646,6 +664,7 @@ public class MappingJSONToClasses implements MappingJsonToClasses{
         String Code; // pedidio no impelements javaDoc
         String SquadMarketValue; // pedidio no impelements javaDoc
         PlayerManagementContract Players = null;//getPlayersFromTeam(arg0); // pedidio no impelements javaDoc
+        TeamManagementContract teamManagement = null;
         
         String shortName;
         String crestUrl;
@@ -654,9 +673,6 @@ public class MappingJSONToClasses implements MappingJsonToClasses{
         String string_Link;
         String string_players;
         String string_href;
-        
-        TeamManagementContract teamManagement = null;
-        
         
         JSONParser jsonParser_team = new JSONParser();
         
@@ -690,6 +706,8 @@ public class MappingJSONToClasses implements MappingJsonToClasses{
                 
                 JSONObject team = (JSONObject) arrayTeams.get(aux); // position aux 
                 
+                CountConections();
+                
                 //System.out.println("\n AUX: "+aux +" count: "+count);
                 
                 // Procura apenas pelo "_Links"
@@ -722,7 +740,7 @@ public class MappingJSONToClasses implements MappingJsonToClasses{
                 WebServiceConnection conection = new WebServiceConnection(apiKey);
                 String players_content = conection.getContent(string_href);
                 
-                Players = getPlayersFromTeam(players_content);
+                Players = getPlayersFromTeam(players_content); // conexao para receber o player
                 
                 //Players = new Players(connection.getPlayers(id)); // pedidio no impelements javaDoc
                 //name = team.get("name").toString();
@@ -767,20 +785,26 @@ public class MappingJSONToClasses implements MappingJsonToClasses{
                 
                 TeamContract team1 = new Team(name, Code, SquadMarketValue, Players, shortName, crestUrl);
                 
-                if(teamManagement!= null) teamManagement.addObject(team1);
+                //if(teamManagement!= null) 
+                teamManagement.addObject(team1);
                 //System.out.println("\n MappingJsonToClasses -->StringToTeam --> team adiciona FOR(aux)("+aux+") --> OK");
                 
             }
             return teamManagement;
             
-        }catch ( ParseException ex) {
-            System.out.println("\n Erro ParseException --> MappingJSONToClasses --> Team");
-        } catch (IOException ex) {
-            System.out.println("\n Erro IOException --> MappingJSONToClasses --> Team");
+        }catch ( ParseException ex1) {
+            System.out.println("\n Erro --> MappingJSONToClasses --> Team");
+            ex1.printStackTrace(System.out);
+        } catch (IOException ex2) {
+            System.out.println("\n Erro --> MappingJSONToClasses --> Team");
+            ex2.printStackTrace(System.out);
+        } catch (InterruptedException ex3) {
+            ex3.printStackTrace(System.out);
+            //Logger.getLogger(MappingJSONToClasses.class.getName()).log(Level.SEVERE, null, ex);
         }
-        System.out.println("\n Retorno null --> MappingJsonToClasses --> StringToTeams");
-        TeamManagementContract teamResult = new TeamManagement(null);
-        return teamResult;
+        //System.out.println("\n Retorno null --> MappingJsonToClasses --> StringToTeams");
+        //TeamManagementContract teamResult = new TeamManagement(null);
+        return teamManagement; //teamResult;
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
@@ -802,6 +826,7 @@ public class MappingJSONToClasses implements MappingJsonToClasses{
     
         int count; // contador auxiliar
         PlayerManagementContract playerManagement = null;
+        Player player1 = null;
         
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date dateOfBirth;
@@ -810,7 +835,6 @@ public class MappingJSONToClasses implements MappingJsonToClasses{
         String string_Link;
         String string_players;
         String string_href;
-        
         
         JSONParser Json_Parser = new JSONParser();
         try{
@@ -868,6 +892,8 @@ public class MappingJSONToClasses implements MappingJsonToClasses{
             //System.out.println("\n arrayplayers "+arrayPlayers.toString());
             
             for(int aux=0; aux<count; aux++){
+                
+                CountConections();
                 
                 JSONObject player = (JSONObject) arrayPlayers.get(aux); // position aux 
                 
@@ -945,7 +971,7 @@ public class MappingJSONToClasses implements MappingJsonToClasses{
                 age = (CurrentDate.get(Calendar.YEAR) - dateOfDOB.get(Calendar.YEAR));
                 // end calcular idade player
                 
-                Player player1 = new Player(name, position, jerseyNumber, nationality, marketValue, age, dateOfBirth, contractUntil);
+                player1 = new Player(name, position, jerseyNumber, nationality, marketValue, age, dateOfBirth, contractUntil);
                 
                 playerManagement.addObject(player1);
                 
@@ -956,16 +982,21 @@ public class MappingJSONToClasses implements MappingJsonToClasses{
             return playerManagement;
             
         } catch ( ParseException ex) {
-            System.out.println("\n Erro ParseException --> MappingJSONToClasses --> Player\n");
-            
-        } catch (java.text.ParseException ex) {
-            System.out.println("\n Erro ParseException --> Assign_Data - DOB --> MappingJSONToClasses --> getPlayersFromTeam");
-        } catch (IOException ex) {
-            System.out.println("\n Erro IOException --> MappingJSONToClasses --> getPlayersFromTeam");
+            System.out.println("\n Erro --> MappingJSONToClasses --> Player");
+            ex.printStackTrace(System.out);
+        } catch (java.text.ParseException ex1) {
+            System.out.println("\n Erro --> Assign_Data - DOB --> MappingJSONToClasses --> getPlayersFromTeam");
+            ex1.printStackTrace(System.out);
+        } catch (IOException ex2) {
+            System.out.println("\n Erro MappingJSONToClasses --> getPlayersFromTeam");
+            ex2.printStackTrace(System.out);
+        } catch (InterruptedException ex3) {
+            ex3.printStackTrace(System.out);
+            //Logger.getLogger(MappingJSONToClasses.class.getName()).log(Level.SEVERE, null, ex);
         }
-        System.out.println("\n Retorno null --> MappingJsonToClasses --> GetPlayersFromTeam");
-        PlayerManagementContract playerManagementResult = new PlayerManagement(null);
-        return playerManagementResult;
+        //System.out.println("\n Retorno null --> MappingJsonToClasses --> GetPlayersFromTeam");
+        //PlayerManagementContract playerManagementResult = new PlayerManagement(null);
+        return playerManagement; //playerManagementResult;
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
@@ -981,6 +1012,7 @@ public class MappingJSONToClasses implements MappingJsonToClasses{
         String Code; 
         String SquadMarketValue; 
         PlayerManagementContract Players;//getPlayersFromTeam(arg0);
+        TeamContract team1 = null;
         
         String shortName;
         String crestUrl;
@@ -1072,20 +1104,53 @@ public class MappingJSONToClasses implements MappingJsonToClasses{
                 crestUrl = object_crestUrl.toString();
             }
             
-            TeamContract teamRetorno = new Team(name, Code, SquadMarketValue, Players, shortName, crestUrl);
-            System.out.println("  MappingJsonToClasses --> StringToTeam(content_Team) --> "+teamRetorno.toString());
-            return teamRetorno;
+            team1 = new Team(name, Code, SquadMarketValue, Players, shortName, crestUrl);
+            //System.out.println("  MappingJsonToClasses --> StringToTeam(content_Team) --> "+team1.toString());
+            return team1;
             
-        }catch ( ParseException ex) {
-            System.out.println("\n Erro ParseException --> MappingJSONToClasses --> StringToTeam");
-        } catch (IOException ex) {
-            System.out.println("\n Erro IOException --> MappingJSONToClasses --> StringToTeam");
+        }catch ( ParseException ex1) {
+            System.out.println("\n Erro --> MappingJSONToClasses --> StringToTeam");
+            ex1.printStackTrace(System.out);
+        } catch (IOException ex2) {
+            System.out.println("\n Erro --> MappingJSONToClasses --> StringToTeam");
+            ex2.printStackTrace(System.out);
         }
         
-        System.out.println("\n Retorno null --> MappingJsonToClasses --> StringToTeam(content_Team)");
-        TeamContract teamResult = new Team("null", "null", "null", Players=null, "null", "null");
-        return teamResult;
+        //System.out.println("\n Retorno null --> MappingJsonToClasses --> StringToTeam(content_Team)");
+        //TeamContract teamResult = new Team("null", "null", "null", Players=null, "null", "null");
+        return team1; //teamResult;
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates. 
     }
+
+    /**
+     * Metedo criado exclusivamente para contar o numero de coneções ao servidor 
+     * aplicado dentro de cada ciclo, objetivo do CountentConections é criar um tempo de espera
+     * evitando o bloqueio do Servidor.
+     * 
+     * Este metedo cria um tempo de espera entre 30 a 60 segundos, 
+     * provocando um tempo de resposta do programa até 10 minutos
+     * 
+     * @throws InterruptedException
+     */
+    public void CountConections() throws InterruptedException {
+        
+        this.countConections ++;
+        
+        //System.out.println("\n    countConection teste: "+ this.countConections);
+                
+        if(this.countConections == 49){ // 49 restantes devido a primeira conexao do content
+            System.out.println("\n  Limite de conexoes por minuto excedida --> 50");
+            System.out.println("  Pause of 10 seconds to avoid block conection from the Server    Por Favor Aguarde ...");
+            Thread.sleep(10 * 1000);
+            // 30 *   // minutes to sleep
+            // 60 *   // seconds to a minute
+            // 1000 // milliseconds to a second
+            this.countConections = 0;
+        }
+        
+        //return countConections;
+    }
+    
+    
     
 }

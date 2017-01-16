@@ -47,7 +47,7 @@ public class PlayerManagement implements PlayerManagementContract{
     @Override
     public PlayerContract getPlayer(String arg0, String arg1) {
         
-        
+        //PlayerContract player = this.getObject(i);
         
         
         
