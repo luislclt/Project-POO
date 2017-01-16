@@ -18,18 +18,15 @@ public class LeagueTable implements LeagueTableContract{
     
     //private final String Json_LeagueTable;
     
-    private String leagueCaption;
-    private int matchday;
-    private StandingsManagementContract standing; //18
+    private final String leagueCaption;
+    private final int matchday;
+    private final StandingsManagementContract standing; 
     
-    
-
     public LeagueTable(String leagueCaption, int matchday, StandingsManagementContract standing) {
         this.leagueCaption = leagueCaption;
         this.matchday = matchday;
         this.standing = standing;
     }
-
     
     
     @Override
@@ -55,7 +52,7 @@ public class LeagueTable implements LeagueTableContract{
 
     @Override
     public String toString() {
-        return "LeagueTable{" + "leagueCaption = " + leagueCaption + ", matchday = " + matchday + ", standing = " + standing + '}';
+        return "LeagueTable{" + " leagueCaption = " + leagueCaption + ", matchday = " + matchday + ", standing = " + standing + '}';
     }
     
 }

@@ -103,7 +103,7 @@ public class TP_POO {
         /*
         String Jon_Competition = football_data.getCompetition(439);
         
-        MappingJsonToClasses mappingCompetition1 = new MappingJSONToClasses(url, apiKey, Jon_Competition);
+        MappingJsonToClasses mappingCompetition1 = new MappingJSONToClasses(url, apiKey);
         
         CompetitionContract competitionObject =  mappingCompetition1.StringToCompetition(Jon_Competition);
         
@@ -114,60 +114,78 @@ public class TP_POO {
         competitionManagement.addObject(competitionObject);
         
         System.out.println("\n Result CompetitionManagement: "+competitionManagement.toString());
-        */
         
-        // Teste Criar Team 1
+        */
+        // Teste Criar Teams 1
         /*
-        String Json_Team = football_data.getTeams(439);
+        String Json_Team = football_data.getTeams(439); // recebe varias Teams
+        
+        //System.out.println("\n Json_Team "+Json_Team);
         
         MappingJsonToClasses mappingTeam1 = new MappingJSONToClasses(url, apiKey);
         
-        TeamManagementContract teamManagement1 = mappingTeam1.StringToTeams(Json_Team);
+        TeamManagementContract teamManagement1 = mappingTeam1.StringToTeams(Json_Team); // retornar coleção de equipas (players de cada equipa)
         
         System.out.println("\n Result TeamManagement 1: "+teamManagement1.toString());
         */
         
         // Teste Criar Player 1
         /*
-        String Json_Player = football_data.getTeams(495);
+        String Json_Team = football_data.getTeam(495); // apenas recebe uma Team
         
+        System.out.println("\n Json_Team -> "+Json_Team);
         MappingJsonToClasses mappingPlayers1 = new MappingJSONToClasses(url, apiKey);
         
-        PlayerManagementContract playerManagement1 = mappingPlayers1.getPlayersFromTeam(Json_Player);
+        PlayerManagementContract playerManagement1 = mappingPlayers1.getPlayersFromTeam(Json_Team); // funciona direito
         
-        System.out.println("\n Result PlayerManagement 1: "+playerManagement1.toString());
+        System.out.println("\n Result PlayerManagement 1: \n"+playerManagement1.toString());
         */
         
         // Teste Criar LeagueTable 1
         
         String Json_LeagueTable = football_data.getLeagueTable(439); // Json_LeagueTable
         
-        //String Json_Team = football_data.getTeams(439);
+        String Json_Team = football_data.getTeam(495); // recebe apenas uma equipa
         
         MappingJSONToClasses mappingLeagueTable1 = new MappingJSONToClasses(url, apiKey);
         
-        WebServiceConnection connection = new WebServiceConnection(apiKey);
-        String content_team = connection.getContent("http://api.football-data.org/v1/teams/495");
+        TeamContract Object_Team = mappingLeagueTable1.StringToTeam(Json_Team);
         
-        TeamContract Object_Team = mappingLeagueTable1.StringToTeam(content_team);
+        //System.out.println("\n Main Recebe Object_Team: "+Object_Team.toString());
+        //System.out.println("\n Main Recebe Object_Team --> OK");
         
-        TeamManagementContract teamManagement = new TeamManagement(1);
+        //System.out.println("\n Criar teamManagement --> para enviar para as comparação entre StringToLeagueTable(teamManagement, Json_LeagueTable)");
+        
+        //TeamManagement teamManagement1 = new TeamManagement(1);
+        //teamManagement1.addObject(Object_Team);
+        
+        //Object objectTeamManagement = new Object(teamManagement1);
+        
+        TeamManagementContract teamManagement = new TeamManagement();
         teamManagement.addObject(Object_Team);
        
+        System.out.println("\n teamManagemet Crete MAIN: "+teamManagement.toString());
+        
         //TeamManagementContract teamManagement = mappingLeagueTable1.StringToTeams(Json_Team);
         
-        LeagueTableContract leagueTable1; 
-                
-                if(mappingLeagueTable1.StringToLeagueTable(teamManagement, Json_LeagueTable) != null){
-                    leagueTable1 = mappingLeagueTable1.StringToLeagueTable(teamManagement, Json_LeagueTable);
-                    System.out.println("\n Result LeagueTable: "+leagueTable1.toString());
-                }else {
-                    System.out.println("\n\n LeagueTable return null");
-                    leagueTable1 = null;
-                    System.out.println("\n Result LeagueTable: "+leagueTable1.toString());
-                }
+        LeagueTableContract leagueTable1 = mappingLeagueTable1.StringToLeagueTable(teamManagement, Json_LeagueTable);
+        System.out.println("\n\n \t Result \n  LeagueTable: "+leagueTable1.toString());
         
         //System.out.println("\n Result LeagueTable: "+leagueTable1.toString());
+        
+                
+        // Teste Criar Competition 1
+        /*
+        String Json_Competition = football_data.getCompetition(439);
+        
+        MappingJsonToClasses mappingCompetition1 = new MappingJSONToClasses(url, apiKey);
+        
+        CompetitionContract competition1 = mappingCompetition1.StringToCompetition(Json_Competition);
+        
+        System.out.println("\n Result Competition 1: "+competition1.toString());
+        
+        */
+        
         
         
     }

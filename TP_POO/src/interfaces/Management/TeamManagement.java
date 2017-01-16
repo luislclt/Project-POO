@@ -1,6 +1,8 @@
 package interfaces.Management;
 
+import interfaces.Team;
 import interfaces.TeamContract;
+import java.util.Arrays;
 
 /*
 * Grupo: 2
@@ -13,21 +15,21 @@ import interfaces.TeamContract;
 */
 public class TeamManagement implements TeamManagementContract {  
     
-    private final Object objects[];
+    private final Team objects[]; // Object
 
     
     /**
      * Construtor que permite a instanciação da classe por valor DEFAULT_SIZE
      */
     public TeamManagement() {
-        this.objects = new Object[DEFAULT_SIZE];
+        this.objects = new Team[DEFAULT_SIZE]; //Object
     }
     
     /**
      * Construtor que permite a instanciação da classe por coleção de objectos
      * @param o uma coleção de objectos
      */
-    public TeamManagement(Object[] o) {
+    public TeamManagement(Team[] o) {
         this.objects = o;
     }
     
@@ -36,7 +38,7 @@ public class TeamManagement implements TeamManagementContract {
      * @param maxSize número máximo de elementos permitidos no vetor
      */
     public TeamManagement(int maxSize) {
-        this.objects = new Object[maxSize];
+        this.objects = new Team[maxSize]; //Object
     }
     
     /*
@@ -46,6 +48,16 @@ public class TeamManagement implements TeamManagementContract {
     @Override
     public TeamContract getTeam(String arg0) {
         
+        /*for (int i = 0; i < this.size(); i++) {
+            
+            Team team = (Team) this.getObject(i);
+            System.out.println("\n String arg0: "+arg0 +" this.getObject("+i+"): "+team.getName());
+            if(team.getName().equalsIgnoreCase(arg0)){
+                return (TeamContract) this.getObject(i);
+            }
+            
+        }*/
+        
         for (int i = 0; i < this.size(); i++) {
             
             if(this.getObject(i).equals(arg0)){
@@ -54,6 +66,7 @@ public class TeamManagement implements TeamManagementContract {
             
         }
         
+        //System.out.println("\n Retorna null --> TeamManagement --> getTeam(String arg0)");
         return null;
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
@@ -69,7 +82,7 @@ public class TeamManagement implements TeamManagementContract {
         if (tamanho == this.objects.length) {
             return false;
         } else {
-            this.objects[tamanho] = newObject;
+            this.objects[tamanho] = (Team) newObject;
             return true;
         }
     }
@@ -133,11 +146,38 @@ public class TeamManagement implements TeamManagementContract {
     @Override
     public String toString() {
         StringBuilder str = new StringBuilder();
-        str.append("Lista: \n");
+        str.append(" ");
         for (int i = 0; i < this.size(); i++) {
             str.append(this.getObject(i).toString()).append(" \n");
         }
 
         return str.toString();
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 61 * hash + Arrays.deepHashCode(this.objects);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final TeamManagement other = (TeamManagement) obj;
+        if (!Arrays.deepEquals(this.objects, other.objects)) {
+            return false;
+        }
+        return true;
+    }
+    
+    
 }

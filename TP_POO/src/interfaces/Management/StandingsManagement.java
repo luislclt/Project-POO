@@ -1,5 +1,6 @@
 package interfaces.Management;
 
+import interfaces.Standing;
 import interfaces.TeamContract;
 
 /*
@@ -13,20 +14,20 @@ import interfaces.TeamContract;
 */
 public class StandingsManagement implements StandingsManagementContract{
     
-    private final Object objects[];
+    private final Standing objects[]; //Object
     
     /**
      * Construtor que permite a instanciação da classe por valor DEFAULT_SIZE
      */
     public StandingsManagement() {
-        this.objects = new Object[DEFAULT_SIZE];
+        this.objects = new Standing[DEFAULT_SIZE];
     }
     
     /**
      * Construtor que permite a instanciação da classe por coleção de objectos
      * @param o uma coleção de objectos
      */
-    public StandingsManagement(Object[] o) {
+    public StandingsManagement(Standing[] o) {
         this.objects = o;
     }
     
@@ -35,7 +36,7 @@ public class StandingsManagement implements StandingsManagementContract{
      * @param maxSize número máximo de elementos permitidos no vetor
      */
     public StandingsManagement(int maxSize) {
-        this.objects = new Object[maxSize];
+        this.objects = new Standing[maxSize];
     }
     
     /*
@@ -44,6 +45,7 @@ public class StandingsManagement implements StandingsManagementContract{
     */
     @Override
     public TeamContract getTeam(String arg0) {
+        
         
         
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -60,7 +62,7 @@ public class StandingsManagement implements StandingsManagementContract{
         if (tamanho == this.objects.length) {
             return false;
         } else {
-            this.objects[tamanho] = newObject;
+            this.objects[tamanho] = (Standing) newObject;
             return true;
         }
     }
@@ -124,7 +126,7 @@ public class StandingsManagement implements StandingsManagementContract{
     @Override
     public String toString() {
         StringBuilder str = new StringBuilder();
-        str.append("Lista: \n");
+        str.append(" ");
         for (int i = 0; i < this.size(); i++) {
             str.append(this.getObject(i).toString()).append(" \n");
         }

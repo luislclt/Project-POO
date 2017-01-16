@@ -111,7 +111,7 @@ public class ObjectManagement implements ObjectManagementContract{
     @Override
     public String toString() {
         StringBuilder str = new StringBuilder();
-        str.append("Lista: \n");
+        str.append(" ");
         for (int i = 0; i < this.size(); i++) {
             str.append(this.getObject(i).toString()).append(" \n");
         }

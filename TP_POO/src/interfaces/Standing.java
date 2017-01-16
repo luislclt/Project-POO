@@ -18,21 +18,21 @@ public class Standing implements StandingInterface{
     
     //private final String Json_Competitions;
     
-    private int position;
-    private String teamName;
-    private String crestURI;
-    private int playedGames;
-    private int points;
-    private int goals;
-    private int goalsAgainst;
-    private int goalDifference;
-    private int wins;
-    private int draws;
-    private int losses;
-    private StatisticsStanding home;
-    private StatisticsStanding away;
+    private final int position;
+    private final String teamName;
+    private final String crestURI;
+    private final int playedGames;
+    private final int points;
+    private final int goals;
+    private final int goalsAgainst;
+    private final int goalDifference;
+    private final int wins;
+    private final int draws;
+    private final int losses;
+    private final StatisticsStanding home;
+    private final StatisticsStanding away;
     
-    private TeamContract team;
+    private final TeamContract team;
 
     public Standing(int position, String teamName, String crestURI, int playedGames, int points, int goals, int goalsAgainst, int goalDifference, int wins, int draws, int losses, StatisticsStanding home, StatisticsStanding away, TeamContract team) {
         
@@ -120,7 +120,7 @@ public class Standing implements StandingInterface{
 
     @Override
     public String toString() {
-        return "Standing{" + "position = " + position + ", teamName = " + teamName + ", crestURI = " + crestURI + ", playedGames = " + playedGames + ", points = " + points + ", goals = " + goals + ", goalsAgainst = " + goalsAgainst + ", goalDifference = " + goalDifference + ", wins = " + wins + ", draws = " + draws + ", losses = " + losses + ", home = " + home + ", away = " + away + ", team = " + team + "\n}";
+        return "  Standing{" + "position = " + position + ", teamName = " + teamName + ", crestURI = " + crestURI + ", playedGames = " + playedGames + ", points = " + points + ", goals = " + goals + ", goalsAgainst = " + goalsAgainst + ", goalDifference = " + goalDifference + ", wins = " + wins + ", draws = " + draws + ", losses = " + losses + ", home = " + home + ", away = " + away + ", team = " + team + "\n}";
     }
 
     

@@ -1,6 +1,7 @@
 package interfaces;
 
 import interfaces.Management.CompetitionManagementContract;
+import interfaces.Management.FixtureManagement;
 import interfaces.Management.FixtureManagementContract;
 import interfaces.Management.PlayerManagement;
 import interfaces.Management.PlayerManagementContract;
@@ -11,8 +12,11 @@ import interfaces.Management.TeamManagementContract;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -53,6 +57,7 @@ public class MappingJSONToClasses implements MappingJsonToClasses{
     @Override
     public CompetitionManagementContract StringToCompetitions(String arg0) {
         
+        System.out.println("\n Retorno null --> MappingJsonToClasses --> StringToCompetitions");
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
@@ -77,6 +82,15 @@ public class MappingJSONToClasses implements MappingJsonToClasses{
         int numberOfGames;
         String lastUpdated;
         
+        String string_Link;
+        String string_teams_link;
+        String string_href_teams;
+        
+        String string_fixtures_link;
+        String string_href_fixtures;
+        
+        String string_leagueTable_link;
+        String string_href_leagueTable;
         
         JSONParser jsonParser = new JSONParser();
         try{
@@ -87,28 +101,157 @@ public class MappingJSONToClasses implements MappingJsonToClasses{
             //this.leagueTable = new LeagueTable(connection.getLeagueTable(id)); // pedidio no impelements javaDoc
             //this.teams = (TeamManagementContract) new Team(connection.getTeams(id)); // pedidio no impelements javaDoc
             
-            String string_id = object.get("id").toString();
-            id = Integer.parseInt(string_id); // pedidio no impelements javaDoc
+            // Procura apenas pelo "_Links"
+                JSONParser jsonParser_links = new JSONParser();
+
+                Object object_links = jsonParser_links.parse(object.toString());
+                JSONObject Json_object_links = (JSONObject) object_links;
+
+                string_Link = Json_object_links.get("_links").toString();
+                //System.out.println(" StringToCompetition _links: " +string_Link);
+
+                // Procura apenas pelo "team"
+                JSONParser jsonParser_team = new JSONParser();
+
+                Object object_teams = jsonParser_team.parse(string_Link);
+                JSONObject Json_object_teams = (JSONObject) object_teams;
+
+                string_teams_link = Json_object_teams.get("teams").toString();
+                //System.out.println(" StringToCompetition teams: " +string_teams_link);
+
+                // Procura apenas pelo "href"
+                JSONParser jsonParser_href_teams = new JSONParser();
+
+                Object object_href_teams = jsonParser_href_teams.parse(string_teams_link);
+                JSONObject Json_object_href_teams = (JSONObject) object_href_teams;
+
+                string_href_teams = Json_object_href_teams.get("href").toString();
+                //System.out.println(" StringToCompetition href teams = " +string_href_teams);
+                
+                // Procura apenas pelo "fixtures"
+                JSONParser jsonParser_fixtures = new JSONParser();
+
+                Object object_fixtures = jsonParser_fixtures.parse(string_Link);
+                JSONObject Json_object_fixtures = (JSONObject) object_fixtures;
+
+                string_fixtures_link = Json_object_fixtures.get("fixtures").toString();
+                //System.out.println(" StringToCompetition fixtures: " +string_fixtures_link);
+
+                // Procura apenas pelo "href" fixtures
+                JSONParser jsonParser_href_fixtures = new JSONParser();
+
+                Object object_href_fixtures = jsonParser_href_fixtures.parse(string_fixtures_link);
+                JSONObject Json_object_href_fixtures = (JSONObject) object_href_fixtures;
+
+                string_href_fixtures = Json_object_href_fixtures.get("href").toString();
+                System.out.println(" StringToCompetition href fixtures = " +string_href_fixtures);
+                
+                // Procura apenas pelo "leagueTable"
+                JSONParser jsonParser_leagueTable = new JSONParser();
+
+                Object object_leagueTable = jsonParser_leagueTable.parse(string_Link);
+                JSONObject Json_object_leagueTable = (JSONObject) object_leagueTable;
+
+                string_leagueTable_link = Json_object_leagueTable.get("leagueTable").toString();
+                //System.out.println(" StringToCompetition leagueTable: " +string_leagueTable_link);
+
+                // Procura apenas pelo "href" leagueTable
+                JSONParser jsonParser_href_leagueTable = new JSONParser();
+
+                Object object_href_leagueTable = jsonParser_href_leagueTable.parse(string_leagueTable_link);
+                JSONObject Json_object_href_leagueTable = (JSONObject) object_href_leagueTable;
+
+                string_href_leagueTable = Json_object_href_leagueTable.get("href").toString();
+                //System.out.println(" StringToCompetition href leagueTable = " +string_href_leagueTable);
+                
+                // WebConnections
+                WebServiceConnection conection = new WebServiceConnection(apiKey);
+                
+                String team_content = conection.getContent(string_href_teams);
+                teams = StringToTeams(team_content); // Team guardada do Standing[0] array
+                //System.out.println("\n \t Recebe a team do StringToCompetition");
+                
+                System.out.println("\n Mostra Teams da Competition: "+teams.toString());
+                
+                
+                String fixtures_content = conection.getContent(string_href_fixtures);
+                //fixtures = StringToFixtures(teams, fixtures_content);
+                //System.out.println("\n \t Recebe a fixtures do StringToCompetition");
+                
+                String leagueTable_content = conection.getContent(string_href_leagueTable);
+                leagueTable = StringToLeagueTable(teams, leagueTable_content);
+                //System.out.println("\n \t Recebe a leagueTable do StringToCompetition");
+                
+            //String string_id = object.get("id").toString();
+            //id = Integer.parseInt(string_id); // pedidio no impelements javaDoc
+            Object object_id = object.get("id");
+            if(null == object_id){
+                id = 0;
+            }else{
+                id = Integer.parseInt(object_id.toString());
+            }
             
-            String string_year = object.get("year").toString();
-            year = Integer.parseInt(string_year); // pedidio no impelements javaDoc
-    
-            caption = object.get("caption").toString();
+            //String string_year = object.get("year").toString();
+            //year = Integer.parseInt(string_year); // pedidio no impelements javaDoc
+            Object object_year = object.get("year");
+            if(null == object_year){
+                year = 0;
+            }else{
+                year = Integer.parseInt(object_year.toString());
+            }
             
-            String string_currentMatchday = object.get("currentMatchday").toString();
-            currentMatchday = Integer.parseInt(string_currentMatchday);
+            //caption = object.get("caption").toString();
+            Object object_caption = object.get("caption");
+            if(null == object_caption){
+                caption = "null";
+            }else{
+                caption = object_caption.toString();
+            }
             
-            String string_numberOfMatchdays = object.get("numberOfMatchdays").toString();
-            numberOfMatchdays = Integer.parseInt(string_numberOfMatchdays);
+            //String string_currentMatchday = object.get("currentMatchday").toString();
+            //currentMatchday = Integer.parseInt(string_currentMatchday);
+            Object object_currentMatchday = object.get("currentMatchday");
+            if(null == object_currentMatchday){
+                currentMatchday = 0;
+            }else{
+                currentMatchday = Integer.parseInt(object_currentMatchday.toString());
+            }
             
-            String string_numberOfTeams = object.get("numberOfTeams").toString();
-            numberOfTeams = Integer.parseInt(string_numberOfTeams);
+            //String string_numberOfMatchdays = object.get("numberOfMatchdays").toString();
+            //numberOfMatchdays = Integer.parseInt(string_numberOfMatchdays);
+            Object object_numberOfMatchdays = object.get("numberOfMatchdays");
+            if(null == object_numberOfMatchdays){
+                numberOfMatchdays = 0;
+            }else{
+                numberOfMatchdays = Integer.parseInt(object_numberOfMatchdays.toString());
+            }
             
-            String string_numberOfGames = object.get("numberOfGames").toString();
-            numberOfGames = Integer.parseInt(string_numberOfGames);
+            //String string_numberOfTeams = object.get("numberOfTeams").toString();
+            //numberOfTeams = Integer.parseInt(string_numberOfTeams);
+            Object object_numberOfTeams = object.get("numberOfTeams");
+            if(null == object_numberOfTeams){
+                numberOfTeams = 0;
+            }else{
+                numberOfTeams = Integer.parseInt(object_numberOfTeams.toString());
+            }
             
-            lastUpdated = object.get("lastUpdated").toString();
-            
+            //String string_numberOfGames = object.get("numberOfGames").toString();
+            //numberOfGames = Integer.parseInt(string_numberOfGames);
+            Object object_numberOfGames = object.get("numberOfGames");
+            if(null == object_numberOfGames){
+                numberOfGames = 0;
+            }else{
+                numberOfGames = Integer.parseInt(object_numberOfGames.toString());
+            }
+                
+            //lastUpdated = object.get("lastUpdated").toString();   
+            Object object_lastUpdated = object.get("lastUpdated");
+            if(null == object_lastUpdated){
+                lastUpdated = "null";
+            }else{
+                lastUpdated = object_lastUpdated.toString();
+            }
+               
             CompetitionContract competition1 = new Competition(fixtures, leagueTable, teams, id, year, caption, currentMatchday, numberOfMatchdays, numberOfTeams, numberOfGames, lastUpdated);
             
             return competition1;
@@ -116,15 +259,15 @@ public class MappingJSONToClasses implements MappingJsonToClasses{
         }catch ( ParseException ex) {
             System.out.println("\n Erro ParseException --> MappingJSONToClasses --> Competition");
             //Logger.getLogger(FootballContract.class.getName()).log(Level.SEVERE, null, ex);
-        } /*catch (CompetitionNotFoundException ex) {
-            System.out.println("\n Erro CompetitionNotFoundException --> Competition");
-            //Logger.getLogger(Competition.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (WebServiceConnectionError ex) {
-            System.out.println("\n Erro WebServiceConnectionError --> Competition");
-            //Logger.getLogger(Competition.class.getName()).log(Level.SEVERE, null, ex);
-        }*/
+        } catch (IOException ex) {
+            System.out.println("\n Erro IOException --> MappingJSONToClasses --> Competition");
+            //Logger.getLogger(MappingJSONToClasses.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
-        return null;
+        System.out.println("\n Retorno null --> MappingJsonToClasses --> StringToCompetition");
+        //FixtureManagementContract fixtures, LeagueTableContract leagueTable, TeamManagementContract teams, int id, int year, String caption, int currentMatchday, int numberOfMatchdays, int numberOfTeams, int numberOfGames, String lastUpdated
+        CompetitionContract competitionResult = new Competition(fixtures=null, leagueTable=null, teams=null, 0, 0, "null", 0, 0, 0, 0, "null");
+        return competitionResult;
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
@@ -140,7 +283,7 @@ public class MappingJSONToClasses implements MappingJsonToClasses{
         
         String leagueCaption; 
         int matchday; 
-        StandingsManagementContract Standing;//getPlayersFromTeam(arg0); 
+        StandingsManagementContract Standing = null;//getPlayersFromTeam(arg0); 
         
         int position;
         String teamName;
@@ -166,20 +309,14 @@ public class MappingJSONToClasses implements MappingJsonToClasses{
         int wins_away;
         int draws_away;
         int losses_away;
-        /*
-        int goals;
-        int goalsAgainst;
-        int wins;
-        int draws;
-        int losses;
-        */
+        
         StatisticsStanding home;
         StatisticsStanding away;
         
         int count = 0;
         
         String string_Link;
-        String string_players;
+        String string_team;
         String string_href;
         
         JSONParser jsonParser_leagueTable = new JSONParser();
@@ -193,31 +330,37 @@ public class MappingJSONToClasses implements MappingJsonToClasses{
             //String string_count = team.get("count").toString();
             //count = Integer.parseInt(string_count);
             
-            Object string_leagueCaption = leagueTable.get("leagueCaption");
-            if(null == string_leagueCaption){
+            Object object_leagueCaption = leagueTable.get("leagueCaption");
+            if(null == object_leagueCaption){
                 leagueCaption = "null";
             }else{
-                leagueCaption = string_leagueCaption.toString();
+                leagueCaption = object_leagueCaption.toString();
+                //System.out.println("\n LeagueCaption: "+leagueCaption);
             }
                 
-            Object string_matchday = leagueTable.get("matchday");
-            if(null == string_matchday){
+            Object object_matchday = leagueTable.get("matchday");
+            if(null == object_matchday){
                 matchday = 0;
             }else{
-                matchday = Integer.parseInt(string_matchday.toString());
+                matchday = Integer.parseInt(object_matchday.toString());
             }
             
             JSONArray arrayLeagueTable = (JSONArray) leagueTable.get("standing");
             
-            System.out.println("\n\n\t Entra no StringToLeagueTable   --> count do arrayLeagueTable: "+arrayLeagueTable.size());
+            //System.out.println("\n\n\t Entra no StringToLeagueTable   --> count do arrayLeagueTable: "+arrayLeagueTable.size());
             
-            Standing = new StandingsManagement(arrayLeagueTable.size());
+            Standing = new StandingsManagement(arrayLeagueTable.size()+1);
             
             for(int aux=0; aux<arrayLeagueTable.size(); aux++){
                 
                 JSONObject standing = (JSONObject) arrayLeagueTable.get(aux); // position aux 
+                /*
+                System.out.println("\n SantingArray aux:"+aux );
                 
-                System.out.println("\n AUX: "+aux);
+                if(aux == 10 || aux == 20 || aux == 28 || aux == 30){
+                    System.out.println(" Thread.sleep(30 000)"); 
+                    Thread.sleep(30000);//1337
+                }*/
                 
                 // Procura apenas pelo "_Links"
                 JSONParser jsonParser_links = new JSONParser();
@@ -226,7 +369,7 @@ public class MappingJSONToClasses implements MappingJsonToClasses{
                 JSONObject Json_object_links = (JSONObject) object_links;
 
                 string_Link = Json_object_links.get("_links").toString();
-                System.out.println("\nStringToTeam _links:\n" +string_Link);
+                //System.out.println(" StringTostanding _links: " +string_Link);
 
                 // Procura apenas pelo "team"
                 JSONParser jsonParser_players = new JSONParser();
@@ -234,98 +377,99 @@ public class MappingJSONToClasses implements MappingJsonToClasses{
                 Object object_players = jsonParser_players.parse(string_Link);
                 JSONObject Json_object_players = (JSONObject) object_players;
 
-                string_players = Json_object_players.get("team").toString();
-                System.out.println("\nStringToTeam team:\n" +string_players);
+                string_team = Json_object_players.get("team").toString();
+                //System.out.println(" From StringToLeagueTable --> StringTostanding team: " +string_team);
 
                 // Procura apenas pelo "href"
                 JSONParser jsonParser_href = new JSONParser();
 
-                Object object_href = jsonParser_href.parse(string_players);
+                Object object_href = jsonParser_href.parse(string_team);
                 JSONObject Json_object_href = (JSONObject) object_href;
 
                 string_href = Json_object_href.get("href").toString();
-                System.out.println("\nStringToTeam href = " +string_href);
+                System.out.println(" From StringToLeagueTable --> StringTostanding href = " +string_href);
                 
                 WebServiceConnection conection = new WebServiceConnection(apiKey);
                 String team_content = conection.getContent(string_href);
                 
                 TeamContract team = StringToTeam(team_content); // Team guardada do Standing[0] array
+                //System.out.println("\n \t Recebe a team do Standing --> OK");
                 
-                Object string_position = standing.get("position");
-                if(null == string_position){
+                Object object_position = standing.get("position");
+                if(null == object_position){
                     position = 0;
                 }else{
-                    position = Integer.parseInt(string_position.toString());
+                    position = Integer.parseInt(object_position.toString());
                 }
                 
-                Object string_teamName = standing.get("teamName");
-                if(null == string_teamName){
+                Object object_teamName = standing.get("teamName");
+                if(null == object_teamName){
                     teamName = "null";
                 }else{
-                    teamName = string_teamName.toString();
+                    teamName = object_teamName.toString();
                 }
                 
-                Object string_crestURI = standing.get("crestURI");
-                if(null == string_crestURI){
+                Object object_crestURI = standing.get("crestURI");
+                if(null == object_crestURI){
                     crestURI = "null";
                 }else{
-                    crestURI = string_crestURI.toString();
+                    crestURI = object_crestURI.toString();
                 }
                 
-                Object string_playedGames = standing.get("playedGames");
-                if(null == string_playedGames){
+                Object object_playedGames = standing.get("playedGames");
+                if(null == object_playedGames){
                     playedGames = 0;
                 }else{
-                    playedGames = Integer.parseInt(string_playedGames.toString());
+                    playedGames = Integer.parseInt(object_playedGames.toString());
                 }
                 
-                Object string_points = standing.get("points");
-                if(null == string_points){
+                Object object_points = standing.get("points");
+                if(null == object_points){
                     points = 0;
                 }else{
-                    points = Integer.parseInt(string_points.toString());
+                    points = Integer.parseInt(object_points.toString());
                 }
                 
-                Object string_goals = standing.get("goals");
-                if(null == string_goals){
+                Object object_goals = standing.get("goals");
+                if(null == object_goals){
                     goals_standing = 0;
                 }else{
-                    goals_standing = Integer.parseInt(string_goals.toString());
+                    goals_standing = Integer.parseInt(object_goals.toString());
                 }
                 
-                Object string_goalsAgainst = standing.get("goalsAgainst");
-                if(null == string_goalsAgainst){
+                Object object_goalsAgainst = standing.get("goalsAgainst");
+                if(null == object_goalsAgainst){
                     goalsAgainst_standing = 0;
                 }else{
-                    goalsAgainst_standing = Integer.parseInt(string_goalsAgainst.toString());
+                    goalsAgainst_standing = Integer.parseInt(object_goalsAgainst.toString());
                 }
                 
-                Object string_goalDifference = standing.get("goalDifference");
-                if(null == string_goalDifference){
+                Object object_goalDifference = standing.get("goalDifference");
+                if(null == object_goalDifference){
                     goalDifference_standing = 0;
                 }else{
-                    goalDifference_standing = Integer.parseInt(string_goalDifference.toString());
+                    goalDifference_standing = Integer.parseInt(object_goalDifference.toString());
                 }
                 
-                Object string_wins = standing.get("wins");
-                if(null == string_wins){
+                Object object_wins = standing.get("wins");
+                if(null == object_wins){
                     wins_standing = 0;
                 }else{
-                    wins_standing = Integer.parseInt(string_wins.toString());
+                    wins_standing = Integer.parseInt(object_wins.toString());
                 }
                 
-                Object string_draws = standing.get("draws");
-                if(null == string_draws){
+                Object object_draws = standing.get("draws");
+                if(null == object_draws){
                     draws_standing = 0;
                 }else{
-                    draws_standing = Integer.parseInt(string_draws.toString());
+                    draws_standing = Integer.parseInt(object_draws.toString());
                 }
                 
-                Object string_losses = standing.get("losses");
-                if(null == string_losses){
+                Object object_losses = standing.get("losses");
+                if(null == object_losses){
                     losses_standing = 0;
                 }else{
-                    losses_standing = Integer.parseInt(string_losses.toString());
+                    losses_standing = Integer.parseInt(object_losses.toString());
                 }
                 //
                 //  Lê no objecto Json "home"
@@ -366,82 +510,94 @@ public class MappingJSONToClasses implements MappingJsonToClasses{
                 }else{
                     losses_home = Integer.parseInt(object_losses_home.toString());
                 }
-                
                 //
                 // Cria o Objecto home
-                
                 home = new StatisticsStanding(goals_home, goalsAgainst_home, wins_home, draws_home, losses_home);
-                
-                //  Lê no objecto Json "away"
                 //
+                //  Lê no objecto Json "away"
                 JSONObject object_away = (JSONObject) standing.get("away");
                 
-                Object object_goals_away = object_home.get("goals");
+                Object object_goals_away = object_away.get("goals");
                 if(null == object_goals_away){
                     goals_away = 0;
                 }else{
                     goals_away = Integer.parseInt(object_goals_away.toString());
                 }
                 
-                Object object_goalsAgainst_away = object_home.get("goalsAgainst");
+                Object object_goalsAgainst_away = object_away.get("goalsAgainst");
                 if(null == object_goalsAgainst_away){
                     goalsAgainst_away = 0;
                 }else{
                     goalsAgainst_away = Integer.parseInt(object_goalsAgainst_away.toString());
                 }
                                 
-                Object object_wins_away = object_home.get("wins");
+                Object object_wins_away = object_away.get("wins");
                 if(null == object_wins_away){
                     wins_away = 0;
                 }else{
                     wins_away = Integer.parseInt(object_wins_away.toString());
                 }
                 
-                Object object_draws_away = object_home.get("draws");
+                Object object_draws_away = object_away.get("draws");
                 if(null == object_draws_away){
                     draws_away = 0;
                 }else{
                     draws_away = Integer.parseInt(object_draws_away.toString());
                 }
                 
-                Object object_losses_away = object_home.get("losses");
+                Object object_losses_away = object_away.get("losses");
                 if(null == object_losses_away){
                     losses_away = 0;
                 }else{
                     losses_away = Integer.parseInt(object_losses_away.toString());
                 }
                 // Cria o Objecto away
-                //
                 away = new StatisticsStanding(goals_away, goalsAgainst_away, wins_away, draws_away, losses_away);
                 
                 StandingInterface standingArray = new Standing(position, teamName, crestURI, playedGames, points, goals_standing, goalsAgainst_standing, goalDifference_standing, wins_standing, draws_standing, losses_standing, home, away, team);
-                
                 Standing.addObject(standingArray);
                 
-                //TeamManagementContract arg0
-                if(arg0.equals(team)){
-                    count++;
+                //System.out.println("\n Apresenta arg0 : "+arg0.toString());
+                /*
+                TeamManagement teamManagementCompara = (TeamManagement) arg0;
+                
+                //SArrays.sort(teamManagementCompara, teamManagementCompara, Arrays.ASCENDING);ystem.out.println("\n\n arg0 --> teamManagementCompara: "+teamManagementCompara.toString());
+                
+                for(int j=0; j<teamManagementCompara.size(); j++){
+                    
+                    Team teamCompara = (Team) teamManagementCompara.getObject(j);
+                    
+                    //System.out.println("\n teamCompara de .getObject("+j+"): "+teamCompara.toString());
+                    //System.out.println("\n team do LeagueTable aux: "+aux+": "+team.toString());
+                    
+                    System.out.println("\n\n    Nomes a compara teamCompara(arg0).getname: "+teamCompara.getName() +" team.getname: "+team.getName());
+                    
+                    if(teamCompara.getName().equals(team.getName())){
+                        count++;
+                        System.out.println("\n   count incrementa: "+count);
+                        
+                    }else{
+                        System.out.println("\n   count: "+count);
+                    }
                 }
+                */
+                
+                //System.out.println("\n Finalza Santing aux:"+aux+" StandingArray --> Standing["+aux+"]: "+standingArray.toString());
                 
             }// Percorre array standing  --> internamente guarda no construtor a team
             
-            if(count > 0){
+            //TeamManagement teamManagementCompara = (TeamManagement) arg0;
+            //if(count == teamManagementCompara.size()){
                 
-                System.out.println("\n\n\t ENTRA no if count > 0 do StringToLeagueTable(TeamManagementContract arg0, String arg1)");
+                //System.out.println("\n\n\t ENTRA no if count > 0 do StringToLeagueTable(TeamManagementContract arg0, String arg1)");
                 
                 LeagueTable leaguetable1 = new LeagueTable(leagueCaption, matchday, Standing);
-            
+                
+                //System.out.println("leagueTable = "+leaguetable1.toString());
+                
                 return leaguetable1;
                 
-            }else{
-                
-                System.out.println("\n\n\t ENTRA no >  ELSE  <   (null) -->    count > 0");
-                
-                //LeagueTable leaguetable = new LeagueTable(null, 0, null);
-                
-                return null;
-                
-            } 
+            //}
             
             //return teamManagement;
         }catch ( ParseException ex) {
@@ -450,7 +606,9 @@ public class MappingJSONToClasses implements MappingJsonToClasses{
             System.out.println("\n Erro IOException --> MappingJSONToClasses --> LeagueTable || Team");
         }
         
-        return null;
+        System.out.println("\n Retorno null --> MappingJsonToClasses --> StringToLeagueTable");
+        LeagueTable leaguetableresult = new LeagueTable("null", 0, Standing=null);
+        return leaguetableresult;
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
@@ -467,136 +625,12 @@ public class MappingJSONToClasses implements MappingJsonToClasses{
         
         
         
+        System.out.println("\n Retorno null --> MappingJsonToClasses --> StringToFixtures");
         
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        FixtureManagementContract fixtureManagementResult = new FixtureManagement(null);
+        return fixtureManagementResult;
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
-    
-    /*
-    * Método responsável por retornar uma equipa
-    * tendo por base uma string em formato JSON
-    * @param String content_team
-    * return equipa
-    */
-    public TeamContract StringToTeam(String content_team){
-        
-        String name; 
-        String Code; 
-        String SquadMarketValue; 
-        PlayerManagementContract Players;//getPlayersFromTeam(arg0);
-        
-        String shortName;
-        String crestUrl;
-        int count;
-        
-        String string_Link;
-        String string_players;
-        String string_href;
-        
-        JSONParser jsonParser_team = new JSONParser();
-        
-        try{
-            
-            JSONObject team = (JSONObject) jsonParser_team.parse(content_team); //
-            
-            System.out.println("\n\n\t Entra no StringToTeam   --> apenas recebe content_team");
-            
-            //Code = team.get("code").toString();
-            Object string_code = team.get("code");
-            if(null == string_code){
-                Code = "null";
-            }else{
-                Code = string_code.toString();
-            }
-            
-            //String string_count = team.get("count").toString();
-            //count = Integer.parseInt(string_count);
-            Object string_count = team.get("count");
-            if(null == string_count){
-                count = 0;
-            }else{
-                count = Integer.parseInt(string_count.toString());
-            }
-            
-            Object string_name = team.get("name");
-            if(null == string_name){
-                name = "null";
-            }else{
-                name = string_name.toString();
-            }
-                
-            //SquadMarketValue = team.get("squadMarketValue").toString();
-            Object string_squadMarketValue = team.get("squadMarketValue");
-            if(null == string_squadMarketValue){
-                SquadMarketValue = "null";
-            }else{
-                SquadMarketValue = string_squadMarketValue.toString();
-            }
-                
-            //shortName = team.get("shortName").toString();
-            Object string_shortName = team.get("shortName");
-            if(null == string_shortName){
-                shortName = "null";
-            }else{
-                shortName = string_shortName.toString();
-            }
-                
-            //crestUrl = team.get("crestUrl").toString();
-            Object string_crestUrl = team.get("crestUrl");
-            if(null == string_crestUrl){
-                crestUrl = "null";
-            }else{
-                crestUrl = string_crestUrl.toString();
-            }
-            
-                // Procura apenas pelo "_Links"
-                JSONParser jsonParser_links = new JSONParser();
-
-                Object object_links = jsonParser_links.parse(team.toString());
-                JSONObject Json_object_links = (JSONObject) object_links;
-
-                string_Link = Json_object_links.get("_links").toString();
-                System.out.println("\nStringToTeam _links:\n" +string_Link);
-
-                // Procura apenas pelo "players"
-                JSONParser jsonParser_players = new JSONParser();
-
-                Object object_players = jsonParser_players.parse(string_Link);
-                JSONObject Json_object_players = (JSONObject) object_players;
-
-                string_players = Json_object_players.get("players").toString();
-                System.out.println("\nStringToTeam players:\n" +string_players);
-
-                // Procura apenas pelo "href"
-                JSONParser jsonParser_href = new JSONParser();
-
-                Object object_href = jsonParser_href.parse(string_players);
-                JSONObject Json_object_href = (JSONObject) object_href;
-
-                string_href = Json_object_href.get("href").toString();
-                System.out.println("\nStringToTeam href = " +string_href);
-                
-                WebServiceConnection conection = new WebServiceConnection(apiKey);
-                String players_content = conection.getContent(string_href);
-                
-                Players = getPlayersFromTeam(players_content);
-                
-                
-                TeamContract teamRetorno = new Team(name, Code, SquadMarketValue, Players, shortName, crestUrl);
-                
-            
-            return teamRetorno;
-            
-        }catch ( ParseException ex) {
-            System.out.println("\n Erro ParseException --> MappingJSONToClasses --> Team");
-        } catch (IOException ex) {
-            System.out.println("\n Erro IOException --> MappingJSONToClasses --> Team");
-        }
-        
-        return null;
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates. 
-    }
-    
     
     
     /*
@@ -611,7 +645,7 @@ public class MappingJSONToClasses implements MappingJsonToClasses{
         String name; // pedidio no impelements javaDoc
         String Code; // pedidio no impelements javaDoc
         String SquadMarketValue; // pedidio no impelements javaDoc
-        PlayerManagementContract Players;//getPlayersFromTeam(arg0); // pedidio no impelements javaDoc
+        PlayerManagementContract Players = null;//getPlayersFromTeam(arg0); // pedidio no impelements javaDoc
         
         String shortName;
         String crestUrl;
@@ -621,28 +655,42 @@ public class MappingJSONToClasses implements MappingJsonToClasses{
         String string_players;
         String string_href;
         
+        TeamManagementContract teamManagement = null;
+        
+        
         JSONParser jsonParser_team = new JSONParser();
         
         try{
             
-            //JSONObject object = (JSONObject) jsonParser_team.parse(arg0); //
-            
             JSONObject Json_object = (JSONObject) jsonParser_team.parse(arg0);
             
-            String string_count = Json_object.get("count").toString();
-            count = Integer.parseInt(string_count);
+            //String string_count = Json_object.get("count").toString();
+            //count = Integer.parseInt(string_count);
+            Object object_count = Json_object.get("count");
+            if(null == object_count){
+                count = 0;
+            }else{
+                count = Integer.parseInt(object_count.toString());
+            }
+            //System.out.println("\n\n\t Entra no StringToTeams   --> count "+count);
             
-            System.out.println("\n\n\t Entra no StringToTeams   --> count "+count);
-            
-            TeamManagementContract teamManagement = new TeamManagement(count+1);
+            if(count != 0){
+                teamManagement = new TeamManagement(count+1);
+                
+            }else{
+                teamManagement = null;
+                //System.out.println("\n teamManagement = null ");
+            }
             
             JSONArray arrayTeams = (JSONArray) Json_object.get("teams");
+            
+            //System.out.println("\n count: "+count +"  arrayTeams Size: "+arrayTeams.size());
             
             for(int aux=0; aux<count; aux++){
                 
                 JSONObject team = (JSONObject) arrayTeams.get(aux); // position aux 
                 
-                System.out.println("\n AUX: "+aux +" count: "+count);
+                //System.out.println("\n AUX: "+aux +" count: "+count);
                 
                 // Procura apenas pelo "_Links"
                 JSONParser jsonParser_links = new JSONParser();
@@ -651,7 +699,7 @@ public class MappingJSONToClasses implements MappingJsonToClasses{
                 JSONObject Json_object_links = (JSONObject) object_links;
 
                 string_Link = Json_object_links.get("_links").toString();
-                System.out.println("\nStringToTeams _links:\n" +string_Link);
+                //System.out.println("\nStringToTeams _links:\n" +string_Link);
 
                 // Procura apenas pelo "players"
                 JSONParser jsonParser_players = new JSONParser();
@@ -659,8 +707,8 @@ public class MappingJSONToClasses implements MappingJsonToClasses{
                 Object object_players = jsonParser_players.parse(string_Link);
                 JSONObject Json_object_players = (JSONObject) object_players;
 
-                string_players = Json_object_players.get("players").toString();
-                System.out.println("\nStringToTeams players:\n" +string_players);
+                string_players = Json_object_players.get("self").toString(); // players
+                //System.out.println("\nStringToTeams self:\n" +string_players);
 
                 // Procura apenas pelo "href"
                 JSONParser jsonParser_href = new JSONParser();
@@ -668,59 +716,59 @@ public class MappingJSONToClasses implements MappingJsonToClasses{
                 Object object_href = jsonParser_href.parse(string_players);
                 JSONObject Json_object_href = (JSONObject) object_href;
 
-                string_href = Json_object_href.get("href").toString();
-                System.out.println("\nStringToTeams href = " +string_href);
+                string_href = Json_object_href.get("href").toString(); // envia ex:v1/teams/496
+                //System.out.println("\n StringToTeams href = " +string_href);
                 
                 WebServiceConnection conection = new WebServiceConnection(apiKey);
                 String players_content = conection.getContent(string_href);
                 
                 Players = getPlayersFromTeam(players_content);
                 
-                
                 //Players = new Players(connection.getPlayers(id)); // pedidio no impelements javaDoc
                 //name = team.get("name").toString();
-                Object string_name = team.get("name");
-                if(null == string_name){
+                Object object_name = team.get("name");
+                if(null == object_name){
                     name = "null";
                 }else{
-                    name = string_name.toString();
+                    name = object_name.toString();
                 }
                 
                 //Code = team.get("code").toString();
-                Object string_code = team.get("code");
-                if(null == string_code){
+                Object object_code = team.get("code");
+                if(null == object_code){
                     Code = "null";
                 }else{
-                    Code = string_code.toString();
+                    Code = object_code.toString();
                 }
                 
                 //SquadMarketValue = team.get("squadMarketValue").toString();
-                Object string_squadMarketValue = team.get("squadMarketValue");
-                if(null == string_squadMarketValue){
+                Object object_squadMarketValue = team.get("squadMarketValue");
+                if(null == object_squadMarketValue){
                     SquadMarketValue = "null";
                 }else{
-                    SquadMarketValue = string_squadMarketValue.toString();
+                    SquadMarketValue = object_squadMarketValue.toString();
                 }
                 
                 //shortName = team.get("shortName").toString();
-                Object string_shortName = team.get("shortName");
-                if(null == string_shortName){
+                Object object_shortName = team.get("shortName");
+                if(null == object_shortName){
                     shortName = "null";
                 }else{
-                    shortName = string_shortName.toString();
+                    shortName = object_shortName.toString();
                 }
                 
                 //crestUrl = team.get("crestUrl").toString();
-                Object string_crestUrl = team.get("crestUrl");
-                if(null == string_crestUrl){
+                Object object_crestUrl = team.get("crestUrl");
+                if(null == object_crestUrl){
                     crestUrl = "null";
                 }else{
-                    crestUrl = string_crestUrl.toString();
+                    crestUrl = object_crestUrl.toString();
                 }
                 
                 TeamContract team1 = new Team(name, Code, SquadMarketValue, Players, shortName, crestUrl);
                 
-                teamManagement.addObject(team1);
+                if(teamManagement!= null) teamManagement.addObject(team1);
+                //System.out.println("\n MappingJsonToClasses -->StringToTeam --> team adiciona FOR(aux)("+aux+") --> OK");
                 
             }
             return teamManagement;
@@ -730,8 +778,9 @@ public class MappingJSONToClasses implements MappingJsonToClasses{
         } catch (IOException ex) {
             System.out.println("\n Erro IOException --> MappingJSONToClasses --> Team");
         }
-        
-        return null;
+        System.out.println("\n Retorno null --> MappingJsonToClasses --> StringToTeams");
+        TeamManagementContract teamResult = new TeamManagement(null);
+        return teamResult;
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
@@ -751,7 +800,9 @@ public class MappingJSONToClasses implements MappingJsonToClasses{
         String marketValue; // pedidio no impelements javaDoc
         int age; // pedidio no impelements javaDoc
     
-        int count;
+        int count; // contador auxiliar
+        PlayerManagementContract playerManagement = null;
+        
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date dateOfBirth;
         Date contractUntil;
@@ -761,89 +812,126 @@ public class MappingJSONToClasses implements MappingJsonToClasses{
         String string_href;
         
         
-        JSONParser jsonParser = new JSONParser();
+        JSONParser Json_Parser = new JSONParser();
         try{
             
-            JSONObject Json_object_team = (JSONObject) jsonParser.parse(arg0); 
+            JSONObject Json_object_team = (JSONObject) Json_Parser.parse(arg0); 
             
-            //JSONObject Json_object = (JSONObject) jsonParser.parse(players_content);
-            JSONObject Json_object = (JSONObject) jsonParser.parse(Json_object_team.toString());
+            // Procura apenas pelo "_Links"
+            JSONParser jsonParser_links = new JSONParser();
+
+            Object object_links = jsonParser_links.parse(Json_object_team.toString());
+            JSONObject Json_object_links = (JSONObject) object_links;
+
+            string_Link = Json_object_links.get("_links").toString();
+            //System.out.println("\nStringToTeams _links:\n" +string_Link);
+
+            // Procura apenas pelo "players"
+            JSONParser jsonParser_players = new JSONParser();
+
+            Object object_players = jsonParser_players.parse(string_Link);
+            JSONObject Json_object_players = (JSONObject) object_players;
+
+            string_players = Json_object_players.get("players").toString();
+            //System.out.println("\nStringToTeams players:\n" +string_players);
+
+            // Procura apenas pelo "href"
+            JSONParser jsonParser_href = new JSONParser();
+
+            Object object_href = jsonParser_href.parse(string_players);
+            JSONObject Json_object_href = (JSONObject) object_href;
+
+            string_href = Json_object_href.get("href").toString();
+            //System.out.println("\nStringToTeams href = " +string_href);
+
+            WebServiceConnection conection = new WebServiceConnection(apiKey);
+            String players_content = conection.getContent(string_href);
             
-            String string_count = Json_object.get("count").toString();
-            count = Integer.parseInt(string_count);
+            JSONObject JSONObject_players = (JSONObject) Json_Parser.parse(players_content);
             
-            System.out.println("\n\n\t Entra no getPlayersFromTeam   --> count "+count);
+            //String string_count = Json_object.get("count").toString();
+            //count = Integer.parseInt(string_count);
+            Object object_count = JSONObject_players.get("count");
+            if(null == object_count){
+                count = 0;
+            }else{
+                count = Integer.parseInt(object_count.toString());
+            }
             
-            PlayerManagementContract playerManagement = new PlayerManagement(count);
+            //System.out.println("\n count: "+count); 
+            //System.out.println("\n\n\t Entra no getPlayersFromTeam   --> count "+count);
+            if(count != 0){
+                playerManagement = new PlayerManagement(count+1);
+            }else playerManagement=null;
             
-            JSONArray arrayPlayers = (JSONArray) Json_object.get("players");
+            JSONArray arrayPlayers = (JSONArray) JSONObject_players.get("players");
+            //System.out.println("\n arrayplayers "+arrayPlayers.toString());
             
             for(int aux=0; aux<count; aux++){
                 
                 JSONObject player = (JSONObject) arrayPlayers.get(aux); // position aux 
                 
                 //name = player.get("name").toString();//.get("id").toString();
-                Object string_name = player.get("name");
-                if(null == string_name){
+                Object object_name = player.get("name");
+                if(null == object_name){
                     name = "null";
                 }else{
-                    name = string_name.toString();
+                    name = object_name.toString();
                 }
                 
                 //position = player.get("position").toString();
-                Object string_position = player.get("position");
-                if(null == string_position){
+                Object object_position = player.get("position");
+                if(null == object_position){
                     position = "null";
                 }else{
-                    position = string_position.toString();
+                    position = object_position.toString();
                 }
                 
                 //String string_dateOfBirth = player.get("dateOfBirth").toString();
                 //dateOfBirth = dateFormat.parse(string_dateOfBirth.toString());
-                Object string_dateOfBirth = player.get("dateOfBirth");
-                if(null == string_dateOfBirth){
+                Object object_dateOfBirth = player.get("dateOfBirth");
+                if(null == object_dateOfBirth){
                     dateOfBirth = dateFormat.parse("0-0-0");
                 }else{
                     //position = string_dateOfBirth.toString();
-                    dateOfBirth = dateFormat.parse(string_dateOfBirth.toString());
+                    dateOfBirth = dateFormat.parse(object_dateOfBirth.toString());
                 }
                 
-
                 String nationalityTemp = player.get("nationality").toString();
                 nationality = new Nationality(nationalityTemp);
-                Object string_nationality = player.get("nationality");
-                if(null == string_nationality){
+                Object object_nationality = player.get("nationality");
+                if(null == object_nationality){
                     nationality = new Nationality("Not Found");
                 }else{
-                    nationality = new Nationality(string_nationality.toString());
+                    nationality = new Nationality(object_nationality.toString());
                 }
                 
                 
                 //String string_contractUntil = player.get("contractUntil").toString();
                 //contractUntil = dateFormat.parse(string_contractUntil);
-                Object string_contractUntil = player.get("contractUntil");
-                if(null == string_contractUntil){
+                Object object_contractUntil = player.get("contractUntil");
+                if(null == object_contractUntil){
                     contractUntil = dateFormat.parse("0-0-0");
                 }else{
                     //position = string_dateOfBirth.toString();
-                    contractUntil = dateFormat.parse(string_contractUntil.toString());
+                    contractUntil = dateFormat.parse(object_contractUntil.toString());
                 }
                 
                 
                 //marketValue = player.get("marketValue").toString();
-                Object string_marketValue = player.get("marketValue");
-                if(null == string_marketValue){
+                Object object_marketValue = player.get("marketValue");
+                if(null == object_marketValue){
                     marketValue = "null";
                 }else{
-                    marketValue = string_marketValue.toString();
+                    marketValue = object_marketValue.toString();
                 }
                 
                 
-                Object string_jerseyNumber = player.get("jerseyNumber");
-                if(null == string_jerseyNumber){
+                Object object_jerseyNumber = player.get("jerseyNumber");
+                if(null == object_jerseyNumber){
                     jerseyNumber = 0;
                 }else{
-                    jerseyNumber = Integer.parseInt(string_jerseyNumber.toString());
+                    jerseyNumber = Integer.parseInt(object_jerseyNumber.toString());
                 }
                 
                 // Calcular idade player
@@ -861,8 +949,8 @@ public class MappingJSONToClasses implements MappingJsonToClasses{
                 
                 playerManagement.addObject(player1);
                 
-                System.out.println("\n Player --> getPlayerFromTeam: \n"+player1.toString());
-                
+                //System.out.println("\n Player --> getPlayerFromTeam: -> aux: "+aux+" -->  "+player1.toString());
+                //System.out.println(" Player --> getPlayerFromTeam -> aux: "+aux+" --> OK \n");
             }
             
             return playerManagement;
@@ -871,11 +959,133 @@ public class MappingJSONToClasses implements MappingJsonToClasses{
             System.out.println("\n Erro ParseException --> MappingJSONToClasses --> Player\n");
             
         } catch (java.text.ParseException ex) {
-            System.out.println("\n Erro ParseException --> Assign_Data - DOB --> MappingJSONToClasses --> Player\n");
+            System.out.println("\n Erro ParseException --> Assign_Data - DOB --> MappingJSONToClasses --> getPlayersFromTeam");
+        } catch (IOException ex) {
+            System.out.println("\n Erro IOException --> MappingJSONToClasses --> getPlayersFromTeam");
+        }
+        System.out.println("\n Retorno null --> MappingJsonToClasses --> GetPlayersFromTeam");
+        PlayerManagementContract playerManagementResult = new PlayerManagement(null);
+        return playerManagementResult;
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    /*
+    * Método responsável por retornar uma equipa
+    * tendo por base uma string em formato JSON
+    * @param String content_team
+    * return equipa
+    */
+    public TeamContract StringToTeam(String content_team){
+        
+        String name; 
+        String Code; 
+        String SquadMarketValue; 
+        PlayerManagementContract Players;//getPlayersFromTeam(arg0);
+        
+        String shortName;
+        String crestUrl;
+        //int count;
+        
+        String string_Link;
+        String string_players;
+        String string_href;
+        
+        
+        JSONParser jsonParser_team = new JSONParser();
+        
+        try{
+            JSONObject team = (JSONObject) jsonParser_team.parse(content_team); //
+            //System.out.println("\n\n\t Entra no StringToTeam   --> apenas recebe content_team");
+            
+            // Procura apenas pelo "_Links"
+            string_Link = team.get("_links").toString();
+            //System.out.println(" StringToTeam _links: " +string_Link);
+
+            // Procura apenas pelo "players"
+            JSONParser jsonParser_players = new JSONParser();
+
+            Object object_players = jsonParser_players.parse(string_Link);
+            JSONObject Json_object_players = (JSONObject) object_players;
+
+            string_players = Json_object_players.get("self").toString();
+            //System.out.println(" StringToTeam players: " +string_players);
+
+            // Procura apenas pelo "href"
+            JSONParser jsonParser_href = new JSONParser();
+
+            Object object_href = jsonParser_href.parse(string_players);
+            JSONObject Json_object_href = (JSONObject) object_href;
+
+            string_href = Json_object_href.get("href").toString();
+            //System.out.println(" StringToTeam href = " +string_href);
+
+            WebServiceConnection conection = new WebServiceConnection(apiKey);
+            String players_content = conection.getContent(string_href);
+
+            Players = getPlayersFromTeam(players_content);
+            
+            //Code = team.get("code").toString();
+            Object object_code = team.get("code");
+            if(null == object_code){
+                Code = "null";
+            }else{
+                Code = object_code.toString();
+            }
+            /*
+            //String string_count = team.get("count").toString();
+            //count = Integer.parseInt(string_count);
+            Object object_count = team.get("count");
+            if(null == object_count){
+                count = 0;
+            }else{
+                count = Integer.parseInt(object_count.toString());
+            }*/
+            
+            Object object_name = team.get("name");
+            if(null == object_name){
+                name = "null";
+            }else{
+                name = object_name.toString();
+            }
+                
+            //SquadMarketValue = team.get("squadMarketValue").toString();
+            Object object_squadMarketValue = team.get("squadMarketValue");
+            if(null == object_squadMarketValue){
+                SquadMarketValue = "null";
+            }else{
+                SquadMarketValue = object_squadMarketValue.toString();
+            }
+                
+            //shortName = team.get("shortName").toString();
+            Object object_shortName = team.get("shortName");
+            if(null == object_shortName){
+                shortName = "null";
+            }else{
+                shortName = object_shortName.toString();
+            }
+                
+            //crestUrl = team.get("crestUrl").toString();
+            Object object_crestUrl = team.get("crestUrl");
+            if(null == object_crestUrl){
+                crestUrl = "null";
+            }else{
+                crestUrl = object_crestUrl.toString();
+            }
+            
+            TeamContract teamRetorno = new Team(name, Code, SquadMarketValue, Players, shortName, crestUrl);
+            System.out.println("  MappingJsonToClasses --> StringToTeam(content_Team) --> "+teamRetorno.toString());
+            return teamRetorno;
+            
+        }catch ( ParseException ex) {
+            System.out.println("\n Erro ParseException --> MappingJSONToClasses --> StringToTeam");
+        } catch (IOException ex) {
+            System.out.println("\n Erro IOException --> MappingJSONToClasses --> StringToTeam");
         }
         
-        return null;
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        System.out.println("\n Retorno null --> MappingJsonToClasses --> StringToTeam(content_Team)");
+        TeamContract teamResult = new Team("null", "null", "null", Players=null, "null", "null");
+        return teamResult;
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates. 
     }
     
 }

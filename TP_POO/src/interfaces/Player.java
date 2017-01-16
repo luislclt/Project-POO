@@ -115,7 +115,7 @@ public class Player implements PlayerContract{
     @Override
     public String toString() {
         
-        return "Player{" + "name = " + name + ", position = " + position + ", jerseyNumber = " + jerseyNumber + ", dateOfBirth = " + dateFormat.format(dateOfBirth) + ", nationality = " + nationality + ", contractUntil = " + dateFormat.format(contractUntil) + ", marketValue = " + marketValue + ", age = " + age + "\n}";
+        return " Player{" + " name = " + name + ", position = " + position + ", jerseyNumber = " + jerseyNumber + ", dateOfBirth = " + dateFormat.format(dateOfBirth) + ", nationality = " + nationality + ", contractUntil = " + dateFormat.format(contractUntil) + ", marketValue = " + marketValue + ", age = " + age + " }";
     }
 
     

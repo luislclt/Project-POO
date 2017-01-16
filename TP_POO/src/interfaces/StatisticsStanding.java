@@ -46,7 +46,7 @@ public class StatisticsStanding {
 
     @Override
     public String toString() {
-        return  "goals = " + goals + ", goalsAgainst = " + goalsAgainst + ", wins = " + wins + ", draws = " + draws + ", losses = " + losses;
+        return  " goals = " + goals + ", goalsAgainst = " + goalsAgainst + ", wins = " + wins + ", draws = " + draws + ", losses = " + losses;
     }
     
     

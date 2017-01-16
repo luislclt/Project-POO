@@ -1,5 +1,6 @@
 package interfaces.Management;
 
+import interfaces.Fixture;
 import interfaces.FixtureContract;
 import interfaces.TeamContract;
 
@@ -14,20 +15,20 @@ import interfaces.TeamContract;
 */
 public class FixtureManagement implements FixtureManagementContract{
     
-    private final Object objects[];
+    private final Fixture objects[]; //Object
     
     /**
      * Construtor que permite a instanciação da classe por valor DEFAULT_SIZE
      */
     public FixtureManagement() {
-        this.objects = new Object[DEFAULT_SIZE];
+        this.objects = new Fixture[DEFAULT_SIZE];
     }
     
     /**
      * Construtor que permite a instanciação da classe por coleção de objectos
      * @param o uma coleção de objectos
      */
-    public FixtureManagement(Object[] o) {
+    public FixtureManagement(Fixture[] o) {
         this.objects = o;
     }
     
@@ -36,7 +37,7 @@ public class FixtureManagement implements FixtureManagementContract{
      * @param maxSize número máximo de elementos permitidos no vetor
      */
     public FixtureManagement(int maxSize) {
-        this.objects = new Object[maxSize];
+        this.objects = new Fixture[maxSize];
     }
     
     /*
@@ -48,6 +49,8 @@ public class FixtureManagement implements FixtureManagementContract{
     */
     @Override
     public FixtureContract getFixture(int arg0, TeamContract arg1, TeamContract arg2) {
+        
+        
         
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
@@ -63,7 +66,7 @@ public class FixtureManagement implements FixtureManagementContract{
         if (tamanho == this.objects.length) {
             return false;
         } else {
-            this.objects[tamanho] = newObject;
+            this.objects[tamanho] = (Fixture) newObject;
             return true;
         }
     }
@@ -127,7 +130,7 @@ public class FixtureManagement implements FixtureManagementContract{
     @Override
     public String toString() {
         StringBuilder str = new StringBuilder();
-        str.append("Lista: \n");
+        str.append(" ");
         for (int i = 0; i < this.size(); i++) {
             str.append(this.getObject(i).toString()).append(" \n");
         }

@@ -86,6 +86,12 @@ public class Football implements serviceManager.FootballQueriesContract{
         return this.Json_Competitions = getURLConnection(this.URL+"competitions/");
     }
     
+    /*
+    * Método responsável por retornar a String num formato JSON, 
+    * com a Competição dado o seu identificador
+    * @param competitionId
+    * @return uma competição
+    */
     @Override
     public String getCompetition(int i) throws CompetitionNotFoundException, WebServiceConnectionError {
         
@@ -132,7 +138,13 @@ public class Football implements serviceManager.FootballQueriesContract{
         return JSON_Competition;
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
+    
+    /*
+    * Método responsável por retornar a String num formato JSON, 
+    * com as Competições dado um conjunto de identificadores
+    * @param int[] competitionId
+    * @return varias competições
+    */
     @Override
     public String getCompetitions(int[] ints) throws CompetitionNotFoundException, WebServiceConnectionError {
         // int[] ints = ids competitions
@@ -141,16 +153,84 @@ public class Football implements serviceManager.FootballQueriesContract{
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
+    /*
+    * Método responsável por retornar a String num formato JSON, 
+    * com os jogos dado o identificador da Competição
+    * @param competitionId
+    * @return todos os jogos
+    */
     @Override
-    public String getTeams(int i) throws CompetitionNotFoundException, WebServiceConnectionError {
+    public String getFixtures(int competitionId) throws CompetitionNotFoundException, WebServiceConnectionError {
         
-        //String JSON_Teams = getURLConnection(this.URL+"teams/"+i);
-        String JSON_Teams = getURLConnection(this.URL+"competitions/"+i+"/teams");
-        //System.out.println("\n URL: " +this.URL+"competitions/"+i+"/teams");
+        String JSON_Fixtures = getURLConnection(this.URL+"competitions/");
         
-        return JSON_Teams;
+        String string_Link;
+        String string_Fixtures;
+        String string_href;
+        
+        String Link_Fixtures;
+        
+        JSONParser jsonParser = new JSONParser();
+        
+        try{
+            
+            Object object = jsonParser.parse(JSON_Fixtures);
+            JSONArray arrayCompetitions = (JSONArray) object;
+            
+            for(int aux=0; aux<arrayCompetitions.size(); aux++){
+                
+                JSONObject competition = (JSONObject) arrayCompetitions.get(aux); // position aux 
+                if(competition.get("id").toString().equals(String.valueOf(competitionId))){
+                    
+                    // Procura apenas pelo "_Links"
+                    JSONParser jsonParser_links = new JSONParser();
+                    Object object_links = jsonParser_links.parse(competition.toString());
+                    JSONObject Json_object_links = (JSONObject) object_links;
+                    
+                    string_Link = Json_object_links.get("_links").toString();
+                    //System.out.println("\n _links:\n" +string_Link);
+                    
+                    // Procura apenas pelo "Fixtures"
+                    JSONParser jsonParser_Fixtures = new JSONParser();
+                    
+                    Object object_Fixtures = jsonParser_Fixtures.parse(string_Link);
+                    JSONObject Json_object_Fixtures = (JSONObject) object_Fixtures;
+                    
+                    string_Fixtures = Json_object_Fixtures.get("fixtures").toString();
+                    //System.out.println("\n Fixtures:\n" +string_Fixtures);
+                    
+                    // Procura apenas pelo "href"
+                    JSONParser jsonParser_href = new JSONParser();
+                    
+                    Object object_href = jsonParser_href.parse(string_Fixtures);
+                    JSONObject Json_object_href = (JSONObject) object_href;
+                    
+                    string_href = Json_object_href.get("href").toString();
+                    //System.out.println("\n href = " +string_href);
+
+                    // link pagina a pesquisar pela teams
+
+                    Link_Fixtures = getURLConnection(string_href); // String da Team Selecionada
+
+                    return (String) Link_Fixtures;
+                }
+            }
+            
+        } catch ( ParseException ex) {
+            System.out.println("\n Erro ParseException\n");
+            //Logger.getLogger(Football.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return null;
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
+    /*
+    * Método responsável por retornar a String num formato JSON, 
+    * com a liga dado o identificador da Competição
+    * @param competitionId
+    * @return a liga
+    */
     @Override
     public String getLeagueTable(int competitionId) throws CompetitionNotFoundException, WebServiceConnectionError {
         
@@ -215,73 +295,13 @@ public class Football implements serviceManager.FootballQueriesContract{
         return null;
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
-    @Override
-    public String getFixtures(int competitionId) throws CompetitionNotFoundException, WebServiceConnectionError {
-        
-        String JSON_Fixtures = getURLConnection(this.URL+"competitions/");
-        
-        String string_Link;
-        String string_Fixtures;
-        String string_href;
-        
-        String Link_Fixtures;
-        
-        JSONParser jsonParser = new JSONParser();
-        
-        try{
-            
-            Object object = jsonParser.parse(JSON_Fixtures);
-            JSONArray arrayCompetitions = (JSONArray) object;
-            
-            for(int aux=0; aux<arrayCompetitions.size(); aux++){
-                
-                JSONObject competition = (JSONObject) arrayCompetitions.get(aux); // position aux 
-                if(competition.get("id").toString().equals(String.valueOf(competitionId))){
-                    
-                    // Procura apenas pelo "_Links"
-                    JSONParser jsonParser_links = new JSONParser();
-                    Object object_links = jsonParser_links.parse(competition.toString());
-                    JSONObject Json_object_links = (JSONObject) object_links;
-                    
-                    string_Link = Json_object_links.get("_links").toString();
-                    //System.out.println("\n _links:\n" +string_Link);
-                    
-                    // Procura apenas pelo "Fixtures"
-                    JSONParser jsonParser_Fixtures = new JSONParser();
-                    
-                    Object object_Fixtures = jsonParser_Fixtures.parse(string_Link);
-                    JSONObject Json_object_Fixtures = (JSONObject) object_Fixtures;
-                    
-                    string_Fixtures = Json_object_Fixtures.get("fixtures").toString();
-                    //System.out.println("\n Fixtures:\n" +string_Fixtures);
-                    
-                    // Procura apenas pelo "href"
-                    JSONParser jsonParser_href = new JSONParser();
-                    
-                    Object object_href = jsonParser_href.parse(string_Fixtures);
-                    JSONObject Json_object_href = (JSONObject) object_href;
-                    
-                    string_href = Json_object_href.get("href").toString();
-                    //System.out.println("\n href = " +string_href);
-                    
-                    // link pagina a pesquisar pela teams
-                    
-                    Link_Fixtures = getURLConnection(string_href); // String da Team Selecionada
-                    
-                    return (String) Link_Fixtures;
-                }
-            }
-            
-        } catch ( ParseException ex) {
-            System.out.println("\n Erro ParseException\n");
-            //Logger.getLogger(Football.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        return null;
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
+    
+    /*
+    * Método responsável por retornar a String num formato JSON, 
+    * com os jogadores dado o código da equipa
+    * @param teamId da equipa
+    * @return todos os jogadores
+    */
     @Override
     public String getPlayers(int teamId) throws CompetitionNotFoundException, WebServiceConnectionError {
         
@@ -289,6 +309,36 @@ public class Football implements serviceManager.FootballQueriesContract{
         return JSON_Players;
         
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    /*
+    * Método responsável por retornar a String num formato JSON, 
+    * com as equipas dado o identificador da Competição
+    * @param competitionId
+    * 
+    */
+    @Override
+    public String getTeams(int i) throws CompetitionNotFoundException, WebServiceConnectionError {
+        
+        //String JSON_Teams = getURLConnection(this.URL+"teams/"+i);
+        String JSON_Teams = getURLConnection(this.URL+"competitions/"+i+"/teams");
+        //System.out.println("\n URL: " +this.URL+"competitions/"+i+"/teams");
+        
+        return JSON_Teams;
+    }
+    
+    /*
+    * Método responsável por retornar a String num formato JSON, 
+    * com a equipa dado o identificador da equipa
+    * @param idTeam
+    *
+    */
+    public String getTeam(int idTeam) throws CompetitionNotFoundException, WebServiceConnectionError {
+        
+        //String JSON_Teams = getURLConnection(this.URL+"teams/"+i);
+        String JSON_Teams = getURLConnection(this.URL+"teams/"+idTeam+"/");
+        
+        return JSON_Teams;
     }
     
 }

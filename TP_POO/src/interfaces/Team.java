@@ -1,6 +1,7 @@
 package interfaces;
 
 import interfaces.Management.PlayerManagementContract;
+import java.util.Objects;
 
 /*
 * Grupo: 2
@@ -90,10 +91,76 @@ public class Team implements TeamContract{
         return this.Players;
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+    
+    public PlayerContract getMostValuePlayer(){
+        
+        PlayerManagementContract playerManagement = getPlayers();
+        
+        
+        
+        
+        PlayerContract player = getPlayer(0);
+        
+        
+        return null;
+    }
+    
+    public PlayerContract getPlayer(int position) {
+        
+        return (PlayerContract) this.Players.getObject(position);
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
 
     @Override
     public String toString() {
-        return "Team{" + "name = " + name + ", Code = " + Code + ", SquadMarketValue = " + SquadMarketValue + ", shortName = " + shortName + ", crestUrl = " + crestUrl + ", \n Players = " + Players+ "\n}";
+        return "  Team{" + " name = " + name + ", Code = " + Code + ", SquadMarketValue = " + SquadMarketValue + ", shortName = " + shortName + ", crestUrl = " + crestUrl + ",\n players = " + Players + "\n   }";
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 97 * hash + Objects.hashCode(this.name);
+        hash = 97 * hash + Objects.hashCode(this.Code);
+        hash = 97 * hash + Objects.hashCode(this.SquadMarketValue);
+        hash = 97 * hash + Objects.hashCode(this.Players);
+        hash = 97 * hash + Objects.hashCode(this.shortName);
+        hash = 97 * hash + Objects.hashCode(this.crestUrl);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Team other = (Team) obj;
+        if (!Objects.equals(this.name, other.name)) {
+            return false;
+        }
+        if (!Objects.equals(this.Code, other.Code)) {
+            return false;
+        }
+        if (!Objects.equals(this.SquadMarketValue, other.SquadMarketValue)) {
+            return false;
+        }
+        if (!Objects.equals(this.shortName, other.shortName)) {
+            return false;
+        }
+        if (!Objects.equals(this.crestUrl, other.crestUrl)) {
+            return false;
+        }
+        if (!Objects.equals(this.Players, other.Players)) {
+            return false;
+        }
+        return true;
+    }
+    
     
 }

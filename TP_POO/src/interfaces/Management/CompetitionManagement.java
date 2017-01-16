@@ -1,5 +1,6 @@
 package interfaces.Management;
 
+import interfaces.Competition;
 import interfaces.CompetitionContract;
 import java.time.LocalDateTime;
 
@@ -14,20 +15,20 @@ import java.time.LocalDateTime;
 */
 public class CompetitionManagement implements CompetitionManagementContract{
     
-    private final Object objects[];
+    private final Competition objects[]; //Object
     
     /**
      * Construtor que permite a instanciação da classe por valor DEFAULT_SIZE
      */
     public CompetitionManagement() {
-        this.objects = new Object[DEFAULT_SIZE];
+        this.objects = new Competition[DEFAULT_SIZE];
     }
     
     /**
      * Construtor que permite a instanciação da classe por coleção de objectos
      * @param o uma coleção de objectos
      */
-    public CompetitionManagement(Object[] o) {
+    public CompetitionManagement(Competition[] o) {
         this.objects = o;
     }
     
@@ -36,7 +37,7 @@ public class CompetitionManagement implements CompetitionManagementContract{
      * @param maxSize número máximo de elementos permitidos no vetor
      */
     public CompetitionManagement(int maxSize) {
-        this.objects = new Object[maxSize];
+        this.objects = new Competition[maxSize];
     }
     
     /*
@@ -61,6 +62,7 @@ public class CompetitionManagement implements CompetitionManagementContract{
     */
     @Override
     public FixtureManagementContract getGamesScheduled(CompetitionContract competition, LocalDateTime date1, LocalDateTime date2) {
+        
         
         
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -91,7 +93,7 @@ public class CompetitionManagement implements CompetitionManagementContract{
         if (tamanho == this.objects.length) {
             return false;
         } else {
-            this.objects[tamanho] = newObject;
+            this.objects[tamanho] = (Competition) newObject;
             return true;
         }
     }
@@ -155,7 +157,7 @@ public class CompetitionManagement implements CompetitionManagementContract{
     @Override
     public String toString() {
         StringBuilder str = new StringBuilder();
-        str.append("Lista: \n");
+        str.append(" ");
         for (int i = 0; i < this.size(); i++) {
             str.append(this.getObject(i).toString()).append(" \n");
         }

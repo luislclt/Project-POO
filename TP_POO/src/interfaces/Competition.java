@@ -106,7 +106,7 @@ public class Competition implements CompetitionContract{
     
     @Override
     public String toString() {
-        return "Competition{" + "\n id = " + id + ", year = " + year + ", caption = " + caption + ", currentMatchday = " + currentMatchday + ", numberOfMatchdays = " + numberOfMatchdays + ", numberOfTeams = " + numberOfTeams + ", numberOfGames = " + numberOfGames + ", lastUpdated = " + lastUpdated + "\n fixtures = " + fixtures + "\n leagueTable = " + leagueTable + "\n teams = " + teams + "\n}";
+        return "Competition{" + " id = " + id + ", year = " + year + ", caption = " + caption + ", currentMatchday = " + currentMatchday + ", numberOfMatchdays = " + numberOfMatchdays + ", numberOfTeams = " + numberOfTeams + ", numberOfGames = " + numberOfGames + ", lastUpdated = " + lastUpdated + "\n fixtures = " + fixtures + "\n leagueTable = " + leagueTable + "\n teams = " + teams + " \n }";
     }
     
     

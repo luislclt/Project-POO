@@ -1,5 +1,6 @@
 package interfaces.Management;
 
+import interfaces.Player;
 import interfaces.PlayerContract;
 
 /*
@@ -13,20 +14,20 @@ import interfaces.PlayerContract;
 */
 public class PlayerManagement implements PlayerManagementContract{
     
-    private final Object objects[];
+    private final Player objects[]; //Object
     
     /**
      * Construtor que permite a instanciação da classe por valor DEFAULT_SIZE
      */
     public PlayerManagement() {
-        this.objects = new Object[DEFAULT_SIZE];
+        this.objects = new Player[DEFAULT_SIZE];
     }
     
     /**
      * Construtor que permite a instanciação da classe por coleção de objectos
      * @param o uma coleção de objectos
      */
-    public PlayerManagement(Object[] o) {
+    public PlayerManagement(Player[] o) {
         this.objects = o;
     }
     
@@ -35,7 +36,7 @@ public class PlayerManagement implements PlayerManagementContract{
      * @param maxSize número máximo de elementos permitidos no vetor
      */
     public PlayerManagement(int maxSize) {
-        this.objects = new Object[maxSize];
+        this.objects = new Player[maxSize];
     }
     
     /*
@@ -47,6 +48,9 @@ public class PlayerManagement implements PlayerManagementContract{
     public PlayerContract getPlayer(String arg0, String arg1) {
         
         
+        
+        
+        
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
@@ -56,6 +60,11 @@ public class PlayerManagement implements PlayerManagementContract{
     */
     @Override
     public void sort() {
+        
+        
+        
+        
+        
         
         
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -72,7 +81,7 @@ public class PlayerManagement implements PlayerManagementContract{
         if (tamanho == this.objects.length) {
             return false;
         } else {
-            this.objects[tamanho] = newObject;
+            this.objects[tamanho] = (Player) newObject;
             return true;
         }
     }
@@ -136,7 +145,7 @@ public class PlayerManagement implements PlayerManagementContract{
     @Override
     public String toString() {
         StringBuilder str = new StringBuilder();
-        str.append("Lista: \n");
+        str.append(" ");
         for (int i = 0; i < this.size(); i++) {
             str.append(this.getObject(i).toString()).append(" \n");
         }
