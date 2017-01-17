@@ -13,7 +13,7 @@ import java.util.Objects;
 * Nome: Tânia Assis
 * Número: 8150455
 */
-public class Team implements TeamContract{
+public class Team implements TeamContract, java.io.Serializable{
     
     private String name; // pedidio no impelements javaDoc
     private String Code; // pedidio no impelements javaDoc

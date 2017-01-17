@@ -16,8 +16,15 @@ import interfaces.MappingJSONToClasses;
 import interfaces.MappingJsonToClasses;
 import interfaces.Team;
 import interfaces.TeamContract;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.Serializable;
 import java.io.IOException;
-import serviceManager.WebServiceConnection;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.util.Scanner;
 import tp_poo.ServiceManager.Football;
 
 /*
@@ -35,8 +42,9 @@ public class TP_POO {
      * @param args the command line arguments
      * @throws java.io.IOException
      * @throws exceptions.CompetitionNotFoundException
+     * @throws java.lang.ClassNotFoundException
      */
-    public static void main(String[] args) throws IOException, CompetitionNotFoundException {
+    public static void main(String[] args) throws IOException, CompetitionNotFoundException, ClassNotFoundException {
         
         
         String url = "http://api.football-data.org/v1/";
@@ -204,7 +212,7 @@ public class TP_POO {
         */
         
         // Teste Criar Competitions 1 ssssss
-        /*
+        
         int[] ints = new int[2];
         ints[0] = 439;
         ints[1] = 436;
@@ -218,7 +226,47 @@ public class TP_POO {
         CompetitionManagementContract competitions1 = mappingCompetitions1.StringToCompetitions(Json_Competitions);
         
         System.out.println("\n Result Competitions 1: "+competitions1.toString());
-        */
+        
+        
+        
+        
+        //CompetitionManagementContract competitions1 = null; // so para testar  remover
+        
+        // Teste Write Object to a file //  implements java.io.Serializable
+        
+        if(new Scanner(new FileReader("test.txt")) == null){
+            
+            File file = new File("test.txt");
+        }else{
+            
+            //File file = File("test.txt");
+            Scanner file = new Scanner(new FileReader("test.txt"));
+            
+        }
+        
+        
+        ObjectOutputStream out = new ObjectOutputStream(
+            new FileOutputStream(file));
+        
+        //Student james = new Student();
+        //out.writeObject(james);
+        
+        out.writeObject(competitions1); // cria de JsonCompetitions assima
+        
+        System.out.println(" Store the competitions1 in file called " + file.getName());
+        
+        
+        
+        // Teste Read Object from file ///
+        
+        ObjectInputStream in = new ObjectInputStream( 
+                new FileInputStream(file));
+        
+        CompetitionManagement competitionsFile = (CompetitionManagement)in.readObject(); 
+        
+        
+        System.out.println("\n Result Competitions 1 FROM the file:  "+file.getName() +"\n\n "+competitionsFile.toString());
+        
         
         
         

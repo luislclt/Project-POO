@@ -9,7 +9,7 @@ package interfaces;
  *
  * @author LCLT
  */
-public class StatisticsStanding {
+public class StatisticsStanding implements java.io.Serializable{
     private final int goals;
     private final int goalsAgainst;
     private final int wins;

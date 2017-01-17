@@ -9,7 +9,7 @@ package interfaces;
 * Nome: Tânia Assis
 * Número: 8150455
 */
-public enum StatusGame implements Status{
+public enum StatusGame implements Status, java.io.Serializable{
     
     FINISHED, TIMED, IN_PLAY, CANCELED, POSTPONED, INVALIDO;
     
@@ -20,7 +20,7 @@ public enum StatusGame implements Status{
      * * FINISHED, TIMED, IN_PLAY
      * @return representação textual do status
      */
-    public static String getStatusGame(StatusGame status){
+    public static String StringToStatusGame(StatusGame status){
         switch(status){
             case FINISHED:
                 return "Game FINISHED";
@@ -40,6 +40,5 @@ public enum StatusGame implements Status{
         }
         
     }
-    
     
 }

@@ -11,7 +11,7 @@ import java.util.Objects;
 * Nome: Tânia Assis
 * Número: 8150455
 */
-public class Standing implements StandingInterface{
+public class Standing implements StandingInterface, java.io.Serializable{
     
     private final int position;
     private final String teamName;

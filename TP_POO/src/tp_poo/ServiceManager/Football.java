@@ -19,7 +19,7 @@ import serviceManager.WebServiceConnection;
 * Nome: Tânia Assis
 * Número: 8150455
 */
-public class Football implements serviceManager.FootballQueriesContract{
+public class Football implements serviceManager.FootballQueriesContract, java.io.Serializable{
     
     private String URL; 
     private String apiKey;

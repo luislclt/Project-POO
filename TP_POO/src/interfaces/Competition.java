@@ -13,7 +13,7 @@ import java.util.Objects;
 * Nome: Tânia Assis
 * Número: 8150455
 */
-public class Competition implements CompetitionContract{
+public class Competition implements CompetitionContract, java.io.Serializable{
     
     private final FixtureManagementContract fixtures; // pedidio no impelements javaDoc
     private final LeagueTableContract leagueTable; // pedidio no impelements javaDoc

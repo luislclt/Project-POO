@@ -12,7 +12,7 @@ import java.util.Arrays;
 * Nome: Tânia Assis
 * Número: 8150455
 */
-public class LeagueTableManagement extends ObjectManagement{
+public class LeagueTableManagement extends ObjectManagement implements java.io.Serializable{
     
     private final LeagueTable objects[]; //Object
     

@@ -14,7 +14,7 @@ import java.util.Date;
 * Nome: Tânia Assis
 * Número: 8150455
 */
-public class Player implements PlayerContract{
+public class Player implements PlayerContract, java.io.Serializable{
     
     //private final String URL;
     //private final String apiKey;

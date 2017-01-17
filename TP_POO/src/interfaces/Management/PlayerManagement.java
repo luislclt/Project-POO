@@ -13,7 +13,7 @@ import java.util.Arrays;
 * Nome: Tânia Assis
 * Número: 8150455
 */
-public class PlayerManagement implements PlayerManagementContract{
+public class PlayerManagement implements PlayerManagementContract , java.io.Serializable{
     
     private final Player objects[]; //Object
     
@@ -50,6 +50,8 @@ public class PlayerManagement implements PlayerManagementContract{
     public PlayerContract getPlayer(String arg0, String arg1) {
         
         PlayerContract player = null;
+        
+        if(arg0 == null && arg1 == null) return player;
         
         for (int i = 0; i < this.size(); i++) {
             

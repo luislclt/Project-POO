@@ -2,6 +2,8 @@ package interfaces.Management;
 
 import interfaces.Competition;
 import interfaces.CompetitionContract;
+import interfaces.FixtureContract;
+import interfaces.StatusGame;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 
@@ -14,7 +16,7 @@ import java.util.Arrays;
 * Nome: Tânia Assis
 * Número: 8150455
 */
-public class CompetitionManagement implements CompetitionManagementContract{
+public class CompetitionManagement implements CompetitionManagementContract, java.io.Serializable{
     
     private final Competition objects[]; //Object
     
@@ -75,41 +77,38 @@ public class CompetitionManagement implements CompetitionManagementContract{
     @Override
     public FixtureManagementContract getGamesScheduled(CompetitionContract competition, LocalDateTime date1, LocalDateTime date2) {
         
+        Competition competitionArg = (Competition) competition; // tem acesso aos extra metedos do Competition
+        FixtureManagementContract fixtureManagementRETORNO = null;
         
-        
-        
-        /*
-        Competition competitionByPosition = null;
-        Competition competitionArg = (Competition) competition;
-        
-        for (int i = 0; i < this.size(); i++) {
+        for (int i = 0; i < this.size(); i++) { // procura nas competitions para encontrar a competition enviada pelo metedo
             
-            competitionByPosition = (Competition) this.getObject(i);
-            if(competitionByPosition.getCaption().equals(competitionArg.getCaption())
-                    && competitionByPosition.getYear() >= date1.getYear() && competitionByPosition.getYear() <= date2.getYear()){
+            Competition competitionByPosition = (Competition) this.getObject(i); // posicao i da competitionManagement
+            if(competitionByPosition.getCaption().equals(competitionArg.getCaption())){ // competitionByPosition == competition
                 
-                //Team team = competitionByPosition  
-            }  
-        }*/
-        
-        /*
-        TeamContract team = null;
-        
-        for (int i = 0; i < this.size(); i++) {
-            
-            team = (TeamContract) this.getObject(i);
-            //System.out.println("\n --> this.getObject(i) TeamContract team name"+team.getName());
-            if(team.getName().equals(arg0)){
-                //System.out.println("\n TeamManagement --> getTeam("+arg0+" ) --> retorno TeamContract -> nameTeam : "+team.getName());
-                return team;
-            }
+                if( competitionByPosition.getYear() >= date1.getYear() && competitionByPosition.getYear() <= date2.getYear()){
+                    
+                    //if(competitionByPosition) // comparar com mes e dias
+                    FixtureManagement fixtureManagement = (FixtureManagement) competitionByPosition.getFixture();
+                    
+                    fixtureManagementRETORNO = new FixtureManagement(fixtureManagement.size()+1);
+                    
+                    for (int j = 0; j < fixtureManagement.size(); j++) { // procura nos fixtures os jogos agendados
+
+                        FixtureContract fixture = (FixtureContract) fixtureManagement.getObject(j); // posicao j da fixture 
+
+                        if(fixture.getStatus() == StatusGame.TIMED){ // estado do fixture a TIMED --> Scheduled
+                            
+                            fixtureManagementRETORNO.addObject(fixture); // adiciona os fixtures TIMED
+                            
+                        }
+                    }
+                }
+            }       
         }
-        */
         
+        return fixtureManagementRETORNO;
         
-        
-        
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
     /**
@@ -123,9 +122,37 @@ public class CompetitionManagement implements CompetitionManagementContract{
     @Override
     public FixtureManagementContract getGamesEnded(CompetitionContract competition, LocalDateTime date1, LocalDateTime date2) {
         
+        Competition competitionArg = (Competition) competition; // tem acesso aos extra metedos do Competition
+        FixtureManagementContract fixtureManagementRETORNO = null;
         
+        for (int i = 0; i < this.size(); i++) { // procura nas competitions para encontrar a competition enviada pelo metedo
+            
+            Competition competitionByPosition = (Competition) this.getObject(i); // posicao i da competitionManagement
+            if(competitionByPosition.getCaption().equals(competitionArg.getCaption())){ // competitionByPosition == competition
+                
+                if( competitionByPosition.getYear() >= date1.getYear() && competitionByPosition.getYear() <= date2.getYear()){
+                    
+                    //if(competitionByPosition) // comparar com mes e dias
+                    FixtureManagement fixtureManagement = (FixtureManagement) competitionByPosition.getFixture();
+                    
+                    fixtureManagementRETORNO = new FixtureManagement(fixtureManagement.size()+1);
+                    
+                    for (int j = 0; j < fixtureManagement.size(); j++) { // procura nos fixtures os jogos agendados
+
+                        FixtureContract fixture = (FixtureContract) fixtureManagement.getObject(j); // posicao j da fixture 
+
+                        if(fixture.getStatus() == StatusGame.FINISHED){ // estado do fixture a FINISHED --> Ended
+                            
+                            fixtureManagementRETORNO.addObject(fixture); // adiciona os fixtures FINISHED
+                            
+                        }
+                    }
+                }
+            }       
+        }
         
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return fixtureManagementRETORNO;
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
     /**

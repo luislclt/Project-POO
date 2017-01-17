@@ -9,7 +9,7 @@ package interfaces;
 * Nome: Tânia Assis
 * Número: 8150455
 */
-public class Nationality implements NationalityContract{
+public class Nationality implements NationalityContract, java.io.Serializable{
     
     private final String nationality;
     

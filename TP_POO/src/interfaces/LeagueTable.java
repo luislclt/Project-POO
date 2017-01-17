@@ -1,5 +1,6 @@
 package interfaces;
 
+import interfaces.Management.StandingsManagement;
 import interfaces.Management.StandingsManagementContract;
 import java.util.Objects;
 /*
@@ -11,7 +12,7 @@ import java.util.Objects;
 * Nome: Tânia Assis
 * Número: 8150455
 */
-public class LeagueTable implements LeagueTableContract{
+public class LeagueTable implements LeagueTableContract, java.io.Serializable{
     
     private final String leagueCaption;
     private final int matchday;
@@ -32,27 +33,38 @@ public class LeagueTable implements LeagueTableContract{
     /**
      * Método responsável por retornar o jogador mais valioso de uma determinada liga
      * numa determinada competição e para uma determinada época/ano
-     * @return 
+     * @return jogador
      */
     @Override
     public PlayerContract getMostValuedPlayer() {
         
         
-        /*
-        TeamContract team = null;
+        PlayerContract player1 = null;
         
-        for (int i = 0; i < this.size(); i++) {
+        StandingsManagement standings = (StandingsManagement) this.getStandings();
+        
+        Standing standing1 = (Standing) standings.getObject(0); // procura no primeiro standing da liga
+
+        Team team1 = (Team) standing1.getTeam(); // procura em cada team do primeiro standing1
+
+        player1 = team1.getMostValuePlayer(); // guarda em player1 o player MostValuePlayer da team1 para comparar com as restantes equipas dos outros standings
+
+        
+        for (int i = 1; i < standings.size(); i++) { // procura nos restantes standings
             
-            team = (TeamContract) this.getObject(i);
-            //System.out.println("\n --> this.getObject(i) TeamContract team name"+team.getName());
-            if(team.getName().equals(arg0)){
-                //System.out.println("\n TeamManagement --> getTeam("+arg0+" ) --> retorno TeamContract -> nameTeam : "+team.getName());
-                return team;
+            Standing standing2 = (Standing) standings.getObject(i); // procura em cada standing2 da liga restante
+            
+            Team team2 = (Team) standing2.getTeam(); // procura em cada team de cada standing2
+            
+            PlayerContract player2 = team2.getMostValuePlayer(); // guarda em player2 o player MostValuePlayer da team2 para comparar com as restantes equipas
+            
+            if(player2.compareTo(player1) > 0){
+                player1 = player2;
             }
-        }*/
+        }
         
-        
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return player1; // retorna o jogador MostValuePlayer da liga
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     /**
      * Método responsável por retornar a descrição da liga

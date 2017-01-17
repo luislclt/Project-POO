@@ -9,7 +9,7 @@ package interfaces;
 * Nome: Tânia Assis
 * Número: 8150455
 */
-public class PlayerCompareTo implements PlayerComparasion{
+public class PlayerCompareTo implements PlayerComparasion, java.io.Serializable{
     
     private final String marketValue;
     

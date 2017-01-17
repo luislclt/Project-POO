@@ -13,7 +13,7 @@ import java.util.Arrays;
 * Nome: Tânia Assis
 * Número: 8150455
 */
-public class StandingsManagement implements StandingsManagementContract{
+public class StandingsManagement implements StandingsManagementContract, java.io.Serializable{
     
     private final Standing objects[]; //Object
     

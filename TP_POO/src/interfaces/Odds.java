@@ -10,7 +10,7 @@ package interfaces;
 * Número: 8150455
 */
 
-public class Odds {
+public class Odds implements java.io.Serializable{
     
     private final double homeWin;
     private final double draw;

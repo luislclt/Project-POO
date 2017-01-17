@@ -1,5 +1,6 @@
 package interfaces;
 
+import static interfaces.StatusGame.StringToStatusGame;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
@@ -12,11 +13,11 @@ import java.util.Objects;
 * Nome: Tânia Assis
 * Número: 8150455
 */
-public class Fixture implements FixtureContract{
+public class Fixture implements FixtureContract, java.io.Serializable{
     
     
     private final LocalDateTime date;
-    private final StatusGame Status;
+    private final Status Status; // StatusGame
     private final int matchday;
     private final String homeTeamName;
     private final String awayTeamName;
@@ -26,7 +27,7 @@ public class Fixture implements FixtureContract{
     private final ResultGame result;
     private final Odds odds;
 
-    public Fixture(LocalDateTime date, StatusGame Status, int matchday, String homeTeamName, String awayTeamName, TeamContract homeTeam, TeamContract awayTeam, ResultGame result, Odds odds) {
+    public Fixture(LocalDateTime date, Status Status, int matchday, String homeTeamName, String awayTeamName, TeamContract homeTeam, TeamContract awayTeam, ResultGame result, Odds odds) {
         this.date = date;
         this.Status = Status;
         this.matchday = matchday;
@@ -46,7 +47,7 @@ public class Fixture implements FixtureContract{
     }
 
     @Override
-    public StatusGame getStatus() {
+    public Status getStatus() {
         return this.Status;
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
@@ -107,13 +108,20 @@ public class Fixture implements FixtureContract{
         return this.odds;
     }
     
+    public String getStatusGame(){
+        
+        return StringToStatusGame((StatusGame)this.Status);
+        
+        
+    }
+    
     /**
      * Método imprime o fixture
      * @return retorna a String 
      */
     @Override
     public String toString() {
-        return "Fixture{ " + " date = " + date + ", Status = " + Status + ", matchday = " + matchday + ", homeTeamName = " + homeTeamName + ", awayTeamName = " + awayTeamName + ", result = " + result + ", odds = " + odds + " }";
+        return "Fixture{ " + " date = " + date + ", Status = " + getStatusGame() + ", matchday = " + matchday + ", homeTeamName = " + homeTeamName + ", awayTeamName = " + awayTeamName + ", result = " + result + ", odds = " + odds + " }";
     }
 
     @Override

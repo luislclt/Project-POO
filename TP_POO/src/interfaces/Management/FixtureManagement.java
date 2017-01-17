@@ -15,7 +15,7 @@ import java.util.Arrays;
 * Nome: Tânia Assis
 * Número: 8150455
 */
-public class FixtureManagement implements FixtureManagementContract{
+public class FixtureManagement implements FixtureManagementContract, java.io.Serializable{
     
     private final Fixture objects[]; //Object
     

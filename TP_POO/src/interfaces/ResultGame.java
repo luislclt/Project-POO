@@ -9,7 +9,7 @@ package interfaces;
 * Nome: Tânia Assis
 * Número: 8150455
 */
-public class ResultGame {
+public class ResultGame implements java.io.Serializable{
     
     private final int goalsHomeTeam;
     private final int goalsAwayTeam;

@@ -14,20 +14,14 @@ import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
-import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-import org.json.simple.JSONValue;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import serviceManager.WebServiceConnection;
-import tp_poo.ServiceManager.Football;
 
 /*
 * Grupo: 2
@@ -38,7 +32,7 @@ import tp_poo.ServiceManager.Football;
 * Nome: Tânia Assis
 * Número: 8150455
 */
-public class MappingJSONToClasses implements MappingJsonToClasses{
+public class MappingJSONToClasses implements MappingJsonToClasses, java.io.Serializable{
     
     private final String URL;
     private final String apiKey;
@@ -707,7 +701,7 @@ public class MappingJSONToClasses implements MappingJsonToClasses{
     public FixtureManagementContract StringToFixtures(TeamManagementContract arg0, String arg1) {
         
         LocalDateTime date;
-        StatusGame status = StatusGame.INVALIDO;
+        Status status = StatusGame.INVALIDO;
         int matchday;
         String homeTeamName;
         String awayTeamName;
@@ -785,10 +779,10 @@ public class MappingJSONToClasses implements MappingJsonToClasses{
                         //Code = object_status.toString();
                         switch(object_status.toString()){ //FINISHED, TIMED, IN_PLAY, CANCELED, POSTPONED
                             
-                            case "TIMED" : status = StatusGame.TIMED; // result e odds a null
-                            case "IN_PLAY" : status = StatusGame.IN_PLAY;
-                            case "CANCELED" : status = StatusGame.CANCELED;
-                            case "POSTPONED" : status = StatusGame.POSTPONED;
+                            case "TIMED" : status = StatusGame.TIMED; break; // result e odds a null
+                            case "IN_PLAY" : status = StatusGame.IN_PLAY; break; 
+                            case "CANCELED" : status = StatusGame.CANCELED; break; 
+                            case "POSTPONED" : status = StatusGame.POSTPONED; break; 
                             case "FINISHED" :{
                                 status = StatusGame.FINISHED;
                                 
