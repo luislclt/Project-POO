@@ -93,15 +93,41 @@ public class Player implements PlayerContract, java.io.Serializable{
     @Override
     public int compareTo(PlayerComparasion player) {
         
-        PlayerCompareTo player1 = new PlayerCompareTo(this.marketValue);
-        String y = player1.toString();
-        String x = player.toString();
+        //Player player1 = new PlayerCompareTo(this.marketValue);
+        
+        Player player1 = (Player) player;
+        
+        //String y = player1.toString();
+        //String x = player.toString();
         
         //System.out.println(" Player 1: "+x);
         //System.out.println(" Player 2: "+y);
         
-        return x.compareTo(y); //this.marketValue.compareTo(player);
+        return this.marketValue.compareTo(player1.getMarketValue());
         
+    }
+    
+    public int getNumberMarketValue(){
+        
+        int value = 0;
+        
+        Object object_marketValue = this.marketValue;
+            if(null == object_marketValue){
+                value = 0;
+            }else{
+                
+                try {
+                    String result1 = object_marketValue.toString().replaceAll("[-+.^:,€]","");
+                    String result = result1.replaceAll("\\s","");
+                    value = Integer.parseInt(result);
+                    return value;
+                } catch (NumberFormatException e) {
+                    
+                    return 0;
+                }
+            }
+        
+        return value;
     }
     
     public Date getDateOfBirth() {

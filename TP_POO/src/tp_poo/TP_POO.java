@@ -4,16 +4,22 @@ package tp_poo;
 import exceptions.CompetitionNotFoundException;
 import interfaces.Competition;
 import interfaces.CompetitionContract;
+import interfaces.Fixture;
 import interfaces.FixtureContract;
 import interfaces.LeagueTableContract;
 import interfaces.Management.CompetitionManagement;
 import interfaces.Management.CompetitionManagementContract;
+import interfaces.Management.FixtureManagement;
 import interfaces.Management.FixtureManagementContract;
+import interfaces.Management.PlayerManagement;
 import interfaces.Management.PlayerManagementContract;
 import interfaces.Management.TeamManagement;
 import interfaces.Management.TeamManagementContract;
 import interfaces.MappingJSONToClasses;
 import interfaces.MappingJsonToClasses;
+import interfaces.Player;
+import interfaces.PlayerContract;
+import interfaces.StatusGame;
 import interfaces.Team;
 import interfaces.TeamContract;
 import java.io.File;
@@ -24,6 +30,9 @@ import java.io.Serializable;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.Scanner;
 import tp_poo.ServiceManager.Football;
 
@@ -212,7 +221,7 @@ public class TP_POO {
         */
         
         // Teste Criar Competitions 1 ssssss
-        
+        /*
         int[] ints = new int[2];
         ints[0] = 439;
         ints[1] = 436;
@@ -226,46 +235,198 @@ public class TP_POO {
         CompetitionManagementContract competitions1 = mappingCompetitions1.StringToCompetitions(Json_Competitions);
         
         System.out.println("\n Result Competitions 1: "+competitions1.toString());
-        
+        */
         
         
         
         //CompetitionManagementContract competitions1 = null; // so para testar  remover
         
         // Teste Write Object to a file //  implements java.io.Serializable
-        
-        if(new Scanner(new FileReader("test.txt")) == null){
-            
-            File file = new File("test.txt");
-        }else{
-            
-            //File file = File("test.txt");
-            Scanner file = new Scanner(new FileReader("test.txt"));
-            
-        }
-        
+        /*
+        File fileToWrite = new File("test.txt");
         
         ObjectOutputStream out = new ObjectOutputStream(
-            new FileOutputStream(file));
+            new FileOutputStream(fileToWrite));
         
         //Student james = new Student();
         //out.writeObject(james);
         
         out.writeObject(competitions1); // cria de JsonCompetitions assima
         
-        System.out.println(" Store the competitions1 in file called " + file.getName());
-        
+        System.out.println(" Store the competitions1 in file called " + fileToWrite.getName());
+        */
         
         
         // Teste Read Object from file ///
         
+        File fileToRead = new File("test.txt");
+        
         ObjectInputStream in = new ObjectInputStream( 
-                new FileInputStream(file));
+                new FileInputStream(fileToRead));
         
         CompetitionManagement competitionsFile = (CompetitionManagement)in.readObject(); 
         
+        //System.out.println("\n Result Competitions 1 FROM the file:  "+fileToRead.getName() +"\n\n "+competitionsFile.toString());
         
-        System.out.println("\n Result Competitions 1 FROM the file:  "+file.getName() +"\n\n "+competitionsFile.toString());
+        
+        
+        
+        /*
+            Obeter uma listagem de todos os jogadores de uma determinada equipa numa determidada época
+        */
+        /*
+        String teamName = "FC Porto";
+        int epoca = 2016;
+        
+        CompetitionManagement competitions1 = competitionsFile;
+        
+        Team teamResult = null;
+        
+        for (int i = 0; i < competitions1.size(); i++) {
+            
+            Competition competition = (Competition) competitions1.getObject(i);
+            
+            if(competition.getYear() == epoca){
+                
+                TeamManagement teams = (TeamManagement) competition.getTeams();
+                
+                for (int j = 0; j < teams.size(); j++) {
+                    
+                    Team team = (Team) teams.getObject(j);
+                    
+                    if(team.getName().equalsIgnoreCase(teamName)){
+                        
+                        teamResult = team;
+                        
+                    }
+                }
+            }
+        }
+        
+        if(teamResult != null ) System.out.println("\n Lista todos os jogadores da equipa: "+teamName+ "  da época: "+epoca+" \n "+ teamResult);
+        else System.out.println("\n Não foi encontrada correspondencia -->  equipa: "+teamName+ "  da época: "+epoca+"");
+        */
+        
+        /*
+            Visualizar os jogos agendados/terminados para um determindado intervalo de datas numa determinada época e num determinado campeonato.
+        
+            No caso de jogos terminados pretende-se saber o resultado final desses jogos
+        */
+        /*
+        //String competitionName = "Primeira Liga 2016/17";
+        String competitionName = "Primera Division 2016/17";
+        int epoca2 = 2016;
+        // int year, int month, int dayOfMonth, int hour, int minute, int second
+        LocalDateTime dateInicio = LocalDateTime.of(2016, 1, 1, 0, 0, 0);
+        
+        LocalDateTime dateFim = LocalDateTime.of(2017, 12, 31, 0, 0, 0);
+        
+        System.out.println("\n Apresentar competitionName: "+competitionName+"  epoca: "+epoca2 +"    Mostrar DataInicio: "+dateInicio + "  Mostrar DataFim: "+dateFim);
+        
+        
+        CompetitionManagement competitions2 = competitionsFile;
+        
+        Fixture fixtureResult = null;
+        
+        for (int i = 0; i < competitions2.size(); i++) {
+            
+            Competition competition = (Competition) competitions2.getObject(i);
+            
+            if(competition.getYear() == epoca2 && competition.getCaption().equalsIgnoreCase(competitionName)){
+                
+                FixtureManagement fixtures = (FixtureManagement) competition.getFixture();
+                
+                for (int j = 0; j < fixtures.size(); j++) {
+                    
+                    Fixture fixture = (Fixture) fixtures.getObject(j);
+                    
+                    if( fixture.getDate().isAfter(dateInicio) && fixture.getDate().isBefore(dateFim) ){
+                        
+                        if(fixture.getStatus().equals(StatusGame.FINISHED) || fixture.getStatus().equals(StatusGame.TIMED)){
+                            
+                            fixtureResult = fixture;
+                            
+                            if(fixtureResult.getStatus().equals(StatusGame.FINISHED)){
+
+                                System.out.println("\n Fixture Status: "+fixtureResult.getStatusGame() +"  HomeTeamName: "+fixtureResult.getHomeTeamName().getName() +"  AwayTeamName: "+ fixtureResult.getAwayTeamName().getName() 
+                                        + " "+fixtureResult.getResult());
+
+                            }else{
+                                
+                                System.out.println("\n Fixture "+fixtureResult);
+                                
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
+        if(fixtureResult == null ) System.out.println("\n Não foi encontrada correspondencia -->  competitionName: "+competitionName+"  epoca: "+epoca2 +"    Mostrar DataInicio: "+dateInicio + "  Mostrar DataFim: "+dateFim);
+        */
+        
+        
+        /*
+            Obter uma listagem dos jogadores mais valiosos de um determinado campeonato, ordenada por ordem crescente pelo seu valor de mercado
+        */
+        
+        String competitionName3 = "Primeira Liga 2016/17";
+        
+        CompetitionManagement competitions3 = competitionsFile;
+        
+        
+        Competition ResultCompetition = null;
+        
+        for (int i = 0; i < competitions3.size(); i++) {
+            
+            Competition competition = (Competition) competitions3.getObject(i);
+            
+            if(competition.getCaption().equalsIgnoreCase(competitionName3)){
+                
+                ResultCompetition = competition;
+            }
+        }
+        
+        if(ResultCompetition != null){
+            
+            TeamManagement teams = (TeamManagement) ResultCompetition.getTeams();
+            int countTotalPlayers = 0;
+            for (int i = 0; i < teams.size(); i++) {
+                
+                Team team = (Team) teams.getObject(i);
+                PlayerManagement players = (PlayerManagement) team.getPlayers();
+                if(players != null) countTotalPlayers += players.size();
+            }
+            
+            System.out.println("\n\n countTotalPlayers: "+countTotalPlayers);
+            
+            PlayerManagement ResultPlayers = new PlayerManagement(countTotalPlayers+1);
+            
+            for (int i = 0; i < teams.size(); i++) { // procura em todas as teams
+                
+                Team team = (Team) teams.getObject(i);
+                PlayerManagement players = (PlayerManagement) team.getPlayers();
+                
+                if(players != null){
+                    
+                    for (int j = 0; j < players.size(); j++) { // adiciona player a player > 1 a 1
+
+                        Player player = (Player) players.getObject(j);
+
+                        ResultPlayers.addObject(player);
+                    }
+                }
+            }
+            
+            ResultPlayers.sort();
+            
+            System.out.println("\n\n Listagem players por Valuemarket: \n"+ResultPlayers);
+            
+            
+        }else{
+            System.out.println("Não foi encontrada correspondencia -->  competitionName: "+competitionName3);
+        }
+        
         
         
         

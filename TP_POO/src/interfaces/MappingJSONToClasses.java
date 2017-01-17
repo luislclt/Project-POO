@@ -39,10 +39,10 @@ public class MappingJSONToClasses implements MappingJsonToClasses, java.io.Seria
     
     private int countConections; // conta o numero de coneções ao Server
     
-    /*
+    /**
     * Constructor recebe uma String URL e String apiKey
-    * @param String URL
-    * @param String apiKey
+     * @param URL
+     * @param apiKey
     */
     public MappingJSONToClasses(String URL, String apiKey) {
         this.URL = URL;
@@ -51,11 +51,11 @@ public class MappingJSONToClasses implements MappingJsonToClasses, java.io.Seria
     }
     
     
-    /*
+    /**
     * Método responsável por retornar uma competição 
     * tendo por base uma string em formato JSON
-    * @param String content
-    * return competições
+     * @param arg0
+     * @return CompetitionManagementContract
     */
     @Override
    public CompetitionManagementContract StringToCompetitions(String arg0) {
@@ -132,11 +132,11 @@ public class MappingJSONToClasses implements MappingJsonToClasses, java.io.Seria
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
-    /*
+    /**
     * Método responsável por retornar uma coleção de competições 
     * tendo por base uma string em formato JSON
-    * @param String content
-    * return coleção de jogadores
+     * @param arg0
+     * @return CompetitionContract
     */
     @Override
     public CompetitionContract StringToCompetition(String arg0) {
@@ -347,12 +347,12 @@ public class MappingJSONToClasses implements MappingJsonToClasses, java.io.Seria
     }
     
     
-    /*
+    /**
     * Método responsável por retornar uma liga 
     * tendo por base uma coleção de equipas e uma string em formato JSON
-    * @param TeamManagementContract teams
-    * @param String content competitions/<competitionId>/leagueTable
-    * return liga
+     * @param arg0
+     * @param arg1
+     * @return LeagueTableContract
     */
     @Override
     public LeagueTableContract StringToLeagueTable(TeamManagementContract arg0, String arg1) {
@@ -636,31 +636,6 @@ public class MappingJSONToClasses implements MappingJsonToClasses, java.io.Seria
                 StandingInterface standingArray = new Standing(position, teamName, crestURI, playedGames, points, goals_standing, goalsAgainst_standing, goalDifference_standing, wins_standing, draws_standing, losses_standing, home, away, team);
                 Standing.addObject(standingArray);
                 
-                //System.out.println("\n Apresenta arg0 : "+arg0.toString());
-                /*
-                TeamManagement teamManagementCompara = (TeamManagement) arg0;
-                
-                //SArrays.sort(teamManagementCompara, teamManagementCompara, Arrays.ASCENDING);ystem.out.println("\n\n arg0 --> teamManagementCompara: "+teamManagementCompara.toString());
-                
-                for(int j=0; j<teamManagementCompara.size(); j++){
-                    
-                    Team teamCompara = (Team) teamManagementCompara.getObject(j);
-                    
-                    //System.out.println("\n teamCompara de .getObject("+j+"): "+teamCompara.toString());
-                    //System.out.println("\n team do LeagueTable aux: "+aux+": "+team.toString());
-                    
-                    System.out.println("\n\n    Nomes a compara teamCompara(arg0).getname: "+teamCompara.getName() +" team.getname: "+team.getName());
-                    
-                    if(teamCompara.getName().equals(team.getName())){
-                        count++;
-                        System.out.println("\n   count incrementa: "+count);
-                        
-                    }else{
-                        System.out.println("\n   count: "+count);
-                    }
-                }
-                */
-                
                 //System.out.println("\n Finalza Santing aux:"+aux+" StandingArray --> Standing["+aux+"]: "+standingArray.toString());
                 
             }// Percorre array standing  --> internamente guarda no construtor a team
@@ -690,12 +665,12 @@ public class MappingJSONToClasses implements MappingJsonToClasses, java.io.Seria
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
-    /*
+    /**
     * Método responsável por retornar uma coleção de jogos 
     * tendo por base uma coleção de equipas e uma string em formato JSON
-    * @param TeamManagementeContract teams
-    * @param String content
-    * return coleção de jogos
+     * @param arg0
+     * @param arg1
+     * @return FixtureManagementContract
     */
     @Override
     public FixtureManagementContract StringToFixtures(TeamManagementContract arg0, String arg1) {
@@ -927,12 +902,11 @@ public class MappingJSONToClasses implements MappingJsonToClasses, java.io.Seria
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
-    
-    /*
+    /**
     * Método responsável por retornar uma coleção de equipas 
     * tendo por base uma string em formato JSON
-    * @param String content
-    * return coleção de equipas
+     * @param arg0
+     * @return TeamManagementContract
     */
     @Override
     public TeamManagementContract StringToTeams(String arg0) {
@@ -1085,11 +1059,11 @@ public class MappingJSONToClasses implements MappingJsonToClasses, java.io.Seria
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
-    /*
+    /**
     * Método responsável por retornar uma uma coleção de jogadores 
     * tendo por base uma string em formato JSON
-    * @param String content de team
-    * return coleção de jogadores
+     * @param arg0
+     * @return PlayerManagementContract
     */
     @Override
     public PlayerManagementContract getPlayersFromTeam(String arg0) {
@@ -1277,11 +1251,11 @@ public class MappingJSONToClasses implements MappingJsonToClasses, java.io.Seria
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
-    /*
+    /**
     * Método responsável por retornar uma equipa
     * tendo por base uma string em formato JSON
-    * @param String content_team
-    * return equipa
+     * @param content_team
+     * @return TeamContract
     */
     public TeamContract StringToTeam(String content_team){
         

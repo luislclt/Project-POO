@@ -35,7 +35,7 @@ public class ResultGame implements java.io.Serializable{
 
     @Override
     public String toString() {
-        return "ResultGame{" + " goalsHomeTeam = " + goalsHomeTeam + ", goalsAwayTeam = " + goalsAwayTeam + ", halfTime = " + halfTime + " }";
+        return "ResultGame{" + " goalsHomeTeam = " + goalsHomeTeam + ", goalsAwayTeam = " + goalsAwayTeam + /*", halfTime = " + halfTime + */" }";
     }
     
     

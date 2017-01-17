@@ -27,6 +27,18 @@ public class Fixture implements FixtureContract, java.io.Serializable{
     private final ResultGame result;
     private final Odds odds;
 
+    /**
+     * Contrutor Fixture
+     * @param date
+     * @param Status
+     * @param matchday
+     * @param homeTeamName
+     * @param awayTeamName
+     * @param homeTeam
+     * @param awayTeam
+     * @param result
+     * @param odds 
+     */
     public Fixture(LocalDateTime date, Status Status, int matchday, String homeTeamName, String awayTeamName, TeamContract homeTeam, TeamContract awayTeam, ResultGame result, Odds odds) {
         this.date = date;
         this.Status = Status;
@@ -39,19 +51,30 @@ public class Fixture implements FixtureContract, java.io.Serializable{
         this.odds = odds;
     }
     
-    
+    /**
+     * Metedo responsavel por retornar a data da fixture
+     * @return LocalDateTime
+     */
     @Override
     public LocalDateTime getDate() {
         return this.date;
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    /**
+     * Metedo responsavel por retornar o Satus do fixture
+     * @return Status
+     */
     @Override
     public Status getStatus() {
         return this.Status;
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    /**
+     * metedo responsavel por retornar o HomeTeamName
+     * @return TeamContract
+     */
     @Override
     public TeamContract getHomeTeamName() {
         
@@ -60,6 +83,10 @@ public class Fixture implements FixtureContract, java.io.Serializable{
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    /**
+     * Metedo responsavel por retornar o AwayTeamName
+     * @return TeamContract
+     */
     @Override
     public TeamContract getAwayTeamName() {
         return this.awayTeam;
@@ -67,9 +94,9 @@ public class Fixture implements FixtureContract, java.io.Serializable{
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
-    /*
-    * getTotalGoalsHomeTeam
-    * GoalsHomeTeam
+    /**
+    * Metedo responsavel por retornar TotalGoalsHomeTeam
+    * @return numero golos
     */
     @Override
     public int getTotalGoalsHomeTeam() {
@@ -77,9 +104,10 @@ public class Fixture implements FixtureContract, java.io.Serializable{
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
-    /*
-    * getTotalGoalsAwayTeam
+    /**
+    * Metedo responsavel por retornar TotalGoalsAwayTeam
     * GoalsAwayTeam
+     * @return numero golos
     */
     @Override
     public int getTotalGoalsAwayTeam() {
@@ -87,32 +115,53 @@ public class Fixture implements FixtureContract, java.io.Serializable{
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
+    /**
+     * Metedo responsavel por retornar HomeTeam
+     * @return TeamContract
+     */
     public TeamContract getHomeTeam() {
         return homeTeam;
     }
 
+    /**
+     * Metedo responsavel por retornar AwayTeam
+     * @return TeamContract
+     */
     public TeamContract getAwayTeam() {
         return awayTeam;
     }
     
-    
+    /**
+     * Metedo responsavel por retornar o MatchDay
+     * @return numero
+     */
     public int getMatchday() {
         return this.matchday;
     }
 
+    /**
+     * Metedo responsavel por retornar o resultado
+     * @return ResultGame
+     */
     public ResultGame getResult() {
         return this.result;
     }
 
+    /**
+     * Metedo responsavel por retornar as Odds
+     * @return Odds
+     */
     public Odds getOdds() {
         return this.odds;
     }
     
+    /**
+     * Metedo responsavel por retornar o StatusGame em formato String
+     * @return String Status
+     */
     public String getStatusGame(){
         
         return StringToStatusGame((StatusGame)this.Status);
-        
-        
     }
     
     /**
@@ -180,8 +229,6 @@ public class Fixture implements FixtureContract, java.io.Serializable{
         }
         return true;
     }
-    
-    
     
     
 }

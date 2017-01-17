@@ -73,14 +73,26 @@ public class PlayerManagement implements PlayerManagementContract , java.io.Seri
      */
     @Override
     public void sort() {
+        for (int i = 0; i < this.size()-1; i++) {
+            
+            //PlayerContract player1 = (PlayerContract) this.getObject(i);
+            
+            for (int j = i+1; j < this.size(); j++) {
+                
+                //PlayerContract player2 = (PlayerContract) this.getObject(j);
+                
+                if(this.objects[i].getNumberMarketValue() < this.objects[j].getNumberMarketValue()){
+                //if(this.objects[i].compareTo(this.objects[j]) > 0){
+                    
+                    Player objectTMP = this.objects[i];
+                    this.objects[i] = this.objects[j];
+                    this.objects[j] = objectTMP;
+                    
+                }
+            }
+        }
         
-        
-        
-        
-        
-        
-        
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
     /**
