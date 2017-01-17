@@ -386,11 +386,8 @@ public class MappingJSONToClasses implements MappingJsonToClasses, java.io.Seria
         StatisticsStanding home;
         StatisticsStanding away;
         
-        int count = 0;
+        //int count = 0;
         LeagueTable leaguetable1 = null; //retorno da função
-        String string_Link;
-        String string_team;
-        String string_href;
         
         JSONParser jsonParser_leagueTable = new JSONParser();
         
@@ -429,42 +426,6 @@ public class MappingJSONToClasses implements MappingJsonToClasses, java.io.Seria
                 JSONObject standing = (JSONObject) arrayLeagueTable.get(aux); // position aux 
                 
                 //CountConections(); // nao precisa de contar nao existe conexao futuras ao servidor
-                
-                /*              
-                // Procura apenas pelo "_Links"
-                JSONParser jsonParser_links = new JSONParser();
-
-                Object object_links = jsonParser_links.parse(standing.toString());
-                JSONObject Json_object_links = (JSONObject) object_links;
-
-                string_Link = Json_object_links.get("_links").toString();
-                //System.out.println(" StringTostanding _links: " +string_Link);
-
-                // Procura apenas pelo "team"
-                JSONParser jsonParser_players = new JSONParser();
-
-                Object object_players = jsonParser_players.parse(string_Link);
-                JSONObject Json_object_players = (JSONObject) object_players;
-
-                string_team = Json_object_players.get("team").toString();
-                //System.out.println(" From StringToLeagueTable --> StringTostanding team: " +string_team);
-
-                // Procura apenas pelo "href"
-                JSONParser jsonParser_href = new JSONParser();
-
-                Object object_href = jsonParser_href.parse(string_team);
-                JSONObject Json_object_href = (JSONObject) object_href;
-
-                string_href = Json_object_href.get("href").toString();
-                System.out.println(" From StringToLeagueTable --> StringTostanding href = " +string_href);
-                
-                WebServiceConnection conection = new WebServiceConnection(apiKey);
-                String team_content = conection.getContent(string_href);
-                
-                TeamContract team = StringToTeam(team_content); // Team guardada do Standing[0] array
-                //System.out.println("\n \t Recebe a team do Standing --> OK");
-                */
-                
                 
                 Object object_position = standing.get("position");
                 if(null == object_position){
@@ -637,18 +598,12 @@ public class MappingJSONToClasses implements MappingJsonToClasses, java.io.Seria
                 
             }// Percorre array standing  --> internamente guarda no construtor a team
             
-            //TeamManagement teamManagementCompara = (TeamManagement) arg0;
-            //if(count == teamManagementCompara.size()){
-                
-                //System.out.println("\n\n\t ENTRA no if count > 0 do StringToLeagueTable(TeamManagementContract arg0, String arg1)");
-                
-                leaguetable1 = new LeagueTable(leagueCaption, matchday, Standing);
-                
-                //System.out.println("leagueTable = "+leaguetable1.toString());
-                
-                return leaguetable1;
-                
-            //}
+            //System.out.println("\n\n\t ENTRA no if count > 0 do StringToLeagueTable(TeamManagementContract arg0, String arg1)");
+
+            leaguetable1 = new LeagueTable(leagueCaption, matchday, Standing);
+
+            //System.out.println("leagueTable = "+leaguetable1.toString());
+            return leaguetable1;
             
             //return teamManagement;
         } catch ( ParseException ex1) {
@@ -693,7 +648,7 @@ public class MappingJSONToClasses implements MappingJsonToClasses, java.io.Seria
         
         FixtureManagementContract fixtureManagement1 = null; // guarda todos os fixtures
         FixtureContract fixtureByPosition = null; // fixture usado em cada position do arrays
-        TeamContract team = null; // objeto auxiliar para guardar para as homeTeamName e awayTeamName
+        //TeamContract team = null; // objeto auxiliar para guardar para as homeTeamName e awayTeamName
         
         //DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd"); // para o Date
         //DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd"); // para o LocalDateTime
@@ -777,30 +732,32 @@ public class MappingJSONToClasses implements MappingJsonToClasses, java.io.Seria
                                 }else{
                                     result_goalsAwayTeam = Integer.parseInt(object_result_goalsAwayTeam.toString());
                                 }
-                                /*
-                                Object object_halfTime_link = Json_object_result.get("halfTime");
-                                // Procura apenas pelo "halfTime_Links"
-                                JSONParser jsonParser_halfTime = new JSONParser();
+                                if(null != Json_object_result.get("halfTime")){
+                                    
+                                    Object object_halfTime_link = Json_object_result.get("halfTime");
+                                    // Procura apenas pelo "halfTime_Links"
+                                    JSONParser jsonParser_halfTime = new JSONParser();
 
-                                Object object_halfTime = jsonParser_halfTime.parse(object_halfTime_link.toString());
-                                JSONObject Json_object_halfTime = (JSONObject) object_halfTime;
+                                    Object object_halfTime = jsonParser_halfTime.parse(object_halfTime_link.toString());
+                                    JSONObject Json_object_halfTime = (JSONObject) object_halfTime;
 
-                                Object object_halfTime_goalsHomeTeam = Json_object_halfTime.get("goalsHomeTeam");
-                                if(null == object_halfTime_goalsHomeTeam){
-                                    halfTime_goalsHomeTeam = 0;
-                                }else{
-                                    halfTime_goalsHomeTeam = Integer.parseInt(object_halfTime_goalsHomeTeam.toString());
+                                    Object object_halfTime_goalsHomeTeam = Json_object_halfTime.get("goalsHomeTeam");
+                                    if(null == object_halfTime_goalsHomeTeam){
+                                        halfTime_goalsHomeTeam = 0;
+                                    }else{
+                                        halfTime_goalsHomeTeam = Integer.parseInt(object_halfTime_goalsHomeTeam.toString());
+                                    }
+
+                                    Object object_halfTime_goalsAwayTeam = Json_object_halfTime.get("goalsAwayTeam");
+                                    if(null == object_halfTime_goalsAwayTeam){
+                                        halfTime_goalsAwayTeam = 0;
+                                    }else{
+                                        halfTime_goalsAwayTeam = Integer.parseInt(object_halfTime_goalsAwayTeam.toString());
+                                    }
+                                    // criar o construtor
+                                    halfTime = new HalfTime(result_goalsHomeTeam, result_goalsAwayTeam);
                                 }
-
-                                Object object_halfTime_goalsAwayTeam = Json_object_halfTime.get("goalsAwayTeam");
-                                if(null == object_halfTime_goalsAwayTeam){
-                                    halfTime_goalsAwayTeam = 0;
-                                }else{
-                                    halfTime_goalsAwayTeam = Integer.parseInt(object_halfTime_goalsAwayTeam.toString());
-                                }
-                                // criar o construtor
-                                halfTime = new HalfTime(result_goalsHomeTeam, result_goalsAwayTeam);
-                                */
+                                
                                 result = new ResultGame(result_goalsHomeTeam, result_goalsAwayTeam, halfTime);
                                 
                                 Object object_odds_link = fixture.get("odds");

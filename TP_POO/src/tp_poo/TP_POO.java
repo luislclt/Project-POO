@@ -33,7 +33,6 @@ import java.io.ObjectOutputStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
-import java.util.Scanner;
 import tp_poo.ServiceManager.Football;
 
 /*
@@ -232,18 +231,19 @@ public class TP_POO {
         
         MappingJsonToClasses mappingCompetitions1 = new MappingJSONToClasses(url, apiKey);
         
-        CompetitionManagementContract competitions1 = mappingCompetitions1.StringToCompetitions(Json_Competitions);
+        CompetitionManagementContract competitionsResult1 = mappingCompetitions1.StringToCompetitions(Json_Competitions);
         
-        System.out.println("\n Result Competitions 1: "+competitions1.toString());
+        //System.out.println("\n Result Competitions 1: "+competitionsResult1.toString());
         */
-        
-        
+        /*
+            Save & Read files
+        */
         
         //CompetitionManagementContract competitions1 = null; // so para testar  remover
         
         // Teste Write Object to a file //  implements java.io.Serializable
         /*
-        File fileToWrite = new File("test.txt");
+        File fileToWrite = new File("SaveCompetitions.txt");
         
         ObjectOutputStream out = new ObjectOutputStream(
             new FileOutputStream(fileToWrite));
@@ -251,7 +251,7 @@ public class TP_POO {
         //Student james = new Student();
         //out.writeObject(james);
         
-        out.writeObject(competitions1); // cria de JsonCompetitions assima
+        out.writeObject(competitionsResult1); // cria de JsonCompetitions assima
         
         System.out.println(" Store the competitions1 in file called " + fileToWrite.getName());
         */
@@ -259,14 +259,14 @@ public class TP_POO {
         
         // Teste Read Object from file ///
         
-        File fileToRead = new File("test.txt");
+        File fileToRead = new File("SaveCompetitions.txt");
         
         ObjectInputStream in = new ObjectInputStream( 
                 new FileInputStream(fileToRead));
         
         CompetitionManagement competitionsFile = (CompetitionManagement)in.readObject(); 
         
-        //System.out.println("\n Result Competitions 1 FROM the file:  "+fileToRead.getName() +"\n\n "+competitionsFile.toString());
+        System.out.println("\n Result Competitions 1 FROM the file:  "+fileToRead.getName() +"\n\n "+competitionsFile.toString());
         
         
         
@@ -369,7 +369,7 @@ public class TP_POO {
         /*
             Obter uma listagem dos jogadores mais valiosos de um determinado campeonato, ordenada por ordem crescente pelo seu valor de mercado
         */
-        
+        /*
         String competitionName3 = "Primeira Liga 2016/17";
         
         CompetitionManagement competitions3 = competitionsFile;
@@ -398,7 +398,7 @@ public class TP_POO {
                 if(players != null) countTotalPlayers += players.size();
             }
             
-            System.out.println("\n\n countTotalPlayers: "+countTotalPlayers);
+            //System.out.println("\n\n countTotalPlayers: "+countTotalPlayers);
             
             PlayerManagement ResultPlayers = new PlayerManagement(countTotalPlayers+1);
             
@@ -419,15 +419,13 @@ public class TP_POO {
             }
             
             ResultPlayers.sort();
-            
             System.out.println("\n\n Listagem players por Valuemarket: \n"+ResultPlayers);
-            
             
         }else{
             System.out.println("Não foi encontrada correspondencia -->  competitionName: "+competitionName3);
         }
         
-        
+        */
         
         
         
