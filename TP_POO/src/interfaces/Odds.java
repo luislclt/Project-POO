@@ -22,18 +22,34 @@ public class Odds implements java.io.Serializable{
         this.awayWin = awayWin;
     }
 
+    /**
+     * Método responsável por retornar as odds da equipa da casa
+     * @return homeWin
+     */
     public double getHomeWin() {
         return homeWin;
     }
 
+    /**
+     * Método responsável por retornar as odds do empate
+     * @return draw
+     */
     public double getDraw() {
         return draw;
     }
 
+    /**
+     * Método responsável por retornar as odds da equipa de fora
+     * @return awayWin
+     */
     public double getAwayWin() {
         return awayWin;
     }
 
+    /**
+     * Método responsável por retornar a string das odds
+     * @return string odds
+     */
     @Override
     public String toString() {
         return "odds{" + " homeWin = " + homeWin + ", draw = " + draw + ", awayWin = " + awayWin + " }";

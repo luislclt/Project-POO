@@ -43,12 +43,11 @@ public class FixtureManagement implements FixtureManagementContract, java.io.Ser
     }
     
     /**
-     * método retorna um jogo tendo por base a semana do jogo, 
-     * e as equipas que participam no jogo
-     * @param arg0 semana do jogo
-     * @param arg1 equipaHome
-     * @param arg2 equipaAway
-     * @return 
+     * Método responsável por retornar um jogo tendo por base a semana do jogo, e as equipas que participam no jogo
+     * @param arg0 - a semana do jogo
+     * @param arg1 - equipa da casa
+     * @param arg2 - equipa visitante
+     * @return um dado jogo
      */
     @Override
     public FixtureContract getFixture(int arg0, TeamContract arg1, TeamContract arg2) {
@@ -79,8 +78,8 @@ public class FixtureManagement implements FixtureManagementContract, java.io.Ser
     }
     
     /**
-     * Método insere um {Object objeto} de {FixtureManagement}
-     * @param newObject {Object objeto} a inserir no vetor
+     * Método responsável por inserir um objeto numa coleção de jogos
+     * @param newObject - objeto a inserir no vetor
      * @return valor booleano sucesso ou insucesso(Vetor cheio)
      */
     @Override
@@ -95,9 +94,9 @@ public class FixtureManagement implements FixtureManagementContract, java.io.Ser
     }
     
     /**
-     * Método remove um {Object objeto} do vetor {FixtureManagement}
-     * @param position indice correspondente ao elemento a remover
-     * @return o {bject objeto} removido
+     * Método responsável por remover um objeto do vetor de jogos
+     * @param position - indice correspondente ao elemento a remover
+     * @return o objeto removido
      */
     @Override
     public Object removeObject(int position) {
@@ -110,9 +109,9 @@ public class FixtureManagement implements FixtureManagementContract, java.io.Ser
     }
     
     /**
-     * Método retorna um objeto existente numa determinada posição do vetor
-     * @param position indice do elemento a devolver
-     * @return objeto do tipo Object
+     * Método responsável por retornar um objeto existente numa determinada posição do vetor
+     * @param position - indice do elemento a devolver
+     * @return o objeto
      */
     @Override
     public Object getObject(int position) {
@@ -120,7 +119,7 @@ public class FixtureManagement implements FixtureManagementContract, java.io.Ser
     }
     
     /**
-     * Método para encontrar um {Object objeto} no vetor de {FixtureManagement}
+     * Método responsável por encontrar um objeto no vetor de jogos
      * @param obj objeto a procurar no vetor
      * @return o indice do objeto no vetor. No caso do elemento não existir, deverá ser retornado o valor -1
      */
@@ -135,7 +134,7 @@ public class FixtureManagement implements FixtureManagementContract, java.io.Ser
     }
     
     /**
-     * Método retorna o número de elementos no FixtureManagement
+     * Método responsável por retornar o número de elementos na coleção de jogos
      * @return o número de posições, mas não nulas
      */
     public int size() {
@@ -147,7 +146,7 @@ public class FixtureManagement implements FixtureManagementContract, java.io.Ser
     }
     
     /**
-     * Método imprime todos os objectos da coleção
+     * Método responsável por imprimir todos os objectos da coleção
      * @return retorna a String 
      */
     @Override

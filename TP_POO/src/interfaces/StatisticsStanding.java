@@ -38,45 +38,49 @@ public class StatisticsStanding implements java.io.Serializable{
     }
 
     /**
-     * Metedo responsavel por retornar o número de golos
-     * @return numero golos
+     * Método responsável por retornar o número de golos
+     * @return o número de golos
      */
     public int getGoals() {
         return goals;
     }
 
     /**
-     * Metedo responsavel por retornar o numero de golo against a equipa adversaria
-     * @return numero golos
+     * Método responsável por retornar o número de golo sofridos sa equipa adversária
+     * @return o número de golos
      */
     public int getGoalsAgainst() {
         return goalsAgainst;
     }
 
     /**
-     * Metedo responsavel por retornar o numero de vitórias da equipa
-     * @return numero vitórias
+     * Método responsável por retornar o número de vitórias da equipa
+     * @return o número de vitórias
      */
     public int getWins() {
         return wins;
     }
 
     /**
-     * Metedo responsavel por retornar o número de impates
-     * @return numero impates
+     * Método responsável por retornar o número de impates
+     * @return o número de impates
      */
     public int getDraws() {
         return draws;
     }
 
     /**
-     * Metedo responsavel por retornar o numero de derrotas
-     * @return numero derrotas
+     * Método responsável por retornar o número de derrotas
+     * @return o número de derrotas
      */
     public int getLosses() {
         return losses;
     }
 
+    /**
+     * Método responsável por retornar a String dos golos das equipas
+     * @return a String dos golos das equipas
+     */
     @Override
     public String toString() {
         return  " goals = " + goals + ", goalsAgainst = " + goalsAgainst + ", wins = " + wins + ", draws = " + draws + ", losses = " + losses;

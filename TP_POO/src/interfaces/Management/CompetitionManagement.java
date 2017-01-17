@@ -44,11 +44,10 @@ public class CompetitionManagement implements CompetitionManagementContract, jav
     }
     
     /**
-     * Método {getCompetition} responsável por retornar uma Competição
-    * tendo por base o nome e o ano dessa mesma Competição
-     * @param competitionName
-     * @param year
-     * @return 
+     * Método responsável por retornar uma Competição tendo por base o nome e o ano dessa mesma Competição
+     * @param competitionName - o nome da competição
+     * @param year - o ano/epoca da competição
+     * @return uma competição
      */
     @Override
     public CompetitionContract getCompetition(String competitionName, int year) {
@@ -67,12 +66,11 @@ public class CompetitionManagement implements CompetitionManagementContract, jav
     }
     
     /**
-     * Método {getGamesScheduled} responsável por retornar uma coleção de jogos agendados
-     * tendo por base a Competição e um intervalo de datas
-     * @param competition
-     * @param date1
-     * @param date2
-     * @return 
+     * Método responsável por retornar uma coleção de jogos agendados tendo por base a Competição e um intervalo de datas
+     * @param competition - a competição
+     * @param date1 - data inicial
+     * @param date2 - data final
+     * @return uma coleção de jogos
      */
     @Override
     public FixtureManagementContract getGamesScheduled(CompetitionContract competition, LocalDateTime date1, LocalDateTime date2) {
@@ -112,12 +110,11 @@ public class CompetitionManagement implements CompetitionManagementContract, jav
     }
     
     /**
-     * Método {getGamesEnded} responsável por retornar uma coleção de jogos terminados 
-     * tendo por base a Competição e um intervalo de datas
-     * @param competition
-     * @param date1
-     * @param date2
-     * @return 
+     * Método responsável por retornar uma coleção de jogos terminados tendo por base a Competição e um intervalo de datas
+     * @param competition - a competição
+     * @param date1 - data inicial
+     * @param date2 - data final
+     * @return uma coleção de jogos
      */
     @Override
     public FixtureManagementContract getGamesEnded(CompetitionContract competition, LocalDateTime date1, LocalDateTime date2) {
@@ -156,9 +153,9 @@ public class CompetitionManagement implements CompetitionManagementContract, jav
     }
     
     /**
-     * Método insere um {Object objeto} de {CompetitionManagement}
-     * @param newObject {Object objeto} a inserir no vetor
-     * @return valor booleano sucesso ou insucesso(Vetor cheio)
+     * Método responsável por inserir um objeto do vetor de objetos.
+     * @param newObject - objeto a inserir no vetor
+     * @return Valor que sinaliza o sucesso/insucesso da operação
      */
     @Override
     public boolean addObject(Object newObject) {
@@ -172,9 +169,9 @@ public class CompetitionManagement implements CompetitionManagementContract, jav
     }
     
     /**
-     * Método remove um {Object objeto} do vetor {CompetitionManagement}
-     * @param position indice correspondente ao elemento a remover
-     * @return o {bject objeto} removido
+     * Método responsável por remover um objeto do vetor de objetos.
+     * @param position - índice correspondente ao elemento a eliminar
+     * @return o objeto eliminado
      */
     @Override
     public Object removeObject(int position) {
@@ -187,8 +184,8 @@ public class CompetitionManagement implements CompetitionManagementContract, jav
     }
     
     /**
-     * Método retorna um objeto existente numa determinada posição do vetor
-     * @param position indice do elemento a devolver
+     * Método responsável por retornar um objeto existente numa determinada posição do vetor de objetos.
+     * @param position - índice do elemento a devolver
      * @return objeto do tipo Object
      */
     @Override
@@ -197,9 +194,9 @@ public class CompetitionManagement implements CompetitionManagementContract, jav
     }
     
     /**
-     * Método para encontrar um {Object objeto} no vetor de {CompetitionManagement}
-     * @param obj objeto a procurar no vetor
-     * @return o indice do objeto no vetor. No caso do elemento não existir, deverá ser retornado o valor -1
+     * Método responsável por encontrar um objeto no vetor de objetos
+     * @param obj - objeto a procurar no vetor
+     * @return o índice do objeto no vetor. No caso do elemento não existir, deverá ser retornado o valor -1
      */
     @Override
     public int findObject(Object obj) {
@@ -212,7 +209,7 @@ public class CompetitionManagement implements CompetitionManagementContract, jav
     }
     
     /**
-     * Método retorna o número de elementos no CompetitionManagement
+     * Método responsável por retornar o número de elementos na Competição
      * @return o número de posições, mas não nulas
      */
     public int size() {
@@ -224,7 +221,7 @@ public class CompetitionManagement implements CompetitionManagementContract, jav
     }
     
     /**
-     * Método imprime todos os objectos da coleção
+     * Método responsável por imprimir todos os objectos da coleção de competições
      * @return retorna a String 
      */
     @Override

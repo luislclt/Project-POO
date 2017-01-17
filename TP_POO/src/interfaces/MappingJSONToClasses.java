@@ -40,10 +40,10 @@ public class MappingJSONToClasses implements MappingJsonToClasses, java.io.Seria
     private int countConections; // conta o numero de coneções ao Server
     
     /**
-    * Constructor recebe uma String URL e String apiKey
+     * Constructor recebe uma String URL e String apiKey
      * @param URL
      * @param apiKey
-    */
+     */
     public MappingJSONToClasses(String URL, String apiKey) {
         this.URL = URL;
         this.apiKey = apiKey;
@@ -52,10 +52,10 @@ public class MappingJSONToClasses implements MappingJsonToClasses, java.io.Seria
     
     
     /**
-    * Método responsável por retornar uma coleção de competições tendo por base uma string em formato JSON
-    * @param arg0
-    * @return CompetitionManagementContract
-    */
+     * Método responsável por retornar uma coleção de competições tendo por base uma string em formato JSON
+     * @param arg0 - String em formato JSON
+     * @return coleção de competições
+     */
     @Override
    public CompetitionManagementContract StringToCompetitions(String arg0) {
         
@@ -133,8 +133,8 @@ public class MappingJSONToClasses implements MappingJsonToClasses, java.io.Seria
     
     /**
     * Método responsável por retornar uma competição tendo por base uma string em formato JSON
-    * @param arg0
-    * @return CompetitionContract
+    * @param arg0 - String em formato JSON
+    * @return uma competição
     */
     @Override
     public CompetitionContract StringToCompetition(String arg0) {
@@ -347,9 +347,9 @@ public class MappingJSONToClasses implements MappingJsonToClasses, java.io.Seria
     
     /**
     * Método responsável por retornar uma liga tendo por base uma coleção de equipas e uma string em formato JSON
-    * @param arg0
-    * @param arg1
-    * @return LeagueTableContract
+    * @param arg0 - uma coleção de equipas
+    * @param arg1  - String em formato JSON
+    * @return uma dada liga
     */
     @Override
     public LeagueTableContract StringToLeagueTable(TeamManagementContract arg0, String arg1) {
@@ -619,9 +619,9 @@ public class MappingJSONToClasses implements MappingJsonToClasses, java.io.Seria
     
     /**
     * Método responsável por retornar uma coleção de jogos tendo por base uma coleção de equipas e uma string em formato JSON
-    * @param arg0
-    * @param arg1
-    * @return FixtureManagementContract
+    * @param arg0 - uma coleção de equipas
+    * @param arg1 - String em formato JSON
+    * @return uma coleção de jogos
     */
     @Override
     public FixtureManagementContract StringToFixtures(TeamManagementContract arg0, String arg1) {
@@ -857,8 +857,8 @@ public class MappingJSONToClasses implements MappingJsonToClasses, java.io.Seria
     
     /**
     * Método responsável por retornar uma coleção de equipas tendo por base uma string em formato JSON
-    * @param arg0
-    * @return TeamManagementContract
+    * @param arg0 - String em formato JSON
+    * @return uma coleção de equipas
     */
     @Override
     public TeamManagementContract StringToTeams(String arg0) {
@@ -1013,8 +1013,8 @@ public class MappingJSONToClasses implements MappingJsonToClasses, java.io.Seria
     
     /**
     * Método responsável por retornar uma coleção de jogadores tendo por base uma string em formato JSON
-    * @param arg0
-    * @return PlayerManagementContract
+    * @param arg0 - String em formato JSON
+    * @return uma coleção de jogadores
     */
     @Override
     public PlayerManagementContract getPlayersFromTeam(String arg0) {
@@ -1204,8 +1204,8 @@ public class MappingJSONToClasses implements MappingJsonToClasses, java.io.Seria
     
     /**
     * Método responsável por retornar uma equipa tendo por base uma string em formato JSON
-    * @param content_team
-    * @return TeamContract
+    * @param content_team - String em formato JSON
+    * @return uma equipa
     */
     public TeamContract StringToTeam(String content_team){
         

@@ -14,7 +14,7 @@ public enum StatusGame implements Status, java.io.Serializable{
     FINISHED, TIMED, IN_PLAY, CANCELED, POSTPONED, INVALIDO;
     
     /**
-     * Método que retorna uma representação textual do estado de um jogo
+     * Método responsável por retornar uma representação textual do estado de um jogo
      * 
      * @param status da representação textual
      * * FINISHED, TIMED, IN_PLAY

@@ -19,7 +19,7 @@ public class Nationality implements NationalityContract, java.io.Serializable{
     
     /**
      * Método responsável por retornar a nacioalidade de um jogador
-     * @return nacionalidade
+     * @return a nacionalidade de um jogador
      */
     @Override
     public String getNationality() {

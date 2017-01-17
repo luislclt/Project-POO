@@ -42,9 +42,9 @@ public class TeamManagement implements TeamManagementContract, java.io.Serializa
     }
     
     /**
-     * Método {getTeam} responsável por retornar uma equipa tendo por base o nome
-     * @param arg0 nome
-     * @return equipa
+     * Método responsável por retornar uma equipa tendo por base o nome
+     * @param arg0 - o nome da equipa
+     * @return a equipa
      */
     @Override
     public TeamContract getTeam(String arg0) { // String nome --> retorna pelo nome da equipa
@@ -67,9 +67,9 @@ public class TeamManagement implements TeamManagementContract, java.io.Serializa
     }
 
     /**
-     * Método insere um {Object objeto} de {TeamManagement}
-     * @param newObject {Object objeto} a inserir no vetor
-     * @return valor booleano sucesso ou insucesso(Vetor cheio)
+     * Método responsável por inserir um objeto do vetor de objetos.
+     * @param newObject - objeto a inserir no vetor
+     * @return Valor que sinaliza o sucesso/insucesso da operação
      */
     @Override
     public boolean addObject(Object newObject) {
@@ -83,9 +83,9 @@ public class TeamManagement implements TeamManagementContract, java.io.Serializa
     }
     
     /**
-     * Método remove um {Object objeto} do vetor {TeamManagement}
-     * @param position indice correspondente ao elemento a remover
-     * @return o {bject objeto} removido
+     * Método responsável por remover um objeto do vetor de objetos.
+     * @param position - índice correspondente ao elemento a eliminar
+     * @return o objeto eliminado
      */
     @Override
     public Object removeObject(int position) {
@@ -98,8 +98,8 @@ public class TeamManagement implements TeamManagementContract, java.io.Serializa
     }
     
     /**
-     * Método retorna um objeto existente numa determinada posição do vetor
-     * @param position indice do elemento a devolver
+     * Método responsável por retornar um objeto existente numa determinada posição do vetor de objetos.
+     * @param position - índice do elemento a devolver
      * @return objeto do tipo Object
      */
     @Override
@@ -108,9 +108,9 @@ public class TeamManagement implements TeamManagementContract, java.io.Serializa
     }
     
     /**
-     * Método para encontrar um {Object objeto} no vetor de {TeamManagement}
-     * @param obj objeto a procurar no vetor
-     * @return o indice do objeto no vetor. No caso do elemento não existir, deverá ser retornado o valor -1
+     * Método responsável por encontrar um objeto no vetor de objetos
+     * @param obj - objeto a procurar no vetor
+     * @return o índice do objeto no vetor. No caso do elemento não existir, deverá ser retornado o valor -1
      */
     @Override
     public int findObject(Object obj) {
@@ -123,8 +123,8 @@ public class TeamManagement implements TeamManagementContract, java.io.Serializa
     }
     
     /**
-     * Método retorna o número de elementos no TeamManagement
-     * @return o número de posições, mas não nulas
+     * Método responsável por retornar o número de elementos na coleção
+     * @return índice do elemento a devolver
      */
     public int size() {
         int i = 0;
@@ -135,7 +135,7 @@ public class TeamManagement implements TeamManagementContract, java.io.Serializa
     }
     
     /**
-     * Método imprime todos os objectos da coleção
+     * Método responsável por imprimir todos os objectos da coleção
      * @return retorna a String 
      */
     @Override

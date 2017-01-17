@@ -53,7 +53,7 @@ public class Fixture implements FixtureContract, java.io.Serializable{
     
     /**
      * Método responsável por retornar a data do jogo
-     * @return LocalDateTime
+     * @return data do jogo
      */
     @Override
     public LocalDateTime getDate() {
@@ -63,7 +63,7 @@ public class Fixture implements FixtureContract, java.io.Serializable{
 
     /**
      * Método responsável por retornar o status do jogo
-     * @return Status
+     * @return o status do jogo
      */
     @Override
     public Status getStatus() {
@@ -73,7 +73,7 @@ public class Fixture implements FixtureContract, java.io.Serializable{
 
     /**
      * Método responsável por retornar o nome da equipa que joga em casa (no seu estádio)
-     * @return TeamContract
+     * @return a equipa que joga em casa (no seu estádio)
      */
     @Override
     public TeamContract getHomeTeamName() {
@@ -85,7 +85,7 @@ public class Fixture implements FixtureContract, java.io.Serializable{
 
     /**
      * Método responsável por retornar o nome da equipa que joga fora de casa (fora do seu estádio)
-     * @return TeamContract
+     * @return a equipa que joga fora de casa (fora do seu estádio)
      */
     @Override
     public TeamContract getAwayTeamName() {
@@ -95,9 +95,9 @@ public class Fixture implements FixtureContract, java.io.Serializable{
     }
     
     /**
-    * Método responsável por retornar o número total de golos da equipa da casa
-    * @return numero golos
-    */
+     * Método responsável por retornar o número total de golos da equipa da casa
+     * @return número total de golos da equipa da casa
+     */
     @Override
     public int getTotalGoalsHomeTeam() {
         return this.result.getGoalsHomeTeam();
@@ -105,9 +105,9 @@ public class Fixture implements FixtureContract, java.io.Serializable{
     }
     
     /**
-    * Método responsável por retornar o número total de golos da equipa que joga fora de casa
-     * @return numero golos
-    */
+     * Método responsável por retornar o número total de golos da equipa que joga fora de casa
+     * @return número total de golos da equipa que joga fora de casa
+     */
     @Override
     public int getTotalGoalsAwayTeam() {
         return this.result.getGoalsAwayTeam();
@@ -115,16 +115,16 @@ public class Fixture implements FixtureContract, java.io.Serializable{
     }
     
     /**
-     * Método responsável por retornar HomeTeam
-     * @return TeamContract
+     * Método responsável por retornar a equipa que joga em casa
+     * @return a equipa que joga em casa
      */
     public TeamContract getHomeTeam() {
         return homeTeam;
     }
 
     /**
-     * Método responsável por retornar AwayTeam
-     * @return TeamContract
+     * Método responsável por retornar a equipa que joga fora
+     * @return a equipa que joga fora
      */
     public TeamContract getAwayTeam() {
         return awayTeam;
@@ -132,7 +132,7 @@ public class Fixture implements FixtureContract, java.io.Serializable{
     
     /**
      * Método responsável por retornar o MatchDay
-     * @return numero
+     * @return o MatchDay
      */
     public int getMatchday() {
         return this.matchday;
@@ -140,7 +140,7 @@ public class Fixture implements FixtureContract, java.io.Serializable{
 
     /**
      * Método responsável por retornar o resultado do jogo
-     * @return ResultGame
+     * @return o resultado do jogo
      */
     public ResultGame getResult() {
         return this.result;
@@ -148,7 +148,7 @@ public class Fixture implements FixtureContract, java.io.Serializable{
 
     /**
      * Método responsável por retornar as Odds
-     * @return Odds
+     * @return as odds
      */
     public Odds getOdds() {
         return this.odds;
@@ -156,7 +156,7 @@ public class Fixture implements FixtureContract, java.io.Serializable{
     
     /**
      * Método responsável por retornar o StatusGame em formato String
-     * @return String Status
+     * @return o status do jogo
      */
     public String getStatusGame(){
         
@@ -164,8 +164,8 @@ public class Fixture implements FixtureContract, java.io.Serializable{
     }
     
     /**
-     * Método que imprime o jogo
-     * @return retorna a String 
+     * Método responsável por retornar a String do jogo
+     * @return a String do jogo
      */
     @Override
     public String toString() {

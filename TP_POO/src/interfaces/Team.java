@@ -57,7 +57,7 @@ public class Team implements TeamContract, java.io.Serializable{
     
     /**
      * Método responsável por retornar o nome da equipa
-     * @return nome
+     * @return o nome da equipa
      */
     @Override
     public String getName() {
@@ -65,8 +65,8 @@ public class Team implements TeamContract, java.io.Serializable{
     }
     
     /**
-     * Método responsável por retornar o codigo da equipa
-     * @return 
+     * Método responsável por retornar o código da equipa
+     * @return o código da equipa
      */
     @Override
     public String getCode() {
@@ -75,7 +75,7 @@ public class Team implements TeamContract, java.io.Serializable{
     
     /**
      * Método responsável por retornar o valor total de mercado da equipa
-     * @return SquadMarketValue
+     * @return o valor total de mercado da equipa
      */
     @Override
     public String getSquadMarketValue() {
@@ -84,7 +84,7 @@ public class Team implements TeamContract, java.io.Serializable{
     
     /**
      * Método responsável por retornar uma coleção de jogadores de uma dada da equipa
-     * @return jogadores
+     * @return uma coleção de jogadores
      */
     @Override
     public PlayerManagementContract getPlayers() {
@@ -93,8 +93,8 @@ public class Team implements TeamContract, java.io.Serializable{
     }
     
     /**
-     * Método responsável por retornar um player com o valor mais alto marketValue
-     * @return jogador
+     * Método responsável por retornar um player com o valor de mercado mais alto
+     * @return o jogador com valor de mercado mais alto
      */
     public PlayerContract getMostValuePlayer(){
         
@@ -117,13 +117,17 @@ public class Team implements TeamContract, java.io.Serializable{
     /**
      * Método responsável por retornar um player pela posição
      * @param position
-     * @return 
+     * @return um jogador
      */
     public PlayerContract getPlayer(int position) {
         
         return (PlayerContract) this.Players.getObject(position);
     }
     
+    /**
+     * Método responsável por retornar a String da equipa
+     * @return a String da equipa
+     */
     @Override
     public String toString() {
         return "  Team{" + " name = " + name + ", Code = " + Code + ", SquadMarketValue = " + SquadMarketValue + ", shortName = " + shortName + ", crestUrl = " + crestUrl + ",\n players = " + Players + "\n   }";

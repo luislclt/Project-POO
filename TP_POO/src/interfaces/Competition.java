@@ -74,7 +74,7 @@ public class Competition implements CompetitionContract, java.io.Serializable{
     
     /**
      * Método responsável por retornar o código da competição
-     * @return id competição
+     * @return identificador da competição
      */
     @Override
     public int getId() {
@@ -83,7 +83,7 @@ public class Competition implements CompetitionContract, java.io.Serializable{
     
     /**
      * Método responsável por retornar a liga
-     * @return liga
+     * @return a liga
      */
     @Override
     public LeagueTableContract getLeague() {
@@ -93,7 +93,7 @@ public class Competition implements CompetitionContract, java.io.Serializable{
 
     /**
      * metedo responsável por retornar o ano/epoca da competição
-     * @return ano/epoca
+     * @return o ano/epoca da competição
      */
     @Override
     public int getYear() {
@@ -102,7 +102,7 @@ public class Competition implements CompetitionContract, java.io.Serializable{
 
     /**
      * Método responsável por retornar todos os jogos de determinada competição
-     * @return resultados/fixtures
+     * @return todos os jogos de determinada competição
      */
     @Override
     public FixtureManagementContract getFixture() {
@@ -111,7 +111,7 @@ public class Competition implements CompetitionContract, java.io.Serializable{
 
     /**
      * Método responsável por retornar todas as equipas de uma determinada competição
-     * @return equipas
+     * @return as equipas de uma determinada competição
      */
     @Override
     public TeamManagementContract getTeams() {
@@ -119,8 +119,8 @@ public class Competition implements CompetitionContract, java.io.Serializable{
     }
 
     /**
-     * Método responsável por retornar a Caption
-     * @return nome/caption
+     * Método responsável por retornar o nome da equipa
+     * @return o nome da equipa
      */
     public String getCaption() {
         return this.caption;
@@ -128,47 +128,47 @@ public class Competition implements CompetitionContract, java.io.Serializable{
 
     /**
      * Método responsável por retornar o currentMatchday
-     * @return currentMatchday
+     * @return o currentMatchday
      */
     public int getCurrentMatchday() {
         return this.currentMatchday;
     }
 
     /**
-     * Método responsável por retornar o NumberOfmatchdays
-     * @return numberOfMatchdays
+     * Método responsável por retornar o número de matchdays
+     * @return o número de Matchdays
      */
     public int getNumberOfMatchdays() {
         return this.numberOfMatchdays;
     }
 
     /**
-     * Método responsável por retornar o numberOfTeams
-     * @return numberOfTeams
+     * Método responsável por retornar o número de equipas
+     * @return o número de equipas
      */
     public int getNumberOfTeams() {
         return this.numberOfTeams;
     }
 
     /**
-     * Método responsável por retornar o numberOfGames
-     * @return numberOfGames
+     * Método responsável por retornar o número de jogos
+     * @return no número de jogos
      */
     public int getNumberOfGames() {
         return this.numberOfGames;
     }
 
     /**
-     * Método responsável por retornar lastUpdated
-     * @return lastUpdated
+     * Método responsável por retornar o último update
+     * @return o último update
      */
     public String getLastUpdated() {
         return this.lastUpdated;
     }
     
     /**
-     * Método responsável por listar a competição
-     * @return lista competição
+     * Método responsável por retornar a String da competição
+     * @return a String da competição
      */
     @Override
     public String toString() {

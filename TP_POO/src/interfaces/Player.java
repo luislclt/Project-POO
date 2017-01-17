@@ -52,19 +52,30 @@ public class Player implements PlayerContract, java.io.Serializable{
         this.contractUntil = contractUntil;
     }
     
+    /**
+     * Método responsável por retornar o nome do jogador
+     * @return o nome de um jogador
+     */
     @Override
     public String getName() {
         
         return this.name;
     }
 
+    /**
+     * Método responsável por retornar o número do jogador
+     * @return o número de um jogador
+     */
     @Override
     public int getJerseyNumber() {
         
         return this.jerseyNumber;
     }
     
-    
+    /**
+     * Método responsável por retornar a nacionalidade
+     * @return a nacionalidade
+     */
     @Override
     public NationalityContract getNationality() {
         
@@ -72,24 +83,41 @@ public class Player implements PlayerContract, java.io.Serializable{
         
     }
 
+    /**
+     * Método responsável por retornar o valor de mercado de um jogador
+     * @return o valor de mercado de um jogador
+     */
     @Override
     public String getMarketValue() {
         
         return this.marketValue;
     }
 
+    /**
+     * Método responsável por retornar a posição (avançado, defesa, etc) de um jogador
+     * @return a posição (avançado, defesa, etc) de um jogador
+     */
     @Override
     public String getPosition() {
         
         return this.position;
     }
 
+    /**
+     * Método responsável por retornar a idade de um jogador
+     * @return a idade de um jogador
+     */
     @Override
     public int getAge() {
         
         return this.age;
     }
     
+    /**
+     * Método responsável por retornar um valor inteiro resultante da comparação de dois jogadores
+     * @param player - o jogador a comparar
+     * @return o valor inteiro resultante da comparação
+     */
     @Override
     public int compareTo(PlayerComparasion player) {
         
@@ -107,6 +135,10 @@ public class Player implements PlayerContract, java.io.Serializable{
         
     }
     
+    /**
+     * Método responsável por retornar o valor do Mercado do jogador
+     * @return o valor do Mercado
+     */
     public int getNumberMarketValue(){
         
         int value = 0;
@@ -130,14 +162,26 @@ public class Player implements PlayerContract, java.io.Serializable{
         return value;
     }
     
+    /**
+     * Método responsável por retornar a data de nascimento do jogador
+     * @return a data de nascimento do jogador
+     */
     public Date getDateOfBirth() {
         return this.dateOfBirth;
     }
     
+    /**
+     * Método responsável por retornar a data de fim do contrato do jogador
+     * @return a data fim do contrato do jogador
+     */
     public Date getContractUntil() {
         return this.contractUntil;
     }
     
+    /**
+     * Método responsável por retornar a String do jogador
+     * @return String do jogador
+     */
     @Override
     public String toString() {
         

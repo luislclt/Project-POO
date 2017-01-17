@@ -51,6 +51,11 @@ public class Football implements serviceManager.FootballQueriesContract, java.io
         
     }
     
+    /**
+     * Método responsável por fazer a conexão ao URL
+     * @param link
+     * @return string em formato JSON
+     */
     public String getURLConnection(String link) {
         
         String JSON_String;
@@ -73,25 +78,38 @@ public class Football implements serviceManager.FootballQueriesContract, java.io
         return null;
     }
     
+    /**
+     * Método responsável por retornar o link
+     * @return URL
+     */
     public String getLink() {
         return URL;
     }
 
+    /**
+     * Método responsável por retornar a apiKey
+     * @return apiKey
+     */
     public String getApiKey() {
         return apiKey;
     }
 
+    /**
+     * Método responsável por retornar todas as competições
+     * @return coleção de competições
+     */
     public String getAllCompetitions() {
         
         return this.Json_Competitions = getURLConnection(this.URL+"competitions/");
     }
     
-    /*
-    * Método responsável por retornar a String num formato JSON, 
-    * com a Competição dado o seu identificador
-    * @param competitionId
-    * @return uma competição
-    */
+    /**
+     * Método responsável por retornar a String num formato JSON, com a Competição dado o seu identificador
+     * @param i  - o identificador da Competição
+     * @return String em formato JSON com a resposta do serviço
+     * @throws CompetitionNotFoundException - Excepção que sinaliza que determinado identificador não existe na coleção de competições
+     * @throws WebServiceConnectionError - Excepção que representa a falha de ligação ao serviço
+     */
     @Override
     public String getCompetition(int i) throws CompetitionNotFoundException, WebServiceConnectionError {
            
@@ -101,12 +119,13 @@ public class Football implements serviceManager.FootballQueriesContract, java.io
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
-    /*
-    * Método responsável por retornar a String num formato JSON, 
-    * com as Competições dado um conjunto de identificadores
-    * @param int[] competitionId
-    * @return varias competições
-    */
+    /**
+     * Método responsável por retornar a String num formato JSON, com as Competições dado um conjunto de identificadores
+     * @param ints - um conjunto de identificadores da Competição
+     * @return String em formato JSON com a resposta do serviço
+     * @throws CompetitionNotFoundException - Excepção que sinaliza que determinado identificador não existe na coleção de competições
+     * @throws WebServiceConnectionError - Excepção que representa a falha de ligação ao serviço
+     */
     @Override
     public String getCompetitions(int[] ints) throws CompetitionNotFoundException, WebServiceConnectionError {
         
@@ -131,12 +150,13 @@ public class Football implements serviceManager.FootballQueriesContract, java.io
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
-    /*
-    * Método responsável por retornar a String num formato JSON, 
-    * com os jogos dado o identificador da Competição
-    * @param competitionId
-    * @return todos os jogos
-    */
+    /**
+     * Método responsável por retornar a String num formato JSON, com os jogos dado o identificador da Competição
+     * @param competitionId - o identificador da Competição
+     * @return String em formato JSON com a resposta do serviço
+     * @throws CompetitionNotFoundException - Excepção que sinaliza que determinado identificador não existe na coleção de competições
+     * @throws WebServiceConnectionError - Excepção que representa a falha de ligação ao serviço
+     */
     @Override
     public String getFixtures(int competitionId) throws CompetitionNotFoundException, WebServiceConnectionError {
         
@@ -203,12 +223,13 @@ public class Football implements serviceManager.FootballQueriesContract, java.io
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
-    /*
-    * Método responsável por retornar a String num formato JSON, 
-    * com a liga dado o identificador da Competição
-    * @param competitionId
-    * @return a liga
-    */
+    /**
+     * Método responsável por retornar a String num formato JSON, com a liga dado o identificador da Competição
+     * @param competitionId - o identificador da Competição
+     * @return String em formato JSON com a resposta do serviço
+     * @throws CompetitionNotFoundException - Excepção que sinaliza que determinado identificador não existe na coleção de competições
+     * @throws WebServiceConnectionError - Excepção que representa a falha de ligação ao serviço
+     */
     @Override
     public String getLeagueTable(int competitionId) throws CompetitionNotFoundException, WebServiceConnectionError {
         
@@ -274,12 +295,13 @@ public class Football implements serviceManager.FootballQueriesContract, java.io
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
-    /*
-    * Método responsável por retornar a String num formato JSON, 
-    * com os jogadores dado o código da equipa
-    * @param teamId da equipa
-    * @return todos os jogadores
-    */
+    /**
+     * Método responsável por retornar a String num formato JSON, com os jogadores dado o código da equipa
+     * @param teamId - o código da equipa
+     * @return String em formato JSON com a resposta do serviço
+     * @throws CompetitionNotFoundException - Excepção que sinaliza que determinado identificador não existe na coleção de competições
+     * @throws WebServiceConnectionError - Excepção que representa a falha de ligação ao serviço
+     */
     @Override
     public String getPlayers(int teamId) throws CompetitionNotFoundException, WebServiceConnectionError {
         
@@ -289,12 +311,13 @@ public class Football implements serviceManager.FootballQueriesContract, java.io
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
-    /*
-    * Método responsável por retornar a String num formato JSON, 
-    * com as equipas dado o identificador da Competição
-    * @param competitionId
-    * 
-    */
+    /**
+     * Método responsável por retornar a String num formato JSON, com as equipas dado o identificador da Competição
+     * @param i - o identificador da Competição
+     * @return String em formato JSON com a resposta do serviço
+     * @throws CompetitionNotFoundException - Excepção que sinaliza que determinado identificador não existe na coleção de competições
+     * @throws WebServiceConnectionError - Excepção que representa a falha de ligação ao serviço
+     */
     @Override
     public String getTeams(int i) throws CompetitionNotFoundException, WebServiceConnectionError {
         
@@ -305,10 +328,9 @@ public class Football implements serviceManager.FootballQueriesContract, java.io
         return JSON_Teams;
     }
     
-    /*
-    * Método responsável por retornar a String num formato JSON, 
-    * com a equipa dado o identificador da equipa
-    * @param idTeam
+    /**
+    * Método responsável por retornar a String num formato JSON, com a equipa dado o identificador da equipa
+    * @param idTeam - o identificador da equipa
     *
     */
     public String getTeam(int idTeam) throws CompetitionNotFoundException, WebServiceConnectionError {

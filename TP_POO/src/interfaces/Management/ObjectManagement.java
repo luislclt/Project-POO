@@ -37,9 +37,9 @@ public class ObjectManagement implements ObjectManagementContract{
     }
     
     /**
-     * Método insere um {Object objeto} de {ObjectManagement}
-     * @param o {Object objeto} a inserir no vetor
-     * @return valor booleano sucesso ou insucesso(Vetor cheio)
+     * Método responsável por inserir um objeto do vetor de objetos
+     * @param o - objeto a inserir no vetor
+     * @return valor que sinaliza o sucesso/insucesso da operação
      */
     @Override
     public boolean addObject(Object o) {
@@ -53,9 +53,9 @@ public class ObjectManagement implements ObjectManagementContract{
     }
     
     /**
-     * Método remove um {Object objeto} do vetor {ObjectManagement}
-     * @param i indice correspondente ao elemento a remover
-     * @return o {bject objeto} removido
+     * Método responsável por remover um objeto do vetor de objetos.
+     * @param i - índice correspondente ao elemento a eliminar
+     * @return o objeto eliminado
      */
     @Override
     public Object removeObject(int i) {
@@ -68,8 +68,8 @@ public class ObjectManagement implements ObjectManagementContract{
     }
     
     /**
-     * Método retorna um objeto existente numa determinada posição do vetor
-     * @param i indice do elemento a devolver
+     * Método responsável por retornar um objeto existente numa determinada posição do vetor de objetos.
+     * @param i - índice do elemento a devolver
      * @return objeto do tipo Object
      */
     @Override
@@ -78,9 +78,9 @@ public class ObjectManagement implements ObjectManagementContract{
     }
     
     /**
-     * Método para encontrar um {Object objeto} no vetor de {ObjectManagement}
-     * @param o objeto a procurar no vetor
-     * @return o indice do objeto no vetor. No caso do elemento não existir, deverá ser retornado o valor -1
+     * Método responsável por encontrar um objeto no vetor de objetos
+     * @param o - objeto a procurar no vetor
+     * @return o índice do objeto no vetor. No caso do elemento não existir, deverá ser retornado o valor -1
      */
     @Override
     public int findObject(Object o) {
@@ -93,8 +93,8 @@ public class ObjectManagement implements ObjectManagementContract{
     }
     
     /**
-     * Método retorna o número de elementos no ObjectManagement
-     * @return o número de posições, mas não nulas
+     * Método responsável por retornar o número de elementos no vetor de objetos
+     * @return índice do elemento a devolver
      */
     public int size() {
         int i = 0;
@@ -105,7 +105,7 @@ public class ObjectManagement implements ObjectManagementContract{
     }
     
     /**
-     * Método imprime todos os objectos da coleção
+     * Método responsável por imprimir todos os objectos da coleção
      * @return retorna a String 
      */
     @Override

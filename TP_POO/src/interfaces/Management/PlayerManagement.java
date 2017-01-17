@@ -41,10 +41,10 @@ public class PlayerManagement implements PlayerManagementContract , java.io.Seri
     }
     
     /**
-     * Método {getPlayer} rretorna um jogador tendo por base o nome e a posição
-     * @param arg0 nome
-     * @param arg1 posição
-     * @return 
+     * Método responsável por retornar um jogador tendo por base o nome e a posição
+     * @param arg0 - o nome do jogador
+     * @param arg1 - a posição do jogador
+     * @return um jogador
      */
     @Override
     public PlayerContract getPlayer(String arg0, String arg1) {
@@ -69,7 +69,7 @@ public class PlayerManagement implements PlayerManagementContract , java.io.Seri
     }
     
     /**
-     * Método {sort} que suporta a ordenação da coleção dos jogadores
+     * Método que suporta a ordenação da coleção
      */
     @Override
     public void sort() {
@@ -96,9 +96,9 @@ public class PlayerManagement implements PlayerManagementContract , java.io.Seri
     }
     
     /**
-     * Método insere um {Object objeto} de {PlayerManagement}
-     * @param newObject {Object objeto} a inserir no vetor
-     * @return valor booleano sucesso ou insucesso(Vetor cheio)
+     * Método responsável por inserir um objeto do vetor de objetos.
+     * @param newObject - objeto a inserir no vetor
+     * @return Valor que sinaliza o sucesso/insucesso da operação
      */
     @Override
     public boolean addObject(Object newObject) {
@@ -112,9 +112,9 @@ public class PlayerManagement implements PlayerManagementContract , java.io.Seri
     }
     
     /**
-     * Método remove um {Object objeto} do vetor {PlayerManagement}
-     * @param position indice correspondente ao elemento a remover
-     * @return o {bject objeto} removido
+     * Método responsável por remover um objeto do vetor de objetos.
+     * @param position - índice correspondente ao elemento a eliminar
+     * @return o objeto eliminado
      */
     @Override
     public Object removeObject(int position) {
@@ -127,8 +127,8 @@ public class PlayerManagement implements PlayerManagementContract , java.io.Seri
     }
     
     /**
-     * Método retorna um objeto existente numa determinada posição do vetor
-     * @param position indice do elemento a devolver
+     * Método responsável por retornar um objeto existente numa determinada posição do vetor de objetos.
+     * @param position - índice do elemento a devolver
      * @return objeto do tipo Object
      */
     @Override
@@ -137,9 +137,9 @@ public class PlayerManagement implements PlayerManagementContract , java.io.Seri
     }
     
     /**
-     * Método para encontrar um {Object objeto} no vetor de {PlayerManagement}
-     * @param obj objeto a procurar no vetor
-     * @return o indice do objeto no vetor. No caso do elemento não existir, deverá ser retornado o valor -1
+     * Método responsável por encontrar um objeto no vetor de objetos
+     * @param obj - objeto a procurar no vetor
+     * @return o índice do objeto no vetor. No caso do elemento não existir, deverá ser retornado o valor -1
      */
     @Override
     public int findObject(Object obj) {
@@ -152,8 +152,8 @@ public class PlayerManagement implements PlayerManagementContract , java.io.Seri
     }
     
     /**
-     * Método retorna o número de elementos no PlayerManagement
-     * @return o número de posições, mas não nulas
+     * Método responsável por retornar o número de elementos na coleção Player
+     * @return índice do elemento a devolver
      */
     public int size() {
         int i = 0;
@@ -164,7 +164,7 @@ public class PlayerManagement implements PlayerManagementContract , java.io.Seri
     }
     
     /**
-     * Método imprime todos os objectos da coleção
+     * Método responsável por imprimir todos os objectos da coleção
      * @return retorna a String 
      */
     @Override

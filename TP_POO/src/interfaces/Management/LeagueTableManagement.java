@@ -39,10 +39,11 @@ public class LeagueTableManagement extends ObjectManagement implements java.io.S
         this.objects = new LeagueTable[maxSize];
     }
     
-    /*
-    * método retorna uma liga tendo por base o nome da LeagueCaption
-    * @param String name
-    */
+    /**
+     * * Método responsável por retornar uma liga tendo por base o nome da liga
+     * @param arg0 - nome
+     * @return a liga
+     */
     public LeagueTable getFixture(String arg0) {
         
         //FixtureManagementContract fixtureManagement = (FixtureManagementContract) getObject(0);
@@ -62,9 +63,9 @@ public class LeagueTableManagement extends ObjectManagement implements java.io.S
     }
     
     /**
-     * Método insere um {Object objeto} de {LeagueTable}
-     * @param newObject {Object objeto} a inserir no vetor
-     * @return valor booleano sucesso ou insucesso(Vetor cheio)
+     * Método responsável por inserir um objeto do vetor de objetos.
+     * @param newObject - objeto a inserir no vetor
+     * @return Valor que sinaliza o sucesso/insucesso da operação
      */
     @Override
     public boolean addObject(Object newObject) {
@@ -78,9 +79,9 @@ public class LeagueTableManagement extends ObjectManagement implements java.io.S
     }
     
     /**
-     * Método remove um {Object objeto} do vetor {LeagueTable}
-     * @param position indice correspondente ao elemento a remover
-     * @return o {bject objeto} removido
+     * Método responsável por remover um objeto do vetor de objetos.
+     * @param position - índice correspondente ao elemento a eliminar
+     * @return o objeto eliminado
      */
     @Override
     public Object removeObject(int position) {
@@ -93,8 +94,8 @@ public class LeagueTableManagement extends ObjectManagement implements java.io.S
     }
     
     /**
-     * Método retorna um objeto existente numa determinada posição do vetor
-     * @param position indice do elemento a devolver
+     * Método responsável por retornar um objeto existente numa determinada posição do vetor de objetos.
+     * @param position - índice do elemento a devolver
      * @return objeto do tipo Object
      */
     @Override
@@ -103,9 +104,9 @@ public class LeagueTableManagement extends ObjectManagement implements java.io.S
     }
     
     /**
-     * Método para encontrar um {Object objeto} no vetor de {LeagueTable}
-     * @param obj objeto a procurar no vetor
-     * @return o indice do objeto no vetor. No caso do elemento não existir, deverá ser retornado o valor -1
+     * Método responsável por encontrar um objeto no vetor de objetos
+     * @param obj - objeto a procurar no vetor
+     * @return o índice do objeto no vetor. No caso do elemento não existir, deverá ser retornado o valor -1
      */
     @Override
     public int findObject(Object obj) {
@@ -118,7 +119,7 @@ public class LeagueTableManagement extends ObjectManagement implements java.io.S
     }
     
     /**
-     * Método retorna o número de elementos no FixtureManagement
+     * Método responsável por retornar o número de elementos na coleção de jogos
      * @return o número de posições, mas não nulas
      */
     @Override
@@ -131,7 +132,7 @@ public class LeagueTableManagement extends ObjectManagement implements java.io.S
     }
     
     /**
-     * Método imprime todos os objectos da coleção
+     * Método responsável por imprimir todos os objectos da coleção
      * @return retorna a String 
      */
     @Override

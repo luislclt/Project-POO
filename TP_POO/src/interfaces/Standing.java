@@ -66,7 +66,7 @@ public class Standing implements StandingInterface, java.io.Serializable{
     
     /**
      * Método responsável por retornar uma determinada equipa
-     * @return equipa
+     * @return a equipa
      */
     @Override
     public TeamContract getTeam() {
@@ -76,9 +76,8 @@ public class Standing implements StandingInterface, java.io.Serializable{
     }
 
     /**
-     * Método responsável por retornar a posição (lugar na classificação) 
-     * de uma equipa
-     * @return equipa
+     * Método responsável por retornar a posição (lugar na classificação) de uma equipa
+     * @return a posição (lugar na classificação)
      */
     @Override
     public int getPosition() {
@@ -88,7 +87,7 @@ public class Standing implements StandingInterface, java.io.Serializable{
 
     /**
      * Método responsável por retornar o número de pontos da equipa
-     * @return equipa
+     * @return o número de pontos
      */
     @Override
     public int getPoints() {
@@ -98,7 +97,7 @@ public class Standing implements StandingInterface, java.io.Serializable{
     
     /**
      * Método responsável por retornar nome da equipa
-     * @return teamName
+     * @return o nome da equipa
      */
     public String getTeamName() {
         return teamName;
@@ -106,14 +105,14 @@ public class Standing implements StandingInterface, java.io.Serializable{
 
     /**
      * Método responsável por retornar o CrestURI da equipa
-     * @return crestURI
+     * @return o crestURI
      */
     public String getCrestURI() {
         return crestURI;
     }
 
     /**
-     * Método responsável por retornar os jogos jogados da equipa
+     * Método responsável por retornar os jogos da equipa
      * @return playedGames
      */
     public int getPlayedGames() {
@@ -121,24 +120,24 @@ public class Standing implements StandingInterface, java.io.Serializable{
     }
 
     /**
-     * Método responsável por retornar o numero de golos da equipa
-     * @return goals
+     * Método responsável por retornar o número de golos da equipa
+     * @return o número de golos
      */
     public int getGoals() {
         return goals;
     }
 
     /**
-     * Método responsável por retornar o numero de golos against da equipa
-     * @return goalsAgainst
+     * Método responsável por retornar o número de golos sofridos da equipa
+     * @return o número de golos sofridos
      */
     public int getGoalsAgainst() {
         return goalsAgainst;
     }
 
     /**
-     * Método responsável por retornar o numero de diferença dos golos entre as equipas
-     * @return goalDifference
+     * Método responsável por retornar o número de diferença dos golos entre as equipas
+     * @return os golos de diferença
      */
     public int getGoalDifference() {
         return goalDifference;
@@ -146,7 +145,7 @@ public class Standing implements StandingInterface, java.io.Serializable{
 
     /**
      * Método responsável por retornar o número de vitórias da equipa
-     * @return wins
+     * @return o número de vitórias
      */
     public int getWins() {
         return wins;
@@ -154,7 +153,7 @@ public class Standing implements StandingInterface, java.io.Serializable{
 
     /**
      * Método responsável por retornar o número de impates da equipa
-     * @return draws
+     * @return o número de impates
      */
     public int getDraws() {
         return draws;
@@ -162,7 +161,7 @@ public class Standing implements StandingInterface, java.io.Serializable{
 
     /**
      * Método responsável por retornar o número de derrotas da equipa
-     * @return losses
+     * @return o número de derrotas
      */
     public int getLosses() {
         return losses;
@@ -170,23 +169,23 @@ public class Standing implements StandingInterface, java.io.Serializable{
 
     /**
      * Método responsável por retornar os goals, goalsAgainst, wins, draws, losses da equipa casa
-     * @return StatisticsStanding da casa
+     * @return as estatisticas da equipa da casa
      */
     public StatisticsStanding getHome() {
         return home;
     }
 
     /**
-     * Método responsável por retornar os goals, goalsAgainst, wins, draws, losses da equipa adversária
-     * @return StatisticsStanding da adversária
+     * Método responsável por retornar os goals, goalsAgainst, wins, draws, losses da equipa de fora
+     * @return as estatisticas da equipa de fora
      */
     public StatisticsStanding getAway() {
         return away;
     }
     
     /**
-     * Método imprime o standing
-     * @return retorna a String 
+     * Método responsável por retornar a String da estatisticas das equipas
+     * @return a String das estatisticas das equipas
      */
     @Override
     public String toString() {

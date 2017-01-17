@@ -32,7 +32,7 @@ public class LeagueTable implements LeagueTableContract, java.io.Serializable{
     
     /**
      * Método responsável por retornar o jogador mais valioso de uma determinada liga numa determinada competição e para uma determinada época/ano
-     * @return jogador
+     * @return o jogador
      */
     @Override
     public PlayerContract getMostValuedPlayer() {
@@ -68,7 +68,7 @@ public class LeagueTable implements LeagueTableContract, java.io.Serializable{
     
     /**
      * Método responsável por retornar a descrição da liga
-     * @return String nome liga
+     * @return a descrição da liga
      */
     @Override
     public String getLeagueCaption() {
@@ -78,7 +78,7 @@ public class LeagueTable implements LeagueTableContract, java.io.Serializable{
     
     /**
      * Método responsável por retornar a classificação de uma coleção de equipas
-     * @return coleção de equipas
+     * @return a classificação
      */
     @Override
     public StandingsManagementContract getStandings() {
@@ -87,8 +87,8 @@ public class LeagueTable implements LeagueTableContract, java.io.Serializable{
     }
     
     /**
-     * Método responsável por listar a leagueTable 
-     * liga
+     * Método responsável por retornar a String da liga
+     * @return a String da liga
      * @return 
      */
     
