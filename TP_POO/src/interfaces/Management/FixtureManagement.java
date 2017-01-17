@@ -2,7 +2,9 @@ package interfaces.Management;
 
 import interfaces.Fixture;
 import interfaces.FixtureContract;
+import interfaces.Team;
 import interfaces.TeamContract;
+import java.util.Arrays;
 
 /*
 * Grupo: 2
@@ -40,19 +42,40 @@ public class FixtureManagement implements FixtureManagementContract{
         this.objects = new Fixture[maxSize];
     }
     
-    /*
-    * método retorna um jogo tendo por base a semana do jogo, 
-    * e as equipas que participam no jogo
-    * @param int matchDay
-    * @param TeamContract homeTeamName
-    * @param TeamContract awayTeamName
-    */
+    /**
+     * método retorna um jogo tendo por base a semana do jogo, 
+     * e as equipas que participam no jogo
+     * @param arg0 semana do jogo
+     * @param arg1 equipaHome
+     * @param arg2 equipaAway
+     * @return 
+     */
     @Override
     public FixtureContract getFixture(int arg0, TeamContract arg1, TeamContract arg2) {
         
-        
-        
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        //FixtureManagementContract fixtureManagement = (FixtureManagementContract) getObject(0);
+        Fixture fixture = null;
+        for (int i = 0; i < this.size(); i++) {
+            
+            fixture = (Fixture) this.getObject(i);
+            //System.out.println("\n --> this.getObject(i) TeamContract team name"+team.getName());
+            if(fixture.getMatchday() == arg0){
+                
+                Team team1 = (Team) fixture.getHomeTeam();
+                
+                if(team1.getName().equals(arg1.getName())){
+                    
+                    Team team2 = (Team) fixture.getAwayTeam();
+                    
+                    if(team2.getName().equals(arg2.getName())){
+                        
+                        return (FixtureContract) this.getObject(i);
+                    } 
+                }
+            }
+        }
+        return fixture;
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
     /**
@@ -137,5 +160,32 @@ public class FixtureManagement implements FixtureManagementContract{
 
         return str.toString();
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 73 * hash + Arrays.deepHashCode(this.objects);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final FixtureManagement other = (FixtureManagement) obj;
+        if (!Arrays.deepEquals(this.objects, other.objects)) {
+            return false;
+        }
+        return true;
+    }
+    
+    
     
 }

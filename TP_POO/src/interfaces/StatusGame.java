@@ -11,7 +11,7 @@ package interfaces;
 */
 public enum StatusGame implements Status{
     
-    FINISHED, TIMED, IN_PLAY, CANCELED, POSTPONED;
+    FINISHED, TIMED, IN_PLAY, CANCELED, POSTPONED, INVALIDO;
     
     /**
      * Método que retorna uma representação textual do estado de um jogo
@@ -23,14 +23,23 @@ public enum StatusGame implements Status{
     public static String getStatusGame(StatusGame status){
         switch(status){
             case FINISHED:
-                return "FINISHED";
+                return "Game FINISHED";
             case TIMED: 
-                return "TIMED";
+                return "Game TIMED";
             case IN_PLAY:
-                return "IN PLAY";
+                return "Game IN PLAY";
+            case CANCELED:
+                return "Game CANCELED";
+            case POSTPONED:
+                return "Game POSTPONED";
+            case INVALIDO:
+                return "Game INVALIDO";
+                
             default:
-                return "Inválido";
+                return "Game Inválido";
         }
+        
     }
+    
     
 }

@@ -2,6 +2,7 @@ package interfaces.Management;
 
 import interfaces.Standing;
 import interfaces.TeamContract;
+import java.util.Arrays;
 
 /*
 * Grupo: 2
@@ -39,16 +40,30 @@ public class StandingsManagement implements StandingsManagementContract{
         this.objects = new Standing[maxSize];
     }
     
-    /*
-    * Método {getTeam} responsável por retornar um equipa tendo por base o nome
-    * @param String arg0 --> nome
-    */
+    /**
+     * Método {getTeam} responsável por retornar um equipa tendo por base o nome
+     * @param arg0 nome
+     * @return equipa
+     */
     @Override
     public TeamContract getTeam(String arg0) {
         
+        TeamContract team = null;
         
+        for (int i = 0; i < this.size(); i++) {
+            
+            Standing standing = (Standing) this.getObject(i);
+            
+            if(standing.getTeamName().equals(arg0)){
+                
+                team = standing.getTeam();
+                
+                return team;
+            }
+        }
         
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return team;
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
     /**
@@ -133,4 +148,31 @@ public class StandingsManagement implements StandingsManagementContract{
 
         return str.toString();
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 71 * hash + Arrays.deepHashCode(this.objects);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final StandingsManagement other = (StandingsManagement) obj;
+        if (!Arrays.deepEquals(this.objects, other.objects)) {
+            return false;
+        }
+        return true;
+    }
+    
+    
 }

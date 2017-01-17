@@ -3,6 +3,7 @@ package interfaces.Management;
 import interfaces.Competition;
 import interfaces.CompetitionContract;
 import java.time.LocalDateTime;
+import java.util.Arrays;
 
 /*
 * Grupo: 2
@@ -40,43 +41,88 @@ public class CompetitionManagement implements CompetitionManagementContract{
         this.objects = new Competition[maxSize];
     }
     
-    /*
-    * Método {getCompetition} responsável por retornar uma Competição
+    /**
+     * Método {getCompetition} responsável por retornar uma Competição
     * tendo por base o nome e o ano dessa mesma Competição
-    * @param String competitionName
-    * @param int year
-    */
+     * @param competitionName
+     * @param year
+     * @return 
+     */
     @Override
     public CompetitionContract getCompetition(String competitionName, int year) {
         
+        Competition competition = null;
         
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        for (int i = 0; i < this.size(); i++) {
+            
+            competition = (Competition) (CompetitionContract) this.getObject(i);
+            if(competition.getCaption().equals(competitionName) && competition.getYear() == year){
+                return (CompetitionContract) competition;
+            }
+        }
+        return (CompetitionContract) competition;
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
-    /*
-    * Método {getGamesScheduled} responsável por retornar uma coleção de jogos terminados 
-    * tendo por base a Competição e um intervalo de datas
-    * @param CompetitionContract competition
-    * @param LocalDateTime date1
-    * @param LocalDateTime date2
-    */
+    /**
+     * Método {getGamesScheduled} responsável por retornar uma coleção de jogos agendados
+     * tendo por base a Competição e um intervalo de datas
+     * @param competition
+     * @param date1
+     * @param date2
+     * @return 
+     */
     @Override
     public FixtureManagementContract getGamesScheduled(CompetitionContract competition, LocalDateTime date1, LocalDateTime date2) {
         
         
         
+        
+        /*
+        Competition competitionByPosition = null;
+        Competition competitionArg = (Competition) competition;
+        
+        for (int i = 0; i < this.size(); i++) {
+            
+            competitionByPosition = (Competition) this.getObject(i);
+            if(competitionByPosition.getCaption().equals(competitionArg.getCaption())
+                    && competitionByPosition.getYear() >= date1.getYear() && competitionByPosition.getYear() <= date2.getYear()){
+                
+                //Team team = competitionByPosition  
+            }  
+        }*/
+        
+        /*
+        TeamContract team = null;
+        
+        for (int i = 0; i < this.size(); i++) {
+            
+            team = (TeamContract) this.getObject(i);
+            //System.out.println("\n --> this.getObject(i) TeamContract team name"+team.getName());
+            if(team.getName().equals(arg0)){
+                //System.out.println("\n TeamManagement --> getTeam("+arg0+" ) --> retorno TeamContract -> nameTeam : "+team.getName());
+                return team;
+            }
+        }
+        */
+        
+        
+        
+        
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
-    /*
-    * Método {getGamesEnded} responsável por retornar uma coleção de jogos terminados 
-    * tendo por base a Competição e um intervalo de datas
-    * @param CompetitionContract competition
-    * @param LocalDateTime date1
-    * @param LocalDateTime date2
-    */
+    /**
+     * Método {getGamesEnded} responsável por retornar uma coleção de jogos terminados 
+     * tendo por base a Competição e um intervalo de datas
+     * @param competition
+     * @param date1
+     * @param date2
+     * @return 
+     */
     @Override
     public FixtureManagementContract getGamesEnded(CompetitionContract competition, LocalDateTime date1, LocalDateTime date2) {
+        
         
         
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -164,4 +210,30 @@ public class CompetitionManagement implements CompetitionManagementContract{
 
         return str.toString();
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 19 * hash + Arrays.deepHashCode(this.objects);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final CompetitionManagement other = (CompetitionManagement) obj;
+        if (!Arrays.deepEquals(this.objects, other.objects)) {
+            return false;
+        }
+        return true;
+    }
+    
 }

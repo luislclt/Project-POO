@@ -2,6 +2,7 @@ package interfaces.Management;
 
 import interfaces.Player;
 import interfaces.PlayerContract;
+import java.util.Arrays;
 
 /*
 * Grupo: 2
@@ -39,25 +40,35 @@ public class PlayerManagement implements PlayerManagementContract{
         this.objects = new Player[maxSize];
     }
     
-    /*
-    * Método {getPlayer} rretorna um jogador tendo por base o nome e a posição
-    * @param String arg0 --> nome 
-    * @param String arg1 --> posição
-    */
+    /**
+     * Método {getPlayer} rretorna um jogador tendo por base o nome e a posição
+     * @param arg0 nome
+     * @param arg1 posição
+     * @return 
+     */
     @Override
     public PlayerContract getPlayer(String arg0, String arg1) {
         
-        //PlayerContract player = this.getObject(i);
+        PlayerContract player = null;
         
+        for (int i = 0; i < this.size(); i++) {
+            
+            player = (PlayerContract) this.getObject(i);
+            
+            if(player.getName().equals(arg0) && player.getName().equals(arg1)){
+                return player;
+            }
+            
+        }
         
+        return player;
         
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
-    /*
-    * Método {sort} que suporta a ordenação da coleção
-    * 
-    */
+    /**
+     * Método {sort} que suporta a ordenação da coleção dos jogadores
+     */
     @Override
     public void sort() {
         
@@ -152,5 +163,31 @@ public class PlayerManagement implements PlayerManagementContract{
 
         return str.toString();
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 37 * hash + Arrays.deepHashCode(this.objects);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final PlayerManagement other = (PlayerManagement) obj;
+        if (!Arrays.deepEquals(this.objects, other.objects)) {
+            return false;
+        }
+        return true;
+    }
+    
     
 }

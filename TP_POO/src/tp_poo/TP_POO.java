@@ -4,9 +4,11 @@ package tp_poo;
 import exceptions.CompetitionNotFoundException;
 import interfaces.Competition;
 import interfaces.CompetitionContract;
+import interfaces.FixtureContract;
 import interfaces.LeagueTableContract;
 import interfaces.Management.CompetitionManagement;
 import interfaces.Management.CompetitionManagementContract;
+import interfaces.Management.FixtureManagementContract;
 import interfaces.Management.PlayerManagementContract;
 import interfaces.Management.TeamManagement;
 import interfaces.Management.TeamManagementContract;
@@ -142,7 +144,7 @@ public class TP_POO {
         */
         
         // Teste Criar LeagueTable 1
-        
+        /*
         String Json_LeagueTable = football_data.getLeagueTable(439); // Json_LeagueTable
         
         //String Json_Team = football_data.getTeam(495); // recebe apenas uma equipa
@@ -173,8 +175,23 @@ public class TP_POO {
         System.out.println("\n\n \t Result \n  LeagueTable: "+leagueTable1.toString());
         
         //System.out.println("\n Result LeagueTable: "+leagueTable1.toString());
+        */
         
-             
+        // teste Criar Fixtures 1
+        /*
+        String Json_Fixture = football_data.getFixtures(439);
+        
+        String Json_Teams = football_data.getTeams(439); // recebe varias equipas
+        
+        MappingJsonToClasses mappingFixture1 = new MappingJSONToClasses(url, apiKey);
+        
+        TeamManagementContract teams = mappingFixture1.StringToTeams(Json_Teams);
+        
+        FixtureManagementContract fixtures1 = mappingFixture1.StringToFixtures(teams, Json_Fixture);
+        
+        System.out.println("\n Resultado Fixtures: "+fixtures1.toString());
+        */
+        
         // Teste Criar Competition 1
         /*
         String Json_Competition = football_data.getCompetition(439);
@@ -183,8 +200,24 @@ public class TP_POO {
         
         CompetitionContract competition1 = mappingCompetition1.StringToCompetition(Json_Competition);
         
-        //System.out.println("\n Result Competition 1: "+competition1.toString());
+        System.out.println("\n Result Competition 1: "+competition1.toString());
+        */
         
+        // Teste Criar Competitions 1 ssssss
+        /*
+        int[] ints = new int[2];
+        ints[0] = 439;
+        ints[1] = 436;
+        
+        String Json_Competitions = football_data.getCompetitions(ints);
+        
+        //System.out.println("\n Result Competitions String: "+ Json_Competitions);
+        
+        MappingJsonToClasses mappingCompetitions1 = new MappingJSONToClasses(url, apiKey);
+        
+        CompetitionManagementContract competitions1 = mappingCompetitions1.StringToCompetitions(Json_Competitions);
+        
+        System.out.println("\n Result Competitions 1: "+competitions1.toString());
         */
         
         

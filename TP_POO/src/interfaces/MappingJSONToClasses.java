@@ -1,5 +1,6 @@
 package interfaces;
 
+import interfaces.Management.CompetitionManagement;
 import interfaces.Management.CompetitionManagementContract;
 import interfaces.Management.FixtureManagement;
 import interfaces.Management.FixtureManagementContract;
@@ -12,6 +13,9 @@ import interfaces.Management.TeamManagementContract;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
@@ -19,6 +23,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import org.json.simple.JSONValue;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import serviceManager.WebServiceConnection;
@@ -59,14 +64,78 @@ public class MappingJSONToClasses implements MappingJsonToClasses{
     * return competições
     */
     @Override
-    public CompetitionManagementContract StringToCompetitions(String arg0) {
+   public CompetitionManagementContract StringToCompetitions(String arg0) {
         
-        // CountConections();
+        CompetitionManagementContract competitionManagement = null;
         
+        CompetitionContract competition = null;
         
-        //ex.printStackTrace(System.out);
-        System.out.println("\n Retorno null --> MappingJsonToClasses --> StringToCompetitions");
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String string_Link;
+        String string_self_link;
+        String string_href_competition;
+        
+        JSONParser jsonParser_competition = new JSONParser();
+        
+        try{
+            
+            JSONArray arrayCompetition = (JSONArray) jsonParser_competition.parse(arg0); //Json_Object_competition.get("array");
+            
+            competitionManagement = new CompetitionManagement(arrayCompetition.size()+1);
+            
+            for(int aux=0; aux<arrayCompetition.size(); aux++){
+                
+                JSONObject object_competition = (JSONObject) arrayCompetition.get(aux); // position aux 
+                
+                // Procura apenas pelo "_Links"
+                JSONParser jsonParser_links = new JSONParser();
+
+                Object object_links = jsonParser_links.parse(object_competition.toString());
+                JSONObject Json_object_links = (JSONObject) object_links;
+                
+                string_Link = Json_object_links.get("_links").toString();
+                //System.out.println(" StringToCompetitions _links: " +string_Link);
+                
+                // Procura apenas pelo "self"
+                JSONParser jsonParser_self = new JSONParser();
+                
+                Object object_self = jsonParser_self.parse(string_Link);
+                JSONObject Json_object_self = (JSONObject) object_self;
+                
+                string_self_link = Json_object_self.get("self").toString();
+                //System.out.println(" StringToCompetitions self: " +string_self_link);
+                
+                // Procura apenas pelo "href"
+                JSONParser jsonParser_href = new JSONParser();
+                
+                Object object_href_self = jsonParser_href.parse(string_self_link);
+                JSONObject Json_object_href = (JSONObject) object_href_self;
+                
+                string_href_competition = Json_object_href.get("href").toString();
+                //System.out.println(" StringToCompetition href competition = " +string_href);
+                    
+                // WebConnections
+                WebServiceConnection conection = new WebServiceConnection(apiKey);
+                
+                String competition_content = conection.getContent(string_href_competition);
+                competition = StringToCompetition(competition_content);
+                
+                competitionManagement.addObject(competition);
+            }
+            
+            return competitionManagement;
+        }catch ( ParseException ex1) {
+            System.out.println("\n Erro ParseException --> MappingJSONToClasses --> Competitions");
+            ex1.printStackTrace(System.out);
+            //Logger.getLogger(Football.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex2) {
+            System.out.println("\n Erro IOException --> MappingJSONToClasses --> Competitions");
+            ex2.printStackTrace(System.out);
+            //Logger.getLogger(MappingJSONToClasses.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        //System.out.println("\n Retorno null --> MappingJsonToClasses --> StringToCompetitions");
+        return competitionManagement;
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
     /*
@@ -154,7 +223,7 @@ public class MappingJSONToClasses implements MappingJsonToClasses{
             JSONObject Json_object_href_fixtures = (JSONObject) object_href_fixtures;
 
             string_href_fixtures = Json_object_href_fixtures.get("href").toString();
-            System.out.println(" StringToCompetition href fixtures = " +string_href_fixtures);
+            //System.out.println(" StringToCompetition href fixtures = " +string_href_fixtures);
 
             // Procura apenas pelo "leagueTable"
             JSONParser jsonParser_leagueTable = new JSONParser();
@@ -181,11 +250,11 @@ public class MappingJSONToClasses implements MappingJsonToClasses{
             teams = StringToTeams(team_content); // Team guardada do Standing[0] array
             //System.out.println("\n \t Recebe a team do StringToCompetition");
 
-            System.out.println("\n Mostra Teams da Competition: "+teams.toString());
+            //System.out.println("\n Mostra Teams da Competition: "+teams.toString());
 
 
             String fixtures_content = conection.getContent(string_href_fixtures);
-            //fixtures = StringToFixtures(teams, fixtures_content);
+            fixtures = StringToFixtures(teams, fixtures_content);
             //System.out.println("\n \t Recebe a fixtures do StringToCompetition");
 
             String leagueTable_content = conection.getContent(string_href_leagueTable);
@@ -637,16 +706,230 @@ public class MappingJSONToClasses implements MappingJsonToClasses{
     @Override
     public FixtureManagementContract StringToFixtures(TeamManagementContract arg0, String arg1) {
         
+        LocalDateTime date;
+        StatusGame status = StatusGame.INVALIDO;
+        int matchday;
+        String homeTeamName;
+        String awayTeamName;
+        TeamContract homeTeam = null;
+        TeamContract awayTeam = null;
+        ResultGame result = null;
+        int result_goalsHomeTeam;
+        int result_goalsAwayTeam;
+        HalfTime halfTime = null;
+        int halfTime_goalsHomeTeam;
+        int halfTime_goalsAwayTeam;
+        Odds odds = null;
+        double homeWin;
+        double draw;
+        double awayWin;
         
-        //CountConections();
+        int count;
         
-        System.out.println("\n Retorno null --> MappingJsonToClasses --> StringToFixtures");
+        FixtureManagementContract fixtureManagement1 = null; // guarda todos os fixtures
+        FixtureContract fixtureByPosition = null; // fixture usado em cada position do arrays
+        TeamContract team = null; // objeto auxiliar para guardar para as homeTeamName e awayTeamName
         
-        FixtureManagementContract fixtureManagementResult = new FixtureManagement(null);
-        return fixtureManagementResult;
+        //DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd"); // para o Date
+        //DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd"); // para o LocalDateTime
+        DateTimeFormatter dateFormat = DateTimeFormatter.ISO_DATE_TIME;
         
-        //ex.printStackTrace(System.out);
         
+        JSONParser jsonParser_fixtures = new JSONParser();
+        
+        try{
+            
+            JSONObject Json_object = (JSONObject) jsonParser_fixtures.parse(arg1);
+            
+            //String string_count = Json_object.get("count").toString();
+            //count = Integer.parseInt(string_count);
+            Object object_count = Json_object.get("count");
+            if(null == object_count){
+                count = 0;
+            }else{
+                count = Integer.parseInt(object_count.toString());
+            }
+            //System.out.println("\n\n\t Entra no StringToTeams   --> count "+count);
+            
+            if(count != 0){
+                fixtureManagement1 = new FixtureManagement(count+1);
+                
+                JSONArray arrayFixtures = (JSONArray) Json_object.get("fixtures");
+
+                //System.out.println("\n count: "+count +"  arrayTeams Size: "+arrayTeams.size());
+
+                for(int aux=0; aux<count; aux++){
+
+                    JSONObject fixture = (JSONObject) arrayFixtures.get(aux); // position aux 
+
+                    //CountConections();
+                    //System.out.println("\n AUX: "+aux +" count: "+count);
+
+                    Object object_date = fixture.get("date");
+                    if(null == object_date){
+                        //date = dateFormat.parse("0-0-0", dateFormat);
+                        //date = LocalDateTime.parse("0-0-0", dateFormat);
+                        // parsed from the string
+                        date = LocalDateTime.parse("0-0-0T0:0:0Z", dateFormat); //ZonedDateTime
+
+                    }else{
+                        //date = dateFormat.parse(object_date.toString());
+                        //date = LocalDateTime.parse(object_date.toString(), dateFormat);
+                        date = LocalDateTime.parse(object_date.toString(), dateFormat); //ZonedDateTime
+                    }
+
+                    Object object_status = fixture.get("status");
+                    if(null == object_status){ // INVALIDO
+                        status = StatusGame.INVALIDO;
+                    }else{
+                        //Code = object_status.toString();
+                        switch(object_status.toString()){ //FINISHED, TIMED, IN_PLAY, CANCELED, POSTPONED
+                            
+                            case "TIMED" : status = StatusGame.TIMED; // result e odds a null
+                            case "IN_PLAY" : status = StatusGame.IN_PLAY;
+                            case "CANCELED" : status = StatusGame.CANCELED;
+                            case "POSTPONED" : status = StatusGame.POSTPONED;
+                            case "FINISHED" :{
+                                status = StatusGame.FINISHED;
+                                
+                                Object object_result_link = fixture.get("result");
+                                // Procura apenas pelo "result_Links"
+                                JSONParser jsonParser_result = new JSONParser();
+
+                                Object object_result = jsonParser_result.parse(object_result_link.toString());
+                                JSONObject Json_object_result = (JSONObject) object_result;
+
+                                Object object_result_goalsHomeTeam = Json_object_result.get("goalsHomeTeam");
+                                if(null == object_result_goalsHomeTeam){
+                                    result_goalsHomeTeam = 0;
+                                }else{
+                                    result_goalsHomeTeam = Integer.parseInt(object_result_goalsHomeTeam.toString());
+                                }
+
+                                Object object_result_goalsAwayTeam = Json_object_result.get("goalsAwayTeam");
+                                if(null == object_result_goalsAwayTeam){
+                                    result_goalsAwayTeam = 0;
+                                }else{
+                                    result_goalsAwayTeam = Integer.parseInt(object_result_goalsAwayTeam.toString());
+                                }
+                                /*
+                                Object object_halfTime_link = Json_object_result.get("halfTime");
+                                // Procura apenas pelo "halfTime_Links"
+                                JSONParser jsonParser_halfTime = new JSONParser();
+
+                                Object object_halfTime = jsonParser_halfTime.parse(object_halfTime_link.toString());
+                                JSONObject Json_object_halfTime = (JSONObject) object_halfTime;
+
+                                Object object_halfTime_goalsHomeTeam = Json_object_halfTime.get("goalsHomeTeam");
+                                if(null == object_halfTime_goalsHomeTeam){
+                                    halfTime_goalsHomeTeam = 0;
+                                }else{
+                                    halfTime_goalsHomeTeam = Integer.parseInt(object_halfTime_goalsHomeTeam.toString());
+                                }
+
+                                Object object_halfTime_goalsAwayTeam = Json_object_halfTime.get("goalsAwayTeam");
+                                if(null == object_halfTime_goalsAwayTeam){
+                                    halfTime_goalsAwayTeam = 0;
+                                }else{
+                                    halfTime_goalsAwayTeam = Integer.parseInt(object_halfTime_goalsAwayTeam.toString());
+                                }
+                                // criar o construtor
+                                halfTime = new HalfTime(result_goalsHomeTeam, result_goalsAwayTeam);
+                                */
+                                result = new ResultGame(result_goalsHomeTeam, result_goalsAwayTeam, halfTime);
+                                
+                                Object object_odds_link = fixture.get("odds");
+                                if(null != object_odds_link){
+                                    
+                                    // Procura apenas pelo "odds_Links"
+                                    JSONParser jsonParser_odds = new JSONParser();
+
+                                    Object object_odds = jsonParser_odds.parse(object_odds_link.toString());
+                                    JSONObject Json_object_odds = (JSONObject) object_odds;
+
+                                    Object object_odds_homeWin = Json_object_odds.get("homeWin");
+                                    if(null == object_odds_homeWin){
+                                        homeWin = 0;
+                                    }else{
+                                        //homeWin = Integer.parseInt(object_odds_homeWin.toString());
+                                        homeWin = (Double) Json_object_odds.get("homeWin");
+                                    }
+
+                                    Object object_odds_draw = Json_object_odds.get("draw");
+                                    if(null == object_odds_draw){
+                                        draw = 0;
+                                    }else{
+                                        //draw = Integer.parseInt(object_odds_draw.toString());
+                                        draw = (Double) Json_object_odds.get("draw");
+                                    }
+
+                                    Object object_odds_awayWin = Json_object_odds.get("awayWin");
+                                    if(null == object_odds_awayWin){
+                                        awayWin = 0;
+                                    }else{
+                                        //awayWin = Integer.parseInt(object_odds_awayWin.toString());
+                                        awayWin = (Double) Json_object_odds.get("awayWin");
+                                    }
+                                    // criar o construtor odds
+                                    odds = new Odds(homeWin, draw, awayWin);
+                                    
+                                }
+                                
+                            }
+                        }
+                    }
+
+                    Object object_matchday = fixture.get("matchday");
+                    if(null == object_matchday){
+                        matchday = 0;
+                    }else{
+                        matchday = Integer.parseInt(object_matchday.toString());
+                    }
+
+                    Object object_homeTeamName = fixture.get("homeTeamName");
+                    if(null == object_homeTeamName){
+                        homeTeamName = "null";
+                    }else{
+                        homeTeamName = object_homeTeamName.toString();
+                    }
+
+                    Object object_awayTeamName = fixture.get("awayTeamName");
+                    if(null == object_awayTeamName){
+                        awayTeamName = "null";
+                    }else{
+                        awayTeamName = object_awayTeamName.toString();
+                    }
+                    
+
+                    // Fim dos metedos da Pagina Fixtures
+
+                    // procurar em teamManagement arg0 o teamName do homeTeamName e retornar a homeTeam
+                    homeTeam = arg0.getTeam(homeTeamName);
+
+                    // procurar em teamManagement arg0 o teamName do awayTeamName e retornar a awayTeam
+                    awayTeam = arg0.getTeam(awayTeamName);
+
+                    // Cria o fixture pela posição do arrayFixtures
+                    fixtureByPosition = new Fixture(date, status, matchday, homeTeamName, awayTeamName, homeTeam, awayTeam, result, odds);
+                    
+                    result = null;
+                    odds = null;
+                    
+                    
+                    fixtureManagement1.addObject(fixtureByPosition);
+                    //System.out.println("\n MappingJsonToClasses -->StringToTeam --> team adiciona FOR(aux)("+aux+") --> OK");
+
+                }
+                return fixtureManagement1;
+            }
+        }catch ( ParseException ex1) {
+            System.out.println("\n Erro --> MappingJSONToClasses --> Team");
+            ex1.printStackTrace(System.out);
+        }
+        
+        //System.out.println("\n Retorno null --> MappingJsonToClasses --> StringToFixtures");
+        //FixtureManagementContract fixtureManagementResult = new FixtureManagement(null);
+        return fixtureManagement1;//fixtureManagementResult;
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
@@ -1016,7 +1299,6 @@ public class MappingJSONToClasses implements MappingJsonToClasses{
         
         String shortName;
         String crestUrl;
-        //int count;
         
         String string_Link;
         String string_players;
@@ -1063,15 +1345,6 @@ public class MappingJSONToClasses implements MappingJsonToClasses{
             }else{
                 Code = object_code.toString();
             }
-            /*
-            //String string_count = team.get("count").toString();
-            //count = Integer.parseInt(string_count);
-            Object object_count = team.get("count");
-            if(null == object_count){
-                count = 0;
-            }else{
-                count = Integer.parseInt(object_count.toString());
-            }*/
             
             Object object_name = team.get("name");
             if(null == object_name){
@@ -1139,7 +1412,7 @@ public class MappingJSONToClasses implements MappingJsonToClasses{
         //System.out.println("\n    countConection teste: "+ this.countConections);
                 
         if(this.countConections == 49){ // 49 restantes devido a primeira conexao do content
-            System.out.println("\n  Limite de conexoes por minuto excedida --> 50");
+            //System.out.println("\n  Limite de conexoes por minuto excedida --> 100");
             System.out.println("  Pause of 10 seconds to avoid block conection from the Server    Por Favor Aguarde ...");
             Thread.sleep(10 * 1000);
             // 30 *   // minutes to sleep

@@ -1,7 +1,6 @@
 package interfaces.Management;
 
-import interfaces.Team;
-import interfaces.TeamContract;
+import interfaces.LeagueTable;
 import java.util.Arrays;
 
 /*
@@ -13,23 +12,22 @@ import java.util.Arrays;
 * Nome: Tânia Assis
 * Número: 8150455
 */
-public class TeamManagement implements TeamManagementContract {  
+public class LeagueTableManagement extends ObjectManagement{
     
-    private final Team objects[]; // Object
-
+    private final LeagueTable objects[]; //Object
     
     /**
      * Construtor que permite a instanciação da classe por valor DEFAULT_SIZE
      */
-    public TeamManagement() {
-        this.objects = new Team[DEFAULT_SIZE]; //Object
+    public LeagueTableManagement() {
+        this.objects = new LeagueTable[DEFAULT_SIZE];
     }
     
     /**
      * Construtor que permite a instanciação da classe por coleção de objectos
      * @param o uma coleção de objectos
      */
-    public TeamManagement(Team[] o) {
+    public LeagueTableManagement(LeagueTable[] o) {
         this.objects = o;
     }
     
@@ -37,37 +35,34 @@ public class TeamManagement implements TeamManagementContract {
      * Construtor que permite a instanciação da classe definindo valor maxSize
      * @param maxSize número máximo de elementos permitidos no vetor
      */
-    public TeamManagement(int maxSize) {
-        this.objects = new Team[maxSize]; //Object
+    public LeagueTableManagement(int maxSize) {
+        this.objects = new LeagueTable[maxSize];
+    }
+    
+    /*
+    * método retorna uma liga tendo por base o nome da LeagueCaption
+    * @param String name
+    */
+    public LeagueTable getFixture(String arg0) {
+        
+        //FixtureManagementContract fixtureManagement = (FixtureManagementContract) getObject(0);
+        LeagueTable leagueTable = null;
+        for (int i = 0; i < this.size(); i++) {
+            
+            leagueTable = (LeagueTable) this.getObject(i);
+            //System.out.println("\n --> this.getObject(i) TeamContract team name"+team.getName());
+            if(leagueTable.getLeagueCaption().equals(arg0)){
+                
+                return (LeagueTable) this.getObject(i);
+                   
+            }
+        }
+        return leagueTable;
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
     /**
-     * Método {getTeam} responsável por retornar uma equipa tendo por base o nome
-     * @param arg0 nome
-     * @return equipa
-     */
-    @Override
-    public TeamContract getTeam(String arg0) { // String nome --> retorna pelo nome da equipa
-        
-        TeamContract team = null;
-        
-        for (int i = 0; i < this.size(); i++) {
-            
-            team = (TeamContract) this.getObject(i);
-            //System.out.println("\n --> this.getObject(i) TeamContract team name"+team.getName());
-            if(team.getName().equals(arg0)){
-                //System.out.println("\n TeamManagement --> getTeam("+arg0+" ) --> retorno TeamContract -> nameTeam : "+team.getName());
-                return team;
-            }
-        }
-        
-        //System.out.println("\n TeamManagement --> getTeam("+arg0+" ) --> retorno TeamContract -> nameTeam : null --> nao encontrou");
-        return team;
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    /**
-     * Método insere um {Object objeto} de {TeamManagement}
+     * Método insere um {Object objeto} de {LeagueTable}
      * @param newObject {Object objeto} a inserir no vetor
      * @return valor booleano sucesso ou insucesso(Vetor cheio)
      */
@@ -77,13 +72,13 @@ public class TeamManagement implements TeamManagementContract {
         if (tamanho == this.objects.length) {
             return false;
         } else {
-            this.objects[tamanho] = (Team) newObject;
+            this.objects[tamanho] = (LeagueTable) newObject;
             return true;
         }
     }
     
     /**
-     * Método remove um {Object objeto} do vetor {TeamManagement}
+     * Método remove um {Object objeto} do vetor {LeagueTable}
      * @param position indice correspondente ao elemento a remover
      * @return o {bject objeto} removido
      */
@@ -108,7 +103,7 @@ public class TeamManagement implements TeamManagementContract {
     }
     
     /**
-     * Método para encontrar um {Object objeto} no vetor de {TeamManagement}
+     * Método para encontrar um {Object objeto} no vetor de {LeagueTable}
      * @param obj objeto a procurar no vetor
      * @return o indice do objeto no vetor. No caso do elemento não existir, deverá ser retornado o valor -1
      */
@@ -123,9 +118,10 @@ public class TeamManagement implements TeamManagementContract {
     }
     
     /**
-     * Método retorna o número de elementos no TeamManagement
+     * Método retorna o número de elementos no FixtureManagement
      * @return o número de posições, mas não nulas
      */
+    @Override
     public int size() {
         int i = 0;
         while (this.objects[i] != null && i < this.objects.length) {
@@ -151,8 +147,8 @@ public class TeamManagement implements TeamManagementContract {
 
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 61 * hash + Arrays.deepHashCode(this.objects);
+        int hash = 3;
+        hash = 83 * hash + Arrays.deepHashCode(this.objects);
         return hash;
     }
 
@@ -167,12 +163,11 @@ public class TeamManagement implements TeamManagementContract {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final TeamManagement other = (TeamManagement) obj;
+        final LeagueTableManagement other = (LeagueTableManagement) obj;
         if (!Arrays.deepEquals(this.objects, other.objects)) {
             return false;
         }
         return true;
     }
-    
     
 }

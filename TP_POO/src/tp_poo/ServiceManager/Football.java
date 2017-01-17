@@ -94,46 +94,8 @@ public class Football implements serviceManager.FootballQueriesContract{
     */
     @Override
     public String getCompetition(int i) throws CompetitionNotFoundException, WebServiceConnectionError {
-        
-        //JSONObject json_Competitions = new JSONObject(); // instancia jsonCompetitions convertendo da String do webService
-        //json_Competitions.put("competitions", Json_competitions); // jsonCompetitions recebe todo
-        //JSONParser competitions_parser = new JSONParser();
-            
+           
         String JSON_Competition = getURLConnection(this.URL+"competitions/"+i);
-        /*
-        JSONParser jsonParser = new JSONParser();
-            
-        try{
-            //JSONObject object_Competitions = (JSONObject) competitions_parser.parse(json_Competitions.toJSONString()); 
-            //JSONArray arrayCompetitions = (JSONArray) object_Competitions.get(Json_competitions);
-            
-            Object object = jsonParser.parse(JSON_Competition);
-            JSONArray arrayCompetitions = (JSONArray) object;
-            
-            //System.out.println(arrayCompetitions.get(0).toString());
-            
-            for(int aux=0; aux<arrayCompetitions.size(); aux++){
-                
-                JSONObject competition = (JSONObject) arrayCompetitions.get(aux); // position aux 
-                if(competition.get("id").toString().equals(String.valueOf(i))){
-                    /*
-                    String id = competition.get("id").toString();
-                    String username = competition.get("caption").toString();
-                    String league = competition.get("league").toString();
-                    String year = competition.get("year").toString();
-                    String teamLink = competition.get("_links").toString();
-                    System.out.println("\n Teste return WebService .getCompetition(id): " +id +"\t" +username +"\t" +league +"\t" +year +"\n\t" +teamLink);
-                    */
-                    //return (String) arrayCompetitions.get(aux);
-                    /*return (String) competition.toString();
-                }
-            }
-            
-            // Fim Codigo Object e Array //
-        } catch ( ParseException ex) {
-            System.out.println("\n Erro ParseException\n");
-            //Logger.getLogger(Football.class.getName()).log(Level.SEVERE, null, ex);
-        }*/
         
         return JSON_Competition;
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -147,10 +109,26 @@ public class Football implements serviceManager.FootballQueriesContract{
     */
     @Override
     public String getCompetitions(int[] ints) throws CompetitionNotFoundException, WebServiceConnectionError {
-        // int[] ints = ids competitions
         
-        //return null;
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
+        String JSON_Competitions = "[";
+        String[] JSON_Array_Competitions = new String[ints.length];
+        
+        for (int i = 0; i < ints.length; i++) {
+            
+            String JSON_Competition = getCompetition(ints[i]);
+            JSON_Array_Competitions[i] = JSON_Competition;
+        }
+        
+        for (int i = 0; i < ints.length; i++) {
+            
+            JSON_Competitions = JSON_Competitions + JSON_Array_Competitions[i];
+            if(i < ints.length-1) JSON_Competitions = JSON_Competitions + ", ";
+            else if(i == ints.length-1) JSON_Competitions = JSON_Competitions + " ]";
+        }
+        
+        return JSON_Competitions;
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
     /*
