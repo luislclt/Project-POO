@@ -52,10 +52,9 @@ public class MappingJSONToClasses implements MappingJsonToClasses, java.io.Seria
     
     
     /**
-    * Método responsável por retornar uma competição 
-    * tendo por base uma string em formato JSON
-     * @param arg0
-     * @return CompetitionManagementContract
+    * Método responsável por retornar uma coleção de competições tendo por base uma string em formato JSON
+    * @param arg0
+    * @return CompetitionManagementContract
     */
     @Override
    public CompetitionManagementContract StringToCompetitions(String arg0) {
@@ -133,10 +132,9 @@ public class MappingJSONToClasses implements MappingJsonToClasses, java.io.Seria
     }
     
     /**
-    * Método responsável por retornar uma coleção de competições 
-    * tendo por base uma string em formato JSON
-     * @param arg0
-     * @return CompetitionContract
+    * Método responsável por retornar uma competição tendo por base uma string em formato JSON
+    * @param arg0
+    * @return CompetitionContract
     */
     @Override
     public CompetitionContract StringToCompetition(String arg0) {
@@ -348,11 +346,10 @@ public class MappingJSONToClasses implements MappingJsonToClasses, java.io.Seria
     
     
     /**
-    * Método responsável por retornar uma liga 
-    * tendo por base uma coleção de equipas e uma string em formato JSON
-     * @param arg0
-     * @param arg1
-     * @return LeagueTableContract
+    * Método responsável por retornar uma liga tendo por base uma coleção de equipas e uma string em formato JSON
+    * @param arg0
+    * @param arg1
+    * @return LeagueTableContract
     */
     @Override
     public LeagueTableContract StringToLeagueTable(TeamManagementContract arg0, String arg1) {
@@ -666,11 +663,10 @@ public class MappingJSONToClasses implements MappingJsonToClasses, java.io.Seria
     }
     
     /**
-    * Método responsável por retornar uma coleção de jogos 
-    * tendo por base uma coleção de equipas e uma string em formato JSON
-     * @param arg0
-     * @param arg1
-     * @return FixtureManagementContract
+    * Método responsável por retornar uma coleção de jogos tendo por base uma coleção de equipas e uma string em formato JSON
+    * @param arg0
+    * @param arg1
+    * @return FixtureManagementContract
     */
     @Override
     public FixtureManagementContract StringToFixtures(TeamManagementContract arg0, String arg1) {
@@ -903,10 +899,9 @@ public class MappingJSONToClasses implements MappingJsonToClasses, java.io.Seria
     }
     
     /**
-    * Método responsável por retornar uma coleção de equipas 
-    * tendo por base uma string em formato JSON
-     * @param arg0
-     * @return TeamManagementContract
+    * Método responsável por retornar uma coleção de equipas tendo por base uma string em formato JSON
+    * @param arg0
+    * @return TeamManagementContract
     */
     @Override
     public TeamManagementContract StringToTeams(String arg0) {
@@ -1060,10 +1055,9 @@ public class MappingJSONToClasses implements MappingJsonToClasses, java.io.Seria
     }
     
     /**
-    * Método responsável por retornar uma uma coleção de jogadores 
-    * tendo por base uma string em formato JSON
-     * @param arg0
-     * @return PlayerManagementContract
+    * Método responsável por retornar uma coleção de jogadores tendo por base uma string em formato JSON
+    * @param arg0
+    * @return PlayerManagementContract
     */
     @Override
     public PlayerManagementContract getPlayersFromTeam(String arg0) {
@@ -1252,10 +1246,9 @@ public class MappingJSONToClasses implements MappingJsonToClasses, java.io.Seria
     }
     
     /**
-    * Método responsável por retornar uma equipa
-    * tendo por base uma string em formato JSON
-     * @param content_team
-     * @return TeamContract
+    * Método responsável por retornar uma equipa tendo por base uma string em formato JSON
+    * @param content_team
+    * @return TeamContract
     */
     public TeamContract StringToTeam(String content_team){
         
@@ -1364,11 +1357,11 @@ public class MappingJSONToClasses implements MappingJsonToClasses, java.io.Seria
     }
 
     /**
-     * Metedo criado exclusivamente para contar o numero de coneções ao servidor 
-     * aplicado dentro de cada ciclo, objetivo do CountentConections é criar um tempo de espera
+     * Método criado exclusivamente para contar o número de coneções ao servidor 
+     * Aplicado dentro de cada ciclo, o objetivo do CountentConections é criar um tempo de espera
      * evitando o bloqueio do Servidor.
      * 
-     * Este metedo cria um tempo de espera entre 30 a 60 segundos, 
+     * Este método cria um tempo de espera entre 30 a 60 segundos, 
      * provocando um tempo de resposta do programa até 10 minutos
      * 
      * @throws InterruptedException

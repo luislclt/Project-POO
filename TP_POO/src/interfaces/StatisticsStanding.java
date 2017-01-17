@@ -5,10 +5,15 @@
  */
 package interfaces;
 
-/**
- *
- * @author LCLT
- */
+/*
+* Grupo: 2
+* ------------------------------------
+* Nome: Luís Carlos Teixeira
+* Número: 8140072
+*
+* Nome: Tânia Assis
+* Número: 8150455
+*/
 public class StatisticsStanding implements java.io.Serializable{
     private final int goals;
     private final int goalsAgainst;

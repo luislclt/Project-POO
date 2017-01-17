@@ -92,8 +92,8 @@ public class Competition implements CompetitionContract, java.io.Serializable{
     }
 
     /**
-     * metedo responsavel por retornar o ano da competição
-     * @return ano
+     * metedo responsável por retornar o ano/epoca da competição
+     * @return ano/epoca
      */
     @Override
     public int getYear() {
@@ -110,9 +110,8 @@ public class Competition implements CompetitionContract, java.io.Serializable{
     }
 
     /**
-     * Método responsável por retornar todas as equipas 
-     * de uma determinada competição
-     * @return 
+     * Método responsável por retornar todas as equipas de uma determinada competição
+     * @return equipas
      */
     @Override
     public TeamManagementContract getTeams() {
@@ -121,7 +120,7 @@ public class Competition implements CompetitionContract, java.io.Serializable{
 
     /**
      * Método responsável por retornar a Caption
-     * @return nome caption
+     * @return nome/caption
      */
     public String getCaption() {
         return this.caption;
@@ -152,7 +151,7 @@ public class Competition implements CompetitionContract, java.io.Serializable{
     }
 
     /**
-     * Método responsável por retornar os numberOfGames
+     * Método responsável por retornar o numberOfGames
      * @return numberOfGames
      */
     public int getNumberOfGames() {

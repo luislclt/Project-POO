@@ -16,13 +16,21 @@ public class Nationality implements NationalityContract, java.io.Serializable{
     public Nationality(String nationality){
         this.nationality = nationality;
     }
-
+    
+    /**
+     * Método responsável por retornar a nacioalidade de um jogador
+     * @return nacionalidade
+     */
     @Override
     public String getNationality() {
         return this.nationality;
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    /**
+     * Método responsável por retornar a nacionalidade de um jogador
+     * @return String nacionalidade
+     */
     @Override
     public String toString() {
         return  nationality;
